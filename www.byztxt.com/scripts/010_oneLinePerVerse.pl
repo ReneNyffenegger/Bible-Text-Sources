@@ -109,6 +109,7 @@ sub do_book { # {{{
   $file_text =~ s/QQQ//;
   $file_text =~ s/QQQ/\n/g;
   $file_text .= "\n";
+  $file_text =~ s/ +/ /g;
 
   print $out_file $file_text;
 
