@@ -14,11 +14,6 @@ information for all Greek words.
 Hence, [030_removeStrongsAndParsing.pl](https://github.com/ReneNyffenegger/Bible-Text-Sources/blob/master/www.byztxt.com/scripts/030_removeStrongsAndParsing.pl) should produce
 the same output for `BYZTXT` and `BYZPRSD`, yet it varies a bit (mostly in revelation), with `BYZPRSD` seeming to have better quality.
 
-## SCR-TR:   Scrivener 1894 TR
-
-The Scrivener 1894 Textus Receptus edition, as reprinted by the Trinitarian
-Bible Society and (in its original form) by the Bible for Today, Inc. 
-
 ## SCRIVNER
 
 Scrivener's 1894 Textus Receptus as published by Trinitarian Bible Society
@@ -29,6 +24,15 @@ Text of `SCRIVNER` in *one-verse-one-line format*
 
 Hence, running [010_oneLinePerVerse](https://github.com/ReneNyffenegger/Bible-Text-Sources/blob/master/www.byztxt.com/scripts/010_oneLinePerVerse.pl) on `SCRIVNER` and `SCR-ASCII` produces
 exactly the same output.
+
+## SCR-TR:   Scrivener 1894 TR
+
+The Scrivener 1894 Textus Receptus edition, as reprinted by the Trinitarian
+Bible Society and (in its original form) by the Bible for Today, Inc. 
+
+After running [010_oneLinePerVerse](https://github.com/ReneNyffenegger/Bible-Text-Sources/blob/master/www.byztxt.com/scripts/010_oneLinePerVerse.pl), `SCR-TR` seems to differ
+from `SCRIVNER` and `SCR-ASCII` only in that `SCR-TR` writes `diapantov` as one word while the other two write it as `dia pantov`.
+
 
 ## STV-TR:   Stephens 1550 TR
 
