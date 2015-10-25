@@ -100,3 +100,6 @@ exactly the same output.
 ## BP05FNL
 
 Textof `BYZ05ASC`, pre-formatted with Strong's numbers and parsing data.
+
+After running [030_removeStrongsAndParsing.pl](https://github.com/ReneNyffenegger/Bible-Text-Sources/blob/master/www.byztxt.com/scripts/030_removeStrongsAndParsing.pl),
+`BP05FNL` seems to be similar to `BYZ05ASC` and `BYZ-ASCII`, yet it also lists variations.
