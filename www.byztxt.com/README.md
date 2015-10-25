@@ -36,6 +36,9 @@ Berry Interlinear Greek NT volume
 
 Text of `STV-TR` in *one-verse-one-line format*
 
+Running [010_oneLinePerVerse](https://github.com/ReneNyffenegger/Bible-Text-Sources/blob/master/www.byztxt.com/scripts/010_oneLinePerVerse.pl) on `STV-TR` and `STV-ASCII` produces
+the same text, but does not use exactly the same verses (around Acts 24:2-3 and II Cor 13:12-14).
+
 ## ST-SCR 
 
 Stephens' 1550 Textus Receptus combined with Scrivener's 1894 Textus Receptus
