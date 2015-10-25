@@ -24,6 +24,9 @@ Scrivener's 1894 Textus Receptus as published by Trinitarian Bible Society
 
 Text of `SCRIVNER` in *one-verse-one-line format*
 
+Hence, running [010_oneLinePerVerse](https://github.com/ReneNyffenegger/Bible-Text-Sources/blob/master/www.byztxt.com/scripts/010_oneLinePerVerse.pl) on `SCRIVNER` and `SCR-ASCII` produces
+exactly the same output.
+
 ## STV-TR:   Stephens 1550 TR
 
 The Stephens 1550 Textus Receptus edition, as printed in the George Ricker
@@ -80,6 +83,9 @@ Maurice A. Robinson and William G. Pierpont
 ## BYZ-ASCII
 
 Text of `BYZ05ASC` in *one-verse-one-line format*.
+
+Hence, running [010_oneLinePerVerse](https://github.com/ReneNyffenegger/Bible-Text-Sources/blob/master/www.byztxt.com/scripts/010_oneLinePerVerse.pl) on `BYZ-ASCII` and `BYZ05ASC` produces
+exactly the same output.
 
 ## BP05FNL
 
