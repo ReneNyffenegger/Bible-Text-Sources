@@ -105,7 +105,7 @@ sub do_book { # {{{
   $file_text =~ s/#.*//gm;
   $file_text =~ s/^ *0*(\d+):0*(\d+) */QQQ$book_abbr-$1-$2|/gm;
 
-  $file_text =~ s/\n//g;
+  $file_text =~ s/\n/ /g;
   $file_text =~ s/QQQ//;
   $file_text =~ s/QQQ/\n/g;
   $file_text .= "\n";
