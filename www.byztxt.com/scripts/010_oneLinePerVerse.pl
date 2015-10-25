@@ -85,7 +85,7 @@ sub do_edition { # {{{
 
     }
     
-    do_book($out_file, $glob_files[0], $book->{book_to});
+    do_book($edition, $out_file, $glob_files[0], $book->{book_to});
 
     } # }}}
 
@@ -96,11 +96,18 @@ sub do_edition { # {{{
 
 sub do_book { # {{{
 
+  my $edition      = shift;
   my $out_file     = shift;
   my $in_file_name = shift;
   my $book_abbr    = shift;
 
   my $file_text=read_file($in_file_name) or die "could not slurp file $in_file_name";
+
+  if ($edition eq 'SCRIVNER' or
+      $edition eq 'STV-TR') {
+  # SCRIVNER has book titles in [...]
+    $file_text =~ s!\[[^\]]*\]!!g;
+  }
 
   $file_text =~ s/#.*//gm;
   $file_text =~ s/^ *0*(\d+):0*(\d+) */QQQ$book_abbr-$1-$2|/gm;
@@ -110,6 +117,8 @@ sub do_book { # {{{
   $file_text =~ s/QQQ/\n/g;
   $file_text .= "\n";
   $file_text =~ s/ +/ /g;
+  $file_text =~ s/ *$//g;
+  $file_text =~ s/\| */|/g;
 
   print $out_file $file_text;
 
