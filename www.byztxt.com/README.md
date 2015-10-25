@@ -6,7 +6,7 @@
 The Greek New Testament according to the Byzantine Textform, edited by Maurice
 A. Robinson and William G. Pierpont, 2000 edition.
 
-## #BYZPRSD:  Byzantine Parsed Text
+## BYZPRSD:  Byzantine Parsed Text
 
 The Robinson/Pierpont Byzantine Greek New Testament with complete parsing
 information for all Greek words. 
