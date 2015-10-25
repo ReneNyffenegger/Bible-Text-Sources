@@ -104,7 +104,8 @@ sub do_book { # {{{
   my $file_text=read_file($in_file_name) or die "could not slurp file $in_file_name";
 
   if ($edition eq 'SCRIVNER' or
-      $edition eq 'STV-TR') {
+      $edition eq 'STV-TR'   or
+      $edition eq 'SCR-TR') {
   # SCRIVNER has book titles in [...]
     $file_text =~ s!\[[^\]]*\]!!g;
   }
