@@ -143,6 +143,8 @@ sub create_schema { # {{{
       parsed_1          varchar,
       parsed_2          varchar)') or die $!;
 
+   $dbh -> do('create index bible_ix_book_chapter_verse on bible(book, chapter, verse)');
+
 } # }}}
 
 sub remove_alternatives { # {{{
