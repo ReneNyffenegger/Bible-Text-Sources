@@ -91,7 +91,7 @@ sub fill_db { # {{{
 #     printf "%-20s %5d %5d %-10s %-10s\n", $word_latin, $strong_nr_1, defined $strong_nr_2 ? $strong_nr_2 : 0, $parsed_1, defined $parsed_2 ? $parsed_2 : '';
 
       my $word_greek = $word_latin;
-      $word_greek =~ tr/abcdefghiklmnoprstuvwxyz/αβχδεφγηικλμνοπρστυςωξθζ/;
+      $word_greek =~ tr/abcdefghiklmnopqrstuvwxyz/αβχδεφγηικλμνοπψρστυςωξθζ/;
       $sth -> execute($book, $chapter, $verse, $word_cnt, $word_greek, $strong_nr_1, $strong_nr_2, $parsed_1, $parsed_2) or die $!;
 
     }
