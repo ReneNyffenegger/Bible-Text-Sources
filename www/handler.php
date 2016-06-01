@@ -1,9 +1,25 @@
 <?php
 
+
 function handle() {
   header('Content-Type: text/html');
 
-  chapter('mt', 1);
+  $base = urldecode($_SERVER['REQUEST_URI'] );
+
+
+  if ($base == '/Biblisches/Grundtext/') {
+
+    index();
+
+    return;
+  }
+
+  if (preg_match(  '/([^-]+)-(\d+)/', $_GET['v'], $matched) ) {
+    chapter($matched[1], $matched[2]);
+    return;
+  }
+
+  print "404. " . link_kapitel_auswahl();
 
 }
 
@@ -21,6 +37,14 @@ print <<<HTML_START
 .verse-nr {color: #ff7d00; font-weight:bold; vertical-align: top}
 
 .parsed {color: grey; font-size:12px;}
+
+#canvas_griechischer_text {
+  background-color:#f3f3f0;
+  position: absolute;
+  top: 3cm;
+  left:3cm;
+  width: 500px;
+}
 
    </style>
 HTML_START;
@@ -40,11 +64,11 @@ print <<<JS
 
   function main() {
 
-    var canvas = document.getElementById('canvas_griechischer_test');
+    var canvas = document.getElementById('canvas_griechischer_text');
 
     tq84.line_writer.init(
        canvas,
-      '10cm',
+      '500px',
       {left_to_right: true}
     );
 
@@ -95,7 +119,61 @@ print <<<JS
   </script>
 JS;
 
-  print "</head><body onload='main();'><div id='canvas_griechischer_test'></div></body></html>";
+  print "</head><body onload='main();'><div id='canvas_griechischer_text'></div>";
+
+  print link_kapitel_auswahl();
+
+  print "</body></html>";
+}
+
+function index() {
+
+  $dbh = db_connect();
+
+print <<<HTML_START
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+   <style type='text/css'> 
+
+* {font-family: sans-serif}
+
+  </style>
+</head>
+<body>
+HTML_START;
+
+
+  $res = $dbh->query('select distinct book, chapter from bible order by book, chapter');
+
+
+  $cur_book = '?';
+  foreach ($res as $row) {
+
+    if ($row['book'] != $cur_book) {
+
+      if ($cur_book != '?') {
+        print "<br>";
+      }
+
+      print "<b>" . $row['book'] . "</b>: ";
+      $cur_book = $row['book'];
+
+    }
+
+    print "<a href='?v=" . $row['book'] . '-' . $row['chapter'] . "'>" . $row['chapter'] . "</a> \n";
+
+  }
+
+
+  print "</body></html>";
+
+
+}
+
+function link_kapitel_auswahl() {
+  return "<a href='/Biblisches/Grundtext/'>Kapitelauswahl</a>";
 }
 
 function db_connect() {
