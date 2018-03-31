@@ -98,6 +98,8 @@ function print_chapter($db, $abbr, $c) {
     printf ("<tr><td>%d</td><td>%d</td><td>%s</td><td>%s</td></tr>", $row['strongs'], $row['v'], to_greek_letters($row['word']), $row['parsed']);
   }
   print "</table>";
+
+  print "<p><a href='index'>Inhaltsverzeichnis</a>";
 }
 
 

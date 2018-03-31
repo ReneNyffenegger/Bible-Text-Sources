@@ -1,3 +1,9 @@
 [submodule "github.byztxt/byzantine-majority-text"]
 	path = github.byztxt/byzantine-majority-text
 	url = https://github.com/byztxt/byzantine-majority-text
+[submodule "github.byztxt/robinson-documentation"]
+	path = github.byztxt/robinson-documentation
+	url = https://github.com/byztxt/robinson-documentation
+[submodule "github.morphgnt/strongs-dictionary-xml"]
+	path = github.morphgnt/strongs-dictionary-xml
+	url = https://github.com/morphgnt/strongs-dictionary-xml
