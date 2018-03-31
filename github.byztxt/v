@@ -1,0 +1,21 @@
+book=$1
+chapter=$2
+verse=$3
+
+echo "
+.mode column
+.width 30 10 20
+
+select
+  word,
+  strongs,
+  parsed
+from
+  word_v
+where
+  b    = '$book'    and
+  c    =  $chapter  and
+  v    =  $verse;
+
+.quit
+" | sqlite3 BP5.db
