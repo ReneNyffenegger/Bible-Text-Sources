@@ -11,6 +11,9 @@ A. Robinson and William G. Pierpont, 2000 edition.
 The Robinson/Pierpont Byzantine Greek New Testament with complete parsing
 information for all Greek words. 
 
+The parsed Byzantine 2005 text includes textual variants which correspond to the marginal readings of the printed edition: `| [the main text replaced by the variant text] | [the variant text] |`.
+
+
 Hence, [030_removeStrongsAndParsing.pl](https://github.com/ReneNyffenegger/Bible-Text-Sources/blob/master/www.byztxt.com/scripts/030_removeStrongsAndParsing.pl) should produce
 the same output for `BYZTXT` and `BYZPRSD`, yet it varies a bit (mostly in revelation), with `BYZPRSD` seeming to have better quality.
 
@@ -172,3 +175,7 @@ After running [030_removeStrongsAndParsing.pl](https://github.com/ReneNyffenegge
                  definite article "to" merged by crasis with a second word;
                  declension is that of the second word.
       -ATT  = ATTic Greek form
+
+# Variants
+
+    | [the main text replaced by the variant text] | [the variant text] |
