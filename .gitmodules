@@ -1,0 +1,3 @@
+[submodule "github.byztxt/byzantine-majority-text"]
+	path = github.byztxt/byzantine-majority-text
+	url = https://github.com/byztxt/byzantine-majority-text
