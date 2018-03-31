@@ -103,3 +103,72 @@ Textof `BYZ05ASC`, pre-formatted with Strong's numbers and parsing data.
 
 After running [030_removeStrongsAndParsing.pl](https://github.com/ReneNyffenegger/Bible-Text-Sources/blob/master/www.byztxt.com/scripts/030_removeStrongsAndParsing.pl),
 `BP05FNL` seems to be similar to `BYZ05ASC` and `BYZ-ASCII`, yet it also lists variations.
+
+# Parsing information
+
+
+## Undeclined forms
+
+      ADV   = ADVerb or adverb and particle combined
+      CONJ  = CONJunction or conjunctive particle
+      COND  = CONDitional particle or conjunction
+      PRT   = PaRTicle, disjunctive particle
+      PREP  = PREPosition
+      INJ   = INterJection
+      ARAM  = ARAMaic transliterated word (indeclinable)
+      HEB   = HEBrew transliterated word (indeclinable)
+      N-PRI = Indeclinable PRoper Noun
+      A-NUI = Indeclinable NUmeral (Adjective)
+      N-LI  = Indeclinable Letter (Noun)
+      N-OI  = Indeclinable Noun of Other type
+
+
+## Declined forms
+
+    All follow the order: prefix, case, number, gender
+
+###   Prefixes:
+
+      N-    = Noun
+      A-    = Adjective
+      R-    = Relative pronoun
+      C-    = reCiprocal pronoun
+      D-    = Demonstrative pronoun
+      T-    = definite arTicle
+      K-    = correlative pronoun
+      I-    = Interrogative pronoun
+      X-    = indefinite pronoun
+      Q-    = correlative or interrogative pronoun
+      F-    = reFlexive pronoun (person 1,2,3 added)
+      S-    = poSsessive pronoun (person 1,2,3 added)
+      P-    = Personal pronoun (person 1,2,3 added)
+                (Note: 1st and 2nd personal pronouns have no gender)
+
+
+### Cases (5-case system only):
+
+      -N    = Nominative
+      -V    = Vocative
+      -G    = Genitive
+      -D    = Dative
+      -A    = Accusative
+
+
+###  Number:                       Gender:
+
+      S     = Singular              M     = Masculine
+      P     = Plural                F     = Feminine
+                                    N     = Neuter
+
+###  Suffixes:
+
+      -S    = Superlative (used primarily with adjectives and some adverbs)
+      -C    = Comparative (used primarily with adjectives and some adverbs)
+      -ABB  = ABBreviated form (used only with the number 666)
+      -I    = Interrogative
+      -N    = Negative (used with some particles, adverbs, adjectives,
+                 and conjunctions)
+      -K    = "Kai" (CONJ), second person personal pronoun "su", or neuter
+                 definite article "to" merged by crasis with a second word;
+                 declension is that of the second word.
+      -ATT  = ATTic Greek form
