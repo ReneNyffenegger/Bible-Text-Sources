@@ -40,7 +40,20 @@ if os.path.isfile(db_name):
 db  = sqlite3.connect(db_name)
 cur = db.cursor()
 cur.execute('create table book (abbr text primary key, ord integer not null)')
-cur.execute('create table verse(b text not null references book, c integer not null, v integer not null, txt text null, primary key(b, c, v)) ')
+
+cur.execute("""create table verse(
+  id  integer not null primary key,
+  b   text not null references book,
+  c   integer not null,
+  v   integer not null,
+  txt text null
+)""")
+
+cur.execute("""create table word (
+  v integer not null references verse,
+  txt  text not null,
+  no   integer not null
+)""")
 
 book_order = 1
 for book in books:
@@ -55,6 +68,8 @@ for book in books:
 #   print(verses[0])
 
     prev_chapt_no = 0
+
+    word_no = 1
 
     v=0
     for verse_ in verses:
@@ -89,7 +104,18 @@ for book in books:
 
           prev_verse_no = verse_no
 
-          cur.execute('insert into verse values(?, ?, ?, ?)', (book['abbr'], chapt_no, verse_no, verse_txt))
+#         cur.execute('insert into verse values(?, ?, ?, ?)', (book['abbr'], chapt_no, verse_no, verse_txt))
+          cur.execute('insert into verse (b, c, v, txt) values (?, ?, ?, ?)', (book['abbr'], chapt_no, verse_no, verse_txt))
+
+          rowid_verse = cur.lastrowid
+
+          words = re.findall('(\w+ (?:\d+ )+{[^}]+} *)', verse_txt)
+          for word in words:
+              cur.execute('insert into word (v, txt, no) values (?,?,?)', (rowid_verse, word, word_no))
+              word_no += 1
+
+    
+
 
         except BaseException as e:
           print('! Oops ' + str(e) + ' in ' + book['nm'] + ', verse_ = ' + verse_ + ', v = ' + str(v))
