@@ -17,21 +17,17 @@ $uri = $_SERVER['REQUEST_URI'];
 # Get uri's last portion:
 $uri_ = end(explode('/', $uri));
 
-# if (preg_match('/([^\/]+)$/', $uri, $m)) {
-#   $uri_ = $m[1];
-# }
-# else {
-#   print "hmm?";
-# }
 
-if (preg_match('/^Kapitel-(\w+)-(\d+)$/', $uri_, $m)) {
+if ($uri_ == 'index') {
+  index($db);
+}
+elseif (preg_match('/^Kapitel-(\w+)-(\d+)$/', $uri_, $m)) {
   print_chapter($db, $m[1], $m[2]);
 }
 else {
   print "oh no!";
 }
 
-# print "db = $db";
 
 print "</body></html>";
 
@@ -45,7 +41,6 @@ function db_connect() {
 # $db -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   return $db;
 }
-
 
 # function db_cnt_table($dbh, $table_name) { #_{
 #   return db_sel_1_row_1_col($dbh, "select count(*) from $table_name");
@@ -78,6 +73,16 @@ function db_prep_exec_fetchall($dbh, $sql, $params = array()) { #_{
 
 } #_}
 
+function index($db) {
+
+  $res = db_prep_exec_fetchall($db, 'select distinct b.abbr, v.c from book b join verse v on b.abbr = v.b order by b.ord, v.v', array());
+  foreach ($res as $row) {
+    printf("<a href='Kapitel-%s-%d'>%s-%d</a> ", $row['abbr'], $row['c'], $row['abbr'], $row['c']);
+  }
+
+  print "</body></html>";
+
+}
 
 function print_chapter($db, $abbr, $c) {
 
@@ -122,8 +127,7 @@ function start_html() {
 
 </style>
 ";
- 
+
 }
 
 ?>
-
