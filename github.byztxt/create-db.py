@@ -65,7 +65,8 @@ cur.execute("""create view word_v as
 --  v.txt v_txt,
     w.txt word,
     w.strongs,
-    w.parsed
+    w.parsed,
+    w.no
   from
     verse v join
     word  w on v.id = w.v
