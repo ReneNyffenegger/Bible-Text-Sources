@@ -51,9 +51,27 @@ cur.execute("""create table verse(
 
 cur.execute("""create table word (
   v integer not null references verse,
-  txt  text not null,
-  no   integer not null
+  txt     text    not null,
+  strongs integer not null,
+  parsed  text    not null,
+  no   integer    not null
 )""")
+
+cur.execute("""create view word_v as
+  select
+    v.b,
+    v.c,
+    v.v,
+--  v.txt v_txt,
+    w.txt word,
+    w.strongs,
+    w.parsed
+  from
+    verse v join
+    word  w on v.id = w.v
+  order by
+    w.no
+""")
 
 book_order = 1
 for book in books:
@@ -104,14 +122,29 @@ for book in books:
 
           prev_verse_no = verse_no
 
-#         cur.execute('insert into verse values(?, ?, ?, ?)', (book['abbr'], chapt_no, verse_no, verse_txt))
           cur.execute('insert into verse (b, c, v, txt) values (?, ?, ?, ?)', (book['abbr'], chapt_no, verse_no, verse_txt))
 
           rowid_verse = cur.lastrowid
 
           words = re.findall('(\w+ (?:\d+ )+{[^}]+} *)', verse_txt)
-          for word in words:
-              cur.execute('insert into word (v, txt, no) values (?,?,?)', (rowid_verse, word, word_no))
+          for word_ in words:
+              
+              word_strongs_parsed = re.search('(\w+) ((?:\d+ )+){([^}]+)}', word_)
+
+              strongs_ = re.search('(\d+)', word_strongs_parsed.group(2))
+
+              strongs = strongs_.group(1)
+              if strongs == 0:
+                 strongs = strongs_.group(2)
+
+              
+              try:
+#               cur.execute('insert into word (v, txt, strongs, parsed, no) values (?,?,?,?,?)', (rowid_verse, word_strongs_parsed.group(1), word_strongs_parsed.group(2), word_strongs_parsed.group(3), word_no))
+                cur.execute('insert into word (v, txt, strongs, parsed, no) values (?,?,?,?,?)', (rowid_verse, word_strongs_parsed.group(1), strongs                     , word_strongs_parsed.group(3), word_no))
+              except BaseException as e:
+                print('! Oops ' + str(e) + ' in ' + book['nm'] + ', v = ' + str(v) + ', word_ = ' + word_)
+                sys.exit(1)
+
               word_no += 1
 
     
