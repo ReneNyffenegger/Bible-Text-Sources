@@ -103,6 +103,9 @@ for book in books:
           verse_no = int(match.group(2))
           verse_txt=     match.group(3)
 
+       #  Remove variants
+          verse_txt = re.sub('\|([^|]*)\|[^|]*\|', r'\1', verse_txt)
+
 
           if chapt_no == prev_chapt_no:
 
