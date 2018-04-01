@@ -59,13 +59,14 @@ cur.execute("""create table word (
 
 cur.execute("""create view word_v as
   select
-    v.b,
-    v.c,
-    v.v,
---  v.txt v_txt,
-    w.txt word,
-    w.strongs,
-    w.parsed,
+    v.b         ,
+    v.c         ,
+    v.v         ,
+    v.id  v_id  ,
+--  v.txt v_txt ,
+    w.txt word  ,
+    w.strongs   ,
+    w.parsed    ,
     w.no
   from
     verse v join
