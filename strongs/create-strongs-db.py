@@ -1,7 +1,8 @@
-import xml.etree.ElementTree as ET
-
+import sys
 import os.path
+
 import sqlite3
+import xml.etree.ElementTree as ET
 
 tree = ET.parse('github.morphgnt/strongs-dictionary-xml/strongsgreek.xml')
 root = tree.getroot()
@@ -23,17 +24,24 @@ cur.execute("""create table strongs_greek_see (
   nr_hebrew  integer
 )""")
 
+last_strongs_nr = 0
 for entry in root.findall('entries/entry'):
 
     greek      =     entry.find('./greek')
     if greek is not None:
-       strongs_no = int(entry.findtext('./strongs'))
+       strongs_nr = int(entry.findtext('./strongs'))
        greek_unicode = greek.attrib['unicode']
 
-       cur.execute('insert into strongs_greek(nr, word) values (?, ?)', (strongs_no, greek_unicode))
+       if strongs_nr < last_strongs_nr:
+          print('last_strongs_nr={:d}, strongs_nr={:d}'.format(strongs_nr, last_strongs_nr))
+          sys.exit(1)
+
+       last_strongs_nr = strongs_nr
+
+       cur.execute('insert into strongs_greek(nr, word) values (?, ?)', (strongs_nr, greek_unicode))
 
        for see in entry.findall("./see/[@language='GREEK']"):
-           cur.execute('insert into strongs_greek_see(nr, nr_greek) values (?, ?)', (strongs_no, int(see.attrib['strongs'])))
+           cur.execute('insert into strongs_greek_see(nr, nr_greek) values (?, ?)', (strongs_nr, int(see.attrib['strongs'])))
 
 #      for see in entry.findall("./see/[@language='HEBREW']"):
 #          print('x: ' + see.attrib['strongs'])
