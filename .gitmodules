@@ -5,5 +5,8 @@
 	path = github.byztxt/robinson-documentation
 	url = https://github.com/byztxt/robinson-documentation
 [submodule "github.morphgnt/strongs-dictionary-xml"]
-	path = github.morphgnt/strongs-dictionary-xml
+	path = strongs/github.morphgnt/strongs-dictionary-xml
 	url = https://github.com/morphgnt/strongs-dictionary-xml
+[submodule "strongs/strongs-numbers"]
+	path = strongs/strongs-numbers
+	url = https://github.com/ReneNyffenegger/strongs-numbers

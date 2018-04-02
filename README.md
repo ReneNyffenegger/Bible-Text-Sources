@@ -18,12 +18,14 @@
      │   ├── robinson-documentation
      │   └── www
      │       └── handler.php                    handler for https://renenyffenegger.ch/Biblisches/Grundtext/Datenbank
-     ├── github.morphgnt
-     │   ├── create-strongs-db.py               created strongs.db (from strongs-dictionary-xml/strongsgreek.xml)
-     │   ├── strongs.db                         created by create-strongs-db.py
-     │   ├── README.md
-     │   └── strongs-dictionary-xml
-     │       └── strongsgreek.xml
+     ├── strongs     
+     │   ├── create-strongs-db.py               Creates strongs.db (from github.morphgnt/strongs-dictionary-xml/strongsgreek.xml and )
+     │   ├── strongs.db                         created by create-strongs-db.py
+     │   ├── github.morphgnt                    Clones (submodules) from https://github.com/morphgnt
+     │   │    ├── README.md
+     │   │    └── strongs-dictionary-xml
+     │   │        └── strongsgreek.xml
+     │   └── strongs-numbers                    Clone (submodule) from https://github.com/ReneNyffenegger/strong-numbers
      ├── www                                    Obsolete, should probably be deleted eventually
      └── www.byztxt.com                         Obsolete, kept for historical reasons (content from www.byztxt.com)
          ├── downloaded

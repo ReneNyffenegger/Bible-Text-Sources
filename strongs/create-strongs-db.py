@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 import os.path
 import sqlite3
 
-tree = ET.parse('strongs-dictionary-xml/strongsgreek.xml')
+tree = ET.parse('github.morphgnt/strongs-dictionary-xml/strongsgreek.xml')
 root = tree.getroot()
 
 db_name = 'strongs.db'
