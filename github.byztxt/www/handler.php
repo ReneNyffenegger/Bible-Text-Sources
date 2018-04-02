@@ -82,6 +82,18 @@ function db_prep_exec_fetchall($dbh, $sql, $params = array()) { #_{
 
 } #_}
 
+function db_prep_exec_fetchrow($dbh, $sql, $params = array()) { #_{
+
+  $sth = db_prep_exec($dbh, $sql, $params);
+  if (! $sth) {
+     print ("db_prep_exec failed<br>");
+     return 0;
+  }
+
+  return $sth -> fetch();
+
+} #_}
+
 function index($db) { #_{
 
   $res = db_prep_exec_fetchall($db, 'select distinct b.abbr, v.c from book b join verse v on b.abbr = v.b order by b.ord, v.v', array());
@@ -95,7 +107,7 @@ function index($db) { #_{
 
 function strongs_alle($db) { #_{
 
-  $res = db_prep_exec_fetchall($db, 'select nr, word from strongs', array());
+  $res = db_prep_exec_fetchall($db, 'select nr, word from strongs_greek', array());
 
   if (! $res) {
     print("Well...<br>");
@@ -111,6 +123,12 @@ function strongs_alle($db) { #_{
 } #_}
 
 function show_verses_with_strongs($db, $nr) { #_{
+
+  $db_strongs = db_connect('strongs.db');
+  $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word from strongs_greek where nr = ?', array($nr));
+
+  print("<h1>Strongs $nr (" . $row_strongs['word'] .")</h1>");
+
 
   $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ?', array($nr));
 
@@ -130,7 +148,13 @@ function show_verses_with_strongs($db, $nr) { #_{
     );
      
      foreach ($res_2 as $row_2) {
+       if ($row_2['strongs'] == $nr) {
+         print("<b>");
+       }
        printf("<a href='Strongs-%d'>%s</a> ", $row_2['strongs'], to_greek_letters($row_2['txt']));
+       if ($row_2['strongs'] == $nr) {
+         print("</b>");
+       }
      }
 
   }
