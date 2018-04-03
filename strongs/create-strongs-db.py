@@ -1,5 +1,6 @@
 import sys
 import os.path
+import re
 
 import sqlite3
 import xml.etree.ElementTree as ET
@@ -24,10 +25,32 @@ cur.execute("""create table strongs_greek_see (
   nr_hebrew  integer
 )""")
 
+
+strongs_de_f = open('strongs-numbers/greek-de.@')
+
+
+last_nr_ = 0
+while True:
+
+    l = strongs_de_f.readline()
+    if not l:
+       break
+
+    m = re.search('^(\d+) *@', l)
+    if m:
+       cur_nr = int(m[1])
+       if cur_nr != last_nr_ + 1:
+          print('! last_nr_: {:d}, m[1]: {:d}'.format(last_nr_, cur_nr))
+
+       last_nr_ = int(m[1])
+
+sys.exit(1)
+
 last_strongs_nr = 0
 for entry in root.findall('entries/entry'):
 
-    greek      =     entry.find('./greek')
+
+    greek = entry.find('./greek')
     if greek is not None:
        strongs_nr = int(entry.findtext('./strongs'))
        greek_unicode = greek.attrib['unicode']
