@@ -38,7 +38,7 @@ else {
 
 print "</body></html>";
 
-function db_connect($sqlite_file) {
+function db_connect($sqlite_file) { #_{
   $db_file = $_SERVER[DOCUMENT_ROOT] . "/../db/Biblisches/Grundtext/$sqlite_file";
 
   if (! file_exists($db_file)) {
@@ -48,7 +48,7 @@ function db_connect($sqlite_file) {
   $db = new PDO("sqlite:$db_file"); 
 # $db -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   return $db;
-}
+} #_}
 
 # function db_cnt_table($dbh, $table_name) { #_{
 #   return db_sel_1_row_1_col($dbh, "select count(*) from $table_name");
@@ -125,9 +125,12 @@ function strongs_alle($db) { #_{
 function show_verses_with_strongs($db, $nr) { #_{
 
   $db_strongs = db_connect('strongs.db');
-  $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word from strongs_greek where nr = ?', array($nr));
+  $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, text_de from strongs_greek where nr = ?', array($nr));
 
   print("<h1>Strongs $nr (" . $row_strongs['word'] .")</h1>");
+
+  print "Google-Übersetzung vom Strong's-Eintrag:";
+  print "<pre style='background-color:#c9faff; border:1px solid black'><code>" . $row_strongs['text_de'] . "</code></pre>";
 
 
   $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ?', array($nr));
