@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import sys
 import os.path
 import re
@@ -15,8 +17,9 @@ if os.path.isfile(db_name):
 db  = sqlite3.connect(db_name)
 cur = db.cursor()
 cur.execute("""create table strongs_greek (
-  nr   integer not null primary key,
-  word text    not null
+  nr       integer not null primary key,
+  word     text    not null,
+  text_de  text    not null
 )""")
 
 cur.execute("""create table strongs_greek_see (
@@ -27,41 +30,54 @@ cur.execute("""create table strongs_greek_see (
 
 
 strongs_de_f = open('strongs-numbers/greek-de.@')
+l = strongs_de_f.readline()
+cur_strongs_de_nr = 1
 
-
-last_nr_ = 0
-while True:
-
-    l = strongs_de_f.readline()
-    if not l:
-       break
-
-    m = re.search('^(\d+) *@', l)
-    if m:
-       cur_nr = int(m[1])
-       if cur_nr != last_nr_ + 1:
-          print('! last_nr_: {:d}, m[1]: {:d}'.format(last_nr_, cur_nr))
-
-       last_nr_ = int(m[1])
-
-sys.exit(1)
 
 last_strongs_nr = 0
+
 for entry in root.findall('entries/entry'):
 
+    text_de = ''
+    while True:
+    
+        l = strongs_de_f.readline()
+        if not l:
+           cur_strongs_de_nr = next_strongs_de_nr
+           break
+    
+        m = re.search('^(\d+) *@', l)
+        if m:
+           next_strongs_de_nr = int(m[1])
+           print('next_strongs_de_nr: {:d}'.format(next_strongs_de_nr))
+           if cur_strongs_de_nr != next_strongs_de_nr - 2:
+              print('! next_strongs_de_nr: {:d}, cur_strongs_de_nr: {:d}'.format(next_strongs_de_nr, cur_strongs_de_nr))
+    
+           cur_strongs_de_nr = next_strongs_de_nr -1
+           break
+        else:
+           text_de += l
+
+#   print ('... cur_strongs_de_nr: {:d}'.format(cur_strongs_de_nr))
+#   print (text_de)
+#   sys.exit(1)
 
     greek = entry.find('./greek')
     if greek is not None:
        strongs_nr = int(entry.findtext('./strongs'))
+
+       if cur_strongs_de_nr != strongs_nr:
+          raise Exception('cur_strongs_de_nr: {:d}, strongs_nr: {:d}'.format(cur_strongs_de_nr, strongs_nr))
+
        greek_unicode = greek.attrib['unicode']
 
        if strongs_nr < last_strongs_nr:
-          print('last_strongs_nr={:d}, strongs_nr={:d}'.format(strongs_nr, last_strongs_nr))
+          print('cur_strongs_nr={:d}, strongs_nr={:d}'.format(strongs_nr, cur_strongs_nr))
           sys.exit(1)
 
        last_strongs_nr = strongs_nr
 
-       cur.execute('insert into strongs_greek(nr, word) values (?, ?)', (strongs_nr, greek_unicode))
+       cur.execute('insert into strongs_greek(nr, word, text_de) values (?, ?, ?)', (strongs_nr, greek_unicode, text_de))
 
        for see in entry.findall("./see/[@language='GREEK']"):
            cur.execute('insert into strongs_greek_see(nr, nr_greek) values (?, ?)', (strongs_nr, int(see.attrib['strongs'])))
