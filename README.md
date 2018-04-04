@@ -26,6 +26,8 @@
      │   │    └── strongs-dictionary-xml
      │   │        └── strongsgreek.xml
      │   └── strongs-numbers                    Clone (submodule) from https://github.com/ReneNyffenegger/strong-numbers
+     │       └── github.bibel                   Directory for clones from https://github.com/bibel
+     │           └── strong                     https://github.com/bibel/strong
      ├── www                                    Obsolete, should probably be deleted eventually
      └── www.byztxt.com                         Obsolete, kept for historical reasons (content from www.byztxt.com)
          ├── downloaded
