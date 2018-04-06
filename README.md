@@ -22,12 +22,17 @@
      │   ├── create-strongs-db.py               Creates strongs.db (from github.morphgnt/strongs-dictionary-xml/strongsgreek.xml and )
      │   ├── strongs.db                         created by create-strongs-db.py
      │   ├── github.morphgnt                    Clones (submodules) from https://github.com/morphgnt
-     │   │    ├── README.md
-     │   │    └── strongs-dictionary-xml
-     │   │        └── strongsgreek.xml
+     │   │   ├── README.md
+     │   │   └── strongs-dictionary-xml
+     │   │       └── strongsgreek.xml
      │   └── strongs-numbers                    Clone (submodule) from https://github.com/ReneNyffenegger/strong-numbers
-     │       └── github.bibel                   Directory for clones from https://github.com/bibel
-     │           └── strong                     https://github.com/bibel/strong
+     │       ├── greek-en.@                     Strong's concordance of greek words
+     │       ├── greek-de.@                     Google translation of greek-en.@
+     │       ├── github.bibel                   Directory for clones from https://github.com/bibel
+     │       │   └── strong                     https://github.com/bibel/strong  / Übersetzung von Strong's Nummern ins Deutsche durch Gerhard Kautz
+     │       └── Gerhard-Kautz                  Working directory for Gerhard Kautz' translation
+     │           ├── extract.py                 Creates translation-de.txt from ../github-bibel/strong/dict/G*.html
+     │           └── translation-de.txt         Extracted with extract.py
      ├── www                                    Obsolete, should probably be deleted eventually
      └── www.byztxt.com                         Obsolete, kept for historical reasons (content from www.byztxt.com)
          ├── downloaded
