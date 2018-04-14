@@ -1,3 +1,4 @@
+#!/bin/python
 import re
 import sys
 import sqlite3
@@ -52,7 +53,7 @@ cur.execute("""create table verse(
 cur.execute("""create table word (
   v integer not null references verse,
   txt     text    not null,
-  strongs integer not null,
+  strongs text    not null, -- G\d\d\d\d
   parsed  text    not null,
   no   integer    not null
 )""")
@@ -63,7 +64,6 @@ cur.execute("""create view word_v as
     v.c         ,
     v.v         ,
     v.id  v_id  ,
---  v.txt v_txt ,
     w.txt word  ,
     w.strongs   ,
     w.parsed    ,
@@ -82,10 +82,7 @@ for book in books:
     book_order += 1
 
     with open('byzantine-majority-text/parsed/' + book['nm'] + '.BP5') as b: book_text = b.read()
-#   print (book_text)
-#   print(b['nm'])
     verses = re.split("\n\\s+", book_text)
-#   print(verses[0])
 
     prev_chapt_no = 0
 
@@ -97,7 +94,6 @@ for book in books:
         try:
           verse = re.sub('^ *', '' , verse_)
           verse = re.sub('\s+', ' ', verse )
-#         print (verse)
           match = re.search('^(\d+):(\d+) ?(.*)', verse)
           chapt_no = int(match.group(1))
           verse_no = int(match.group(2))
@@ -144,8 +140,7 @@ for book in books:
 
               
               try:
-#               cur.execute('insert into word (v, txt, strongs, parsed, no) values (?,?,?,?,?)', (rowid_verse, word_strongs_parsed.group(1), word_strongs_parsed.group(2), word_strongs_parsed.group(3), word_no))
-                cur.execute('insert into word (v, txt, strongs, parsed, no) values (?,?,?,?,?)', (rowid_verse, word_strongs_parsed.group(1), strongs                     , word_strongs_parsed.group(3), word_no))
+                cur.execute('insert into word (v, txt, strongs, parsed, no) values (?,?,?,?,?)', (rowid_verse, word_strongs_parsed.group(1), 'G' + strongs.zfill(4), word_strongs_parsed.group(3), word_no))
               except BaseException as e:
                 print('! Oops ' + str(e) + ' in ' + book['nm'] + ', v = ' + str(v) + ', word_ = ' + word_)
                 sys.exit(1)

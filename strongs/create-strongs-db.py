@@ -16,16 +16,17 @@ if os.path.isfile(db_name):
 
 db  = sqlite3.connect(db_name)
 cur = db.cursor()
-cur.execute("""create table strongs_greek (
-  nr       integer not null primary key,
+
+cur.execute("""create table strongs (
+  nr       text    not null primary key, -- G\d\d\d\d or H\d\d\d\d
   word     text    not null,
   text_de  text    not null
 )""")
 
-cur.execute("""create table strongs_greek_see (
-  nr         integer not null,
-  nr_greek   integer,
-  nr_hebrew  integer
+cur.execute("""create table strongs_see (
+  nr_1       text not null references strongs,
+  nr_2       text not null references strongs,
+  unique (nr_1, nr_2)
 )""")
 
 
@@ -49,7 +50,7 @@ for entry in root.findall('entries/entry'):
         m = re.search('^(\d+) *@', l)
         if m:
            next_strongs_de_nr = int(m[1])
-           print('next_strongs_de_nr: {:d}'.format(next_strongs_de_nr))
+#          print('next_strongs_de_nr: {:d}'.format(next_strongs_de_nr))
            if cur_strongs_de_nr != next_strongs_de_nr - 2:
               print('! next_strongs_de_nr: {:d}, cur_strongs_de_nr: {:d}'.format(next_strongs_de_nr, cur_strongs_de_nr))
     
@@ -77,10 +78,23 @@ for entry in root.findall('entries/entry'):
 
        last_strongs_nr = strongs_nr
 
-       cur.execute('insert into strongs_greek(nr, word, text_de) values (?, ?, ?)', (strongs_nr, greek_unicode, text_de))
+       cur.execute('insert into strongs(nr, word, text_de) values (?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, text_de))
 
-       for see in entry.findall("./see/[@language='GREEK']"):
-           cur.execute('insert into strongs_greek_see(nr, nr_greek) values (?, ?)', (strongs_nr, int(see.attrib['strongs'])))
+       strongs_derivations=entry.findall('./strongs_derivation')
+       if strongs_derivations is not None:
+          if   len(strongs_derivations) == 0:
+               pass
+          elif len(strongs_derivations) > 1:
+               raise Exception('strongs_nr: {:d}, len(strongs_derivations) = {:d}'.format(strongs_nr, len(strongs_derivations)))
+          else:
+               for strongsref in strongs_derivations[0].findall("./strongsref[@language='GREEK']"):
+#                  print(strongsref.attrib['strongs'])
+                   try:
+                     cur.execute('insert into strongs_see(nr_1, nr_2) values (?, ?)', ('G' + str(strongs_nr).zfill(4), 'G' + strongsref.attrib['strongs'].zfill(4) ))
+                   except sqlite3.IntegrityError as e:
+                     print('* Could not insert ' + str(e))
+
+#      for see in entry.findall("./see/[@language='GREEK']"):
 
 #      for see in entry.findall("./see/[@language='HEBREW']"):
 #          print('x: ' + see.attrib['strongs'])
@@ -89,12 +103,12 @@ for entry in root.findall('entries/entry'):
 # TQ84's entries:
 #
 # δῶρον <--> χάρις
-cur.execute('insert into strongs_greek_see(nr, nr_greek) values (?, ?)', (5485, 1435))
-cur.execute('insert into strongs_greek_see(nr, nr_greek) values (?, ?)', (1435, 5485)) 
+cur.execute('insert into strongs_see(nr_1, nr_2) values (?, ?)', ('G5485', 'G1435'))
+cur.execute('insert into strongs_see(nr_1, nr_2) values (?, ?)', ('G1435', 'G5485')) 
 
 #
 #  select count(*), nr, nr_greek from strongs_greek_see group by nr, nr_greek having count(*) > 1;
 #
-cur.execute('delete from strongs_greek_see where rowid in (select max(rowid) from strongs_greek_see group by nr, nr_greek having count(*) > 1)')
+# cur.execute('delete from strongs_greek_see where rowid in (select max(rowid) from strongs_greek_see group by nr, nr_greek having count(*) > 1)')
 
 cur.execute('commit')

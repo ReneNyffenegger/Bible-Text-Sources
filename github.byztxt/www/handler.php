@@ -5,7 +5,6 @@
 # print ("<b>Hello</b>");
 #
 
-start_html();
 $db = db_connect('BP5.db');
 
 $uri = $_SERVER['REQUEST_URI'];
@@ -16,23 +15,31 @@ $uri_ = end(explode('/', $uri));
 # print_r(SQLite3::version());
 
 if ($uri_ == 'index') {
+  start_html();
   $db = db_connect('BP5.db');
   index($db);
 }
 elseif ($uri_ == 'Strongs') {
+  start_html();
   $db = db_connect('strongs.db');
   strongs_alle($db);
 }
 elseif (preg_match('/^Kapitel-(\w+)-(\d+)$/', $uri_, $m)) {
+  start_html();
   $db = db_connect('BP5.db');
   print_chapter($db, $m[1], $m[2]);
 }
-elseif (preg_match('/^Strongs-(\d+)$/', $uri_, $m)) {
+elseif (preg_match('/^Strongs-((G|H)\d+)$/', $uri_, $m)) {
+  start_html();
   $db = db_connect('BP5.db');
   show_verses_with_strongs($db, $m[1]);
 }
+elseif (preg_match('/^Strongs-(\d+)$/', $uri_, $m)) {
+  header('Location: Strongs-G' . $m[1], 301);
+  exit(0);
+}
 else {
-  print "oh no: $uri!";
+  print "oh no: $uri_!";
 }
 
 
@@ -125,12 +132,26 @@ function strongs_alle($db) { #_{
 function show_verses_with_strongs($db, $nr) { #_{
 
   $db_strongs = db_connect('strongs.db');
-  $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, text_de from strongs_greek where nr = ?', array($nr));
+  $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, text_de from strongs where nr = ?', array($nr));
 
   print("<h1>Strongs $nr (" . $row_strongs['word'] .")</h1>");
 
+  $text_de = $row_strongs['text_de']; # Google Übersetzung
+  $text_de = preg_replace_callback('/(G)(\d+)/',
+    function($m) use ($db_strongs) {
+#     $strongs_nr_ = $m[1];
+      $strongs_nr_ = $m[1] . str_pad($m[2], 4, '0', STR_PAD_LEFT);
+#     return $strongs_nr_;
+#     return $db_strongs;
+       $row_strongs_ = db_prep_exec_fetchrow($db_strongs, 'select word from strongs where nr = ?', array($strongs_nr_));
+       return "<a href='Strongs-$strongs_nr_'>" . $row_strongs_['word'] . "</a>";
+    },
+    $text_de
+    );
+
   print "Google-Übersetzung vom Strong's-Eintrag:";
-  print "<pre style='background-color:#c9faff; border:1px solid black'><code>" . $row_strongs['text_de'] . "</code></pre>";
+# print "<pre style='background-color:#c9faff; border:1px solid black'><code>" . $row_strongs['text_de'] . "</code></pre>";
+  print "<pre style='background-color:#c9faff; border:1px solid black'><code>" . $text_de . "</code></pre>";
 
 
   $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ?', array($nr));
@@ -154,7 +175,7 @@ function show_verses_with_strongs($db, $nr) { #_{
        if ($row_2['strongs'] == $nr) {
          print("<b>");
        }
-       printf("<a href='Strongs-%d'>%s</a> ", $row_2['strongs'], to_greek_letters($row_2['txt']));
+       printf("<a href='Strongs-%s'>%s</a> ", $row_2['strongs'], to_greek_letters($row_2['txt']));
        if ($row_2['strongs'] == $nr) {
          print("</b>");
        }
@@ -204,7 +225,7 @@ function print_chapter($db, $abbr, $c) { #_{
 
   print "<table border=1>";
   foreach ($res as $row) {
-    printf ("<tr><td>%d</td><td><a href='Strongs-%d'>%s</a></td><td>%s</td></tr>",  $row['v'], $row['strongs'], to_greek_letters($row['word']), $row['parsed']);
+    printf ("<tr><td>%d</td><td><a href='Strongs-%s'>%s</a></td><td>%s</td></tr>",  $row['v'], $row['strongs'], to_greek_letters($row['word']), $row['parsed']);
   }
   print "</table>";
 
