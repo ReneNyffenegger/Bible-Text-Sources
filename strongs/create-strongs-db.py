@@ -34,8 +34,36 @@ strongs_de_f = open('strongs-numbers/greek-de.@')
 l = strongs_de_f.readline()
 cur_strongs_de_nr = 1
 
+gerhard_kautz_f = open('strongs-numbers/Gerhard-Kautz/translation-de.txt')
+gerhard_kautz_strongs_nr = 0
 
 last_strongs_nr = 0
+
+
+def extract_gerhard_kautz_I(t):
+    t = re.sub(r'\bI\.\)<br>', 'I.) ', t)
+    m = re.search(r'\bI\.\) *([^<]*)', t)
+    if not m:
+       return None
+
+    r = re.sub(r'\bintr\.: *', '', m[1])
+    r = re.sub(r'\bsubst\.: *', '', r)
+    r = re.sub(r'\bsubst\. *', '', r)
+    r = re.sub(r'\bPtz\. *', '', r)
+    r = re.sub(r'\bPräs\. *', '', r)
+    r = re.sub(r'\bPass\.: *', '', r)
+    r = re.sub(r'\bPl\.: *', '', r)
+    r = re.sub(r'\badj\.: *', '', r)
+    r = re.sub(r'\badj\.: *', '', r)
+    r = re.sub(r'\bd\. *', '', r)
+    r = re.sub(r'\bübertr.: *', '', r)
+    r = re.sub(r'\bMed\. *', '', r)
+    r = re.sub(r'\btr\.: *', '', r)
+    r = re.sub(r'\bzeitl\.: *', '', r)
+    r = re.sub(r'\bAkt\.: *', '', r)
+    r = re.sub(r'\bInf\.: *', '', r)
+    r = re.sub(r'^ *: *', '', r)
+    return r
 
 for entry in root.findall('entries/entry'):
 
@@ -77,6 +105,30 @@ for entry in root.findall('entries/entry'):
           sys.exit(1)
 
        last_strongs_nr = strongs_nr
+
+
+    #  Read next entry for Gerhard Kautz
+
+       if gerhard_kautz_strongs_nr < strongs_nr:
+          gerhard_kautz_l = gerhard_kautz_f.readline()
+          gerhard_kautz_strongs_nr_, gerhard_kautz_transliteration, gerhard_kautz_rest = gerhard_kautz_l.split("\t")
+          gerhard_kautz_rest = gerhard_kautz_rest.rstrip()
+#         print("Read: {:s}".format(gerhard_kautz_strongs_nr_))
+          gerhard_kautz_strongs_nr=int(gerhard_kautz_strongs_nr_)
+
+       if gerhard_kautz_strongs_nr == strongs_nr:
+          gerhard_kautz_I = extract_gerhard_kautz_I(gerhard_kautz_rest)
+          if gerhard_kautz_I:
+             print("{:d}: {:s}".format(gerhard_kautz_strongs_nr, gerhard_kautz_I))
+          else:
+             print("{:d}: {:s}".format(gerhard_kautz_strongs_nr, 'n/a'))
+#         print("gerhard_kautz_strongs_nr: {:d}, strongd: {:d}".format(gerhard_kautz_strongs_nr, strongs_nr))
+
+#      else:
+#         print("gerhard_kautz_strongs_nr: {:d}, strongd: {:d}".format(gerhard_kautz_strongs_nr, strongs_nr))
+
+
+    #  ---------------------------------
 
        cur.execute('insert into strongs(nr, word, text_de) values (?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, text_de))
 
