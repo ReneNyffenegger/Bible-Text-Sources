@@ -1,7 +1,7 @@
 <?php
 
 
-$db = db_connect('BP5.db');
+# $db = db_connect('BP5.db');
 
 $uri = $_SERVER['REQUEST_URI'];
 
@@ -29,10 +29,13 @@ elseif (preg_match('/^Strongs-(G|H)(\d+)$/', $uri_, $m)) {
   $db = db_connect('BP5.db');
   show_verses_with_strongs($db, $m[1], $m[2]);
 }
-elseif (preg_match('/^tq84-Strongs-(G|H)(\d+)$/', $uri_, $m)) {
+elseif (preg_match('/^tq84-Strongs-(G|H)(\d+)$/', $uri_, $m)) { #_{
   $db = db_connect('BP5.db');
   tq84_show_verses_with_strongs($db, $m[1], $m[2]);
-}
+} #_}
+elseif (preg_match('/^Haeufige-Woerter-Neues-Testament/', $uri_, $m)) { #_{
+  frequent_words_nt();
+} #_}
 elseif (preg_match('/^Strongs-(\d+)$/', $uri_, $m)) {
   header('Location: Strongs-G' . $m[1], 301);
   exit(0);
@@ -106,6 +109,10 @@ function index($db) { #_{
   foreach ($res as $row) {
     printf("<a href='Kapitel-%s-%d'>%s-%d</a> ", $row['abbr'], $row['c'], $row['abbr'], $row['c']);
   }
+
+  print "<hr>";
+
+  print "<a href='Haeufige-Woerter-Neues-Testament'>Häufige Wörter im Neuen Testament</a>";
 
   print "</body></html>";
 
@@ -348,6 +355,42 @@ function tq84_show_verses_with_strongs($db, $G_or_H, $nr) { #_{
 
 } #_}
 
+function frequent_words_nt() { #_{
+
+  start_html('Häufige Wörter im Neuen Testament');
+
+  $db_bp5 = db_connect('BP5.db'); 
+  $db_strongs = db_connect('strongs.db');
+  print ("<table>");
+  $res_cnt = db_prep_exec_fetchall($db_bp5, 'select count(*) cnt, strongs, txt from word group by strongs order by count(*) desc limit 50');
+
+  foreach ($res_cnt as $row_cnt) {
+
+    $nr_G_or_H = $row_cnt['strongs'];
+    $strongs_rec = strongs_nr_to_rec($db_strongs, $nr_G_or_H);
+
+#   print "nr_G_or_H: $nr_G_or_H - ";
+#   print $row_cnt['cnt'];
+#   print " - ";
+#   print to_greek_letters($row_cnt['txt']);
+#   print "<br>";
+
+    printf("<tr>" . 
+      "<td>%d</td>" . 
+      "<td>%s</td>" .
+      "<td>%s</td></tr>",
+      $row_cnt['cnt'],
+      sprintf('<a href="Strongs-%s">%s</a>', $nr_G_or_H, to_greek_letters($row_cnt['txt'])),
+      $strongs_rec['word_de']
+    );
+
+  }
+
+  print ("</table>");
+  print "</body></html>";
+
+} #_}
+
 function print_chapter($db, $abbr, $c) { #_{
 
   $res = db_prep_exec_fetchall($db, 'select strongs, v, word, parsed from word_v where b=? and c=? order by no', array($abbr, $c));
@@ -365,6 +408,14 @@ function print_chapter($db, $abbr, $c) { #_{
 
   print "<p><a href='index'>Inhaltsverzeichnis</a>";
 } #_}
+
+function strongs_nr_to_rec($db_strongs, $nr_G_or_H) { #_{
+
+  $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de, strongs_en, strongs_de from strongs where nr = ?', array($nr_G_or_H));
+
+  return $row_strongs;
+} #_}
+
 
 function strtr_utf8($str, $from, $to) { #_{
     $keys = array();
