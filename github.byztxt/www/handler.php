@@ -15,24 +15,23 @@ $uri_ = end(explode('/', $uri));
 # print_r(SQLite3::version());
 
 if ($uri_ == 'index') {
-  start_html();
+  start_html('BP5');
   $db = db_connect('BP5.db');
   index($db);
 }
 elseif ($uri_ == 'Strongs') {
-  start_html();
+  start_html('Griechische Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)');
   $db = db_connect('strongs.db');
   strongs_alle($db);
 }
 elseif (preg_match('/^Kapitel-(\w+)-(\d+)$/', $uri_, $m)) {
-  start_html();
+  start_html('Kapitel $m[1] $m[2]');
   $db = db_connect('BP5.db');
   print_chapter($db, $m[1], $m[2]);
 }
-elseif (preg_match('/^Strongs-((G|H)\d+)$/', $uri_, $m)) {
-  start_html();
+elseif (preg_match('/^Strongs-(G|H)(\d+)$/', $uri_, $m)) {
   $db = db_connect('BP5.db');
-  show_verses_with_strongs($db, $m[1]);
+  show_verses_with_strongs($db, $m[1], $m[2]);
 }
 elseif (preg_match('/^Strongs-(\d+)$/', $uri_, $m)) {
   header('Location: Strongs-G' . $m[1], 301);
@@ -129,14 +128,18 @@ function strongs_alle($db) { #_{
 
 } #_}
 
-function show_verses_with_strongs($db, $nr) { #_{
+function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
+
+  $nr_G_or_H = "$G_or_H$nr";
 
   $db_strongs = db_connect('strongs.db');
-  $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de, strongs_en, strongs_de from strongs where nr = ?', array($nr));
+  $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de, strongs_en, strongs_de from strongs where nr = ?', array($nr_G_or_H));
 
-  print("<h1>Strongs $nr (" . $row_strongs['word'] .")</h1>");
 
   $word_de = $row_strongs['word_de'];
+  start_html(sprintf('Verse, die Strongs Nummer %d (%s - <i>%s</i>) enthalten', $nr, $row_strongs['word'], $word_de));
+# print("<h1>Strongs $nr (" . $row_strongs['word'] .")</h1>");
+
   $strongs_en = $row_strongs['strongs_en'];
 
   $strongs_de = $row_strongs['strongs_de']; # Google Übersetzung
@@ -152,7 +155,7 @@ function show_verses_with_strongs($db, $nr) { #_{
     $strongs_de
     );
 
-  print "<h2>$word_de</h2>";
+# print "<h2>$word_de</h2>";
 
   print "Strong's Eintrag:";
   print "<pre style='background-color:#c9ffaf; border:1px solid black'><code>" . $strongs_en . "</code></pre>";
@@ -161,7 +164,7 @@ function show_verses_with_strongs($db, $nr) { #_{
   print "<pre style='background-color:#c9faff; border:1px solid black'><code>" . $strongs_de . "</code></pre>";
 
 
-  $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ?', array($nr));
+  $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ?', array($nr_G_or_H));
 
   foreach ($res_1 as $row_1) {
     printf("<p><a href='Kapitel-%s-%d'>%s-%d-%d</a>: ", $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
@@ -178,15 +181,17 @@ function show_verses_with_strongs($db, $nr) { #_{
        ', array($row_1['v_id'])
     );
      
-     foreach ($res_2 as $row_2) {
-       if ($row_2['strongs'] == $nr) {
-         print("<b>");
-       }
-       printf("<a href='Strongs-%s'>%s</a> ", $row_2['strongs'], to_greek_letters($row_2['txt']));
-       if ($row_2['strongs'] == $nr) {
-         print("</b>");
-       }
-     }
+    foreach ($res_2 as $row_2) {
+      if ($row_2['strongs'] == $nr_G_or_H) {
+        print("<b>");
+      }
+      printf("<a href='Strongs-%s'>%s</a> ", $row_2['strongs'], to_greek_letters($row_2['txt']));
+      if ($row_2['strongs'] == $nr_G_or_H) {
+        print("</b>");
+      }
+    }
+
+    printf(" | <a href='/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s'>Kommentare</a>", $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
 
   }
 
@@ -226,17 +231,19 @@ function to_greek_letters($letters) { #_{
    return strtr_utf8($letters, 'abcdefghiklmnopqrstuvwxyz', 'αβχδεφγηικλμνοπψρστυςωξθζ');
 } #_}
 
-function start_html() { #_{
- print "<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-<! -- meta name='description' content='' / -->
-<title>$title</title>
-<style>
-
-
-</style>
+function start_html($title) { #_{
+   print "<!DOCTYPE html>
+  <html>
+  <head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <! -- meta name='description' content='' / -->
+  <title>$title</title>
+  <style>
+  
+  
+  </style>
+  </head>
+  <body><h1>$title</h1>
 ";
 
 } #_}
