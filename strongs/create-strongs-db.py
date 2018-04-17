@@ -150,6 +150,7 @@ def update_strongs():
     cur.execute('update strongs set word_de = ? where nr = ?', ('haben'             , 'G2192')) # Akt. haben
     cur.execute('update strongs set word_de = ? where nr = ?', ('bis'               , 'G2193')) # als Konj. - solange bis...
     cur.execute('update strongs set word_de = ? where nr = ?', ('oder'              , 'G2228')) # trennend: oder
+    cur.execute('update strongs set word_de = ? where nr = ?', ('unfähig'           , 'G2316')) # akt. von Personen: unvermögend
     cur.execute('update strongs set word_de = ? where nr = ?', ('damit'             , 'G2443')) # damit...
     cur.execute('update strongs set word_de = ? where nr = ?', ('stellen'           , 'G2476')) # tr.(, Impf., Aor.1 Akt. und Fut.Akt.): stellen
     cur.execute('update strongs set word_de = ? where nr = ?', ('und'               , 'G2532'))
@@ -158,6 +159,7 @@ def update_strongs():
     cur.execute('update strongs set word_de = ? where nr = ?', ('inmitten'          , 'G3326')) # örtl. inmitten
     cur.execute('update strongs set word_de = ? where nr = ?', ('kurzsichtig'       , 'G3467'))
     cur.execute('update strongs set word_de = ? where nr = ?', ('-'                 , 'G3588'))
+    cur.execute('update strongs set word_de = ? where nr = ?', ('hinten'            , 'G3694')) # als Antwort auf Frage: Wo?: hinten
     cur.execute('update strongs set word_de = ? where nr = ?', ('damit'             , 'G3704'))
     cur.execute('update strongs set word_de = ? where nr = ?', ('refl. pr.'         , 'G3739')) # welche (-er, -en, -es, usw.)
     cur.execute('update strongs set word_de = ? where nr = ?', ('daß'               , 'G3754')) # daß...
@@ -170,6 +172,7 @@ def update_strongs():
     cur.execute('update strongs set word_de = ? where nr = ?', ('sehr'              , 'G4007')) # im NT immer an ein anderes Wort angehängt um diesem eine positive<br>Betonung zu geben - hervorhebend oder verschärfend: ... wirklich; ... anders;<br>durchaus; eben.
     cur.execute('update strongs set word_de = ? where nr = ?', ('umhergerissen'     , 'G4049')) # Ind.Impf....war ständig hin- und hergerissen
     cur.execute('update strongs set word_de = ? where nr = ?', ('Ansehen-Betrachtender', 'G4381')) # der auf Ansehen (Person Rücksicht) Nehmende
+    cur.execute('update strongs set word_de = ? where nr = ?', ('Irrtum'            , 'G4106')) # im passiven Sinn: Irrtum
     cur.execute('update strongs set word_de = ? where nr = ?', ('verfault'          , 'G4595')) # intr. Ind.Pf.Akt. im pass. Sinn: verfault
     cur.execute('update strongs set word_de = ? where nr = ?', ('anwerben'          , 'G4758')) # Aor.: zum Kriegsdienst angeworben Habende
     cur.execute('update strongs set word_de = ? where nr = ?', ('Band'              , 'G4886')) # (zusammenhaltende) Band
@@ -283,6 +286,8 @@ see_also('G0894', 'G4088') # ἄψινθος <--> ...  Wermut / Bitterkeit
 # cur.execute('insert into strongs_see(nr_1, nr_2) values (?, ?)', ('G4088', 'G0894'))
 
 see_also('G2549', 'G4189') #  κακία <-->  πονηρία   ( 1. Kor 5:8 )
+
+see_also('G4105', 'G4107') # πλανάω <-->  πλανήτης
 
 #
 #  select count(*), nr, nr_greek from strongs_greek_see group by nr, nr_greek having count(*) > 1;
