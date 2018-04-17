@@ -7,7 +7,7 @@ import os.path
 books = [
   {'nm': 'MT'  , 'abbr': 'mt'   },
   {'nm': 'MR'  , 'abbr': 'mk'   },
-  {'nm': 'LU'  , 'abbr': 'lu'   },
+  {'nm': 'LU'  , 'abbr': 'lk'   },
   {'nm': 'JOH' , 'abbr': 'joh'  },
   {'nm': 'AC'  , 'abbr': 'apg'  },
   {'nm': 'RO'  , 'abbr': 'roem' },
