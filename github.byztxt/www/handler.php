@@ -142,8 +142,10 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
   $db_strongs = db_connect('strongs.db');
   $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de, strongs_en, strongs_de from strongs where nr = ?', array($nr_G_or_H));
 
+
   $word_de = $row_strongs['word_de'];
-  start_html(sprintf('Verse, die Strongs Nummer %d (%s - <i>%s</i>) enthalten', $nr, $row_strongs['word'], $word_de));
+  $word = $row_strongs['word'];
+  start_html(sprintf('Strongs Nummer %d (%s - <i>%s</i>)', $nr, $word, $word_de));
 
   $strongs_en = $row_strongs['strongs_en'];
 
@@ -175,6 +177,10 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
 
   print "<h2>Siehe auch</h2>";
 
+  printf("<h2>Verse, die %s enthalten</h2>", $word);
+
+  print("Achtung, zur Zeit werden wegen Performancegründen nur die ersten 50 Verse angezeigt");
+
   print "
    <div id='canvas'>
 </div>
@@ -186,7 +192,8 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
 
 ";
 
-  $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ? order by v_id', array($nr_G_or_H));
+
+  $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ? order by v_id limit 50', array($nr_G_or_H));
 
   foreach ($res_1 as $row_1) {
 
@@ -234,120 +241,9 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
     }
 
 
-    print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
-
   }
 
-  print ("}\n</script>\n");
-
-  print("<hr><a href='Strongs'>Alle Strongs Nummern</a>");
-
-
-} #_}
-
-function tq84_show_verses_with_strongs($db, $G_or_H, $nr) { #_{
-
-  $nr_G_or_H = "$G_or_H$nr";
-
-  $db_strongs = db_connect('strongs.db');
-  $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de, strongs_en, strongs_de from strongs where nr = ?', array($nr_G_or_H));
-
-  $word_de = $row_strongs['word_de'];
-  start_html(sprintf('Verse, die Strongs Nummer %d (%s - <i>%s</i>) enthalten', $nr, $row_strongs['word'], $word_de));
-
-  $strongs_en = $row_strongs['strongs_en'];
-
-  $strongs_de = $row_strongs['strongs_de']; # Google Übersetzung
-  $strongs_de = preg_replace_callback('/(G)(\d+)/',
-    function($m) use ($db_strongs) {
-      $strongs_nr_ = $m[1] . str_pad($m[2], 4, '0', STR_PAD_LEFT);
-       $row_strongs_ = db_prep_exec_fetchrow($db_strongs, 'select word from strongs where nr = ?', array($strongs_nr_));
-       return "<a href='Strongs-$strongs_nr_'>" . $row_strongs_['word'] . "</a>";
-    },
-    $strongs_de
-    );
-
-
-  print "Strong's Eintrag:";
-  print "<pre style='background-color:#c9ffaf; border:1px solid black'><code>" . $strongs_en . "</code></pre>";
-
-  print "Google-Übersetzung vom Strong's-Eintrag:";
-  print "<pre style='background-color:#c9faff; border:1px solid black'><code>" . $strongs_de . "</code></pre>";
-
-  print "<hr>";
-
-  $res_strongs_see = db_prep_exec_fetchall($db_strongs, 'select nr_2 from strongs_see where nr_1 = ?', array($nr_G_or_H));
-  foreach ($res_strongs_see as $row_strongs_see) {
-    $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de from strongs where nr = ?', array($row_strongs_see['nr_2']));
-    printf ("<br><a href=\"Strongs-%s\">%s: %s</a>", $row_strongs_see['nr_2'], $row_strongs['word'], $row_strongs['word_de']);
-  }
-
-
-  print "<h2>Siehe auch</h2>";
-
-  print "
-   <div id='canvas'>
-</div>
-<script>function init() {
-   let d = document.getElementById('canvas');
-   d.style.width = '20cm';
-   d.style.position = 'relative';
-   let lw = new tq84.line_writer(d, '20cm', {start_from_top_px: 30 });
-
-";
-
-  $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ? order by v_id', array($nr_G_or_H));
-
-  foreach ($res_1 as $row_1) {
-
-    printf("lw.emit('<a href=\"Kapitel-%s-%d\">%s-%d-%d</a>:<br><a href=\"/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s\">dt.</a>');\n",
-      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'],
-      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
-
-
-    $res_2 = db_prep_exec_fetchall($db, '
-      select
-        strongs, txt, parsed
-      from
-        word
-      where
-        v = ?
-      order by
-        no
-       ', array($row_1['v_id'])
-    );
-
-
-    foreach ($res_2 as $row_2) {
-
-      $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word_de from strongs where nr = ?', array($row_2['strongs']));
-
-      if ($row_2['strongs'] == $nr_G_or_H) {
-        $b = '<b style="color:#cc5300">';
-        $b_ = '</b>';
-      }
-      else{
-        $b = $b_ = '';
-      }
-
-      printf("lw.emit('$b%s$b_<br>" .
-             "<span class=\"parsed\">%s</span><br>" .
-             "<span class=\"word_de\">%s</span><br>" .
-             "<a class=\"strong\" href=\"Strongs-%s\">%s</a>');\n",
-        to_greek_letters($row_2['txt']),
-        $row_2['parsed'],
-        $row_strongs['word_de'],
-        $row_2['strongs'], $row_2['strongs']
-      );
-
-
-    }
-
-
-    print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
-
-  }
-
+  print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
   print ("}\n</script>\n");
 
   print("<hr><a href='Strongs'>Alle Strongs Nummern</a>");
