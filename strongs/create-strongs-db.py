@@ -145,6 +145,8 @@ def update_strongs():
     cur.execute('update strongs set word_de = ? where nr = ?', ('aus'               , 'G1537')) # aus...(heraus)
     cur.execute('update strongs set word_de = ? where nr = ?', ('dort'              , 'G1563')) # als Antwort auf Frage: Wo?: dort
     cur.execute('update strongs set word_de = ? where nr = ?', ('rum-huren'         , 'G1608')) # Aor.fem.: außergewöhnlich gehurt-Habende
+    cur.execute('update strongs set word_de = ? where nr = ?', ('gering'            , 'G1646')) # als Superl., Geringste
+    cur.execute('update strongs set word_de = ? where nr = ?', ('vor'               , 'G1715')) # als Adv.: (nach) vorne
     cur.execute('update strongs set word_de = ? where nr = ?', ('in'                , 'G1722')) # örtl.: auf
     cur.execute('update strongs set word_de = ? where nr = ?', ('auf'               , 'G1909')) # örtl.: auf
     cur.execute('update strongs set word_de = ? where nr = ?', ('haben'             , 'G2192')) # Akt. haben
@@ -162,8 +164,10 @@ def update_strongs():
     cur.execute('update strongs set word_de = ? where nr = ?', ('hinten'            , 'G3694')) # als Antwort auf Frage: Wo?: hinten
     cur.execute('update strongs set word_de = ? where nr = ?', ('damit'             , 'G3704'))
     cur.execute('update strongs set word_de = ? where nr = ?', ('refl. pr.'         , 'G3739')) # welche (-er, -en, -es, usw.)
+    cur.execute('update strongs set word_de = ? where nr = ?', ('jeder, der'        , 'G3748')) # verallgemeinernd: jeder, der...
     cur.execute('update strongs set word_de = ? where nr = ?', ('daß'               , 'G3754')) # daß...
     cur.execute('update strongs set word_de = ? where nr = ?', ('nicht'             , 'G3756')) # nein
+    cur.execute('update strongs set word_de = ? where nr = ?', ('keineswegs'        , 'G3760')) # durchaus nicht
     cur.execute('update strongs set word_de = ? where nr = ?', ('niemand'           , 'G3762')) # nicht ein (-er, -e, -en, -es, usw.)
     cur.execute('update strongs set word_de = ? where nr = ?', ('-'                 , 'G3801')) # der "Seiende" und der "Er war" und der "Kommende"
     cur.execute('update strongs set word_de = ? where nr = ?', ('zurück'            , 'G3825')) # örtl.: zurück
@@ -171,6 +175,7 @@ def update_strongs():
     cur.execute('update strongs set word_de = ? where nr = ?', ('alle'              , 'G3956'))
     cur.execute('update strongs set word_de = ? where nr = ?', ('sehr'              , 'G4007')) # im NT immer an ein anderes Wort angehängt um diesem eine positive<br>Betonung zu geben - hervorhebend oder verschärfend: ... wirklich; ... anders;<br>durchaus; eben.
     cur.execute('update strongs set word_de = ? where nr = ?', ('umhergerissen'     , 'G4049')) # Ind.Impf....war ständig hin- und hergerissen
+    cur.execute('update strongs set word_de = ? where nr = ?', ('für'               , 'G4314')) # zugunsten von...
     cur.execute('update strongs set word_de = ? where nr = ?', ('Ansehen-Betrachtender', 'G4381')) # der auf Ansehen (Person Rücksicht) Nehmende
     cur.execute('update strongs set word_de = ? where nr = ?', ('Irrtum'            , 'G4106')) # im passiven Sinn: Irrtum
     cur.execute('update strongs set word_de = ? where nr = ?', ('verfault'          , 'G4595')) # intr. Ind.Pf.Akt. im pass. Sinn: verfault
@@ -181,7 +186,9 @@ def update_strongs():
     cur.execute('update strongs set word_de = ? where nr = ?', ('jemand'            , 'G5100')) # irgendeiner, -e, -es
     cur.execute('update strongs set word_de = ? where nr = ?', ('wer'               , 'G5101')) # wer (was, welcher)
     cur.execute('update strongs set word_de = ? where nr = ?', ('sicher'            , 'G5104')) # wird nur in Verbindung mit anderen Partikeln gebraucht: gewiß
+    cur.execute('update strongs set word_de = ? where nr = ?', ('von'               , 'G5259')) # von...
     cur.execute('update strongs set word_de = ? where nr = ?', ('Witwe'             , 'G5503'))
+    cur.execute('update strongs set word_de = ? where nr = ?', ('anweisen'          , 'G5537')) # (göttliche) Weisung erteilen
     cur.execute('update strongs set word_de = ? where nr = ?', ('Zwerchfell'        , 'G5424')) # Verstand(esregungen)
 
 def noun_adj_verb():
