@@ -283,6 +283,10 @@ function frequent_words_nt() { #_{
   }
 
   print ("</table>");
+
+  print ("<h2>Siehe auch</h2>");
+  print ("<a href='https://renenyffenegger.ch/Biblisches/Sprachen/Griechisch-Neues-Testament-bekannt.html'>Bekannte Griechische Wörter des Neuen Testamentes</a>");
+
   print "</body></html>";
 
 } #_}
