@@ -131,7 +131,7 @@ def update_strongs():
     cur.execute('update strongs set word_de = ? where nr = ?', ('sondern'           , 'G0235'))
     cur.execute('update strongs set word_de = ? where nr = ?', ('Einmischender'     , 'G0244'))
     cur.execute('update strongs set word_de = ? where nr = ?', ('-'                 , 'G0302')) # Modalpartikel welche meist unübersetzbar ist; bezeichnet Handlung
-    cur.execute('update strongs set word_de = ? where nr = ?', ('sich verabschieden', 'G0685'))
+    cur.execute('update strongs set word_de = ? where nr = ?', ('sich verabschieden', 'G0657')) # sich (als Zurückbleibender) verabschieden
     cur.execute('update strongs set word_de = ? where nr = ?', ('Fluchen'           , 'G0685'))
     cur.execute('update strongs set word_de = ? where nr = ?', ('unsichtbar'        , 'G0855')) # ..er ward entschwunden, weg von ihnen...
     cur.execute('update strongs set word_de = ? where nr = ?', ('entfernen'         , 'G0868')) # tr. (im , Impf., Fut. und Aor1): abtrünnig machen)
@@ -178,7 +178,9 @@ def update_strongs():
     cur.execute('update strongs set word_de = ? where nr = ?', ('für'               , 'G4314')) # zugunsten von...
     cur.execute('update strongs set word_de = ? where nr = ?', ('Ansehen-Betrachtender', 'G4381')) # der auf Ansehen (Person Rücksicht) Nehmende
     cur.execute('update strongs set word_de = ? where nr = ?', ('Irrtum'            , 'G4106')) # im passiven Sinn: Irrtum
+    cur.execute('update strongs set word_de = ? where nr = ?', ('verharren'         , 'G4357')) # weiterhin bleiben bei...
     cur.execute('update strongs set word_de = ? where nr = ?', ('verfault'          , 'G4595')) # intr. Ind.Pf.Akt. im pass. Sinn: verfault
+    cur.execute('update strongs set word_de = ? where nr = ?', ('erbarmen'          , 'G4697')) # erbarmen
     cur.execute('update strongs set word_de = ? where nr = ?', ('anwerben'          , 'G4758')) # Aor.: zum Kriegsdienst angeworben Habende
     cur.execute('update strongs set word_de = ? where nr = ?', ('Band'              , 'G4886')) # (zusammenhaltende) Band
     cur.execute('update strongs set word_de = ? where nr = ?', ('sehr'              , 'G4970')) # in Verbindung mit einem Adj. oder einem Zeitwort: sehr ...
@@ -187,9 +189,11 @@ def update_strongs():
     cur.execute('update strongs set word_de = ? where nr = ?', ('wer'               , 'G5101')) # wer (was, welcher)
     cur.execute('update strongs set word_de = ? where nr = ?', ('sicher'            , 'G5104')) # wird nur in Verbindung mit anderen Partikeln gebraucht: gewiß
     cur.execute('update strongs set word_de = ? where nr = ?', ('von'               , 'G5259')) # von...
+    cur.execute('update strongs set word_de = ? where nr = ?', ('Gerücht'           , 'G5435')) # Kunde
     cur.execute('update strongs set word_de = ? where nr = ?', ('Witwe'             , 'G5503'))
     cur.execute('update strongs set word_de = ? where nr = ?', ('anweisen'          , 'G5537')) # (göttliche) Weisung erteilen
     cur.execute('update strongs set word_de = ? where nr = ?', ('Zwerchfell'        , 'G5424')) # Verstand(esregungen)
+    cur.execute('update strongs set word_de = ? where nr = ?', ('wie'               , 'G5616')) # vergleichend: gleichsam wie...
 
 def noun_adj_verb():
     cur.execute('insert into strongs_noun_adj_verb values (?, ?, ?)', ('G2549', 'G2556', None)) # κακία - κακός
