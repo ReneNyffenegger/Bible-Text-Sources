@@ -299,6 +299,7 @@ see_also('G0894', 'G4088') # ἄψινθος <--> ...  Wermut / Bitterkeit
 see_also('G2549', 'G4189') #  κακία <-->  πονηρία   ( 1. Kor 5:8 )
 
 see_also('G4105', 'G4107') # πλανάω <-->  πλανήτης
+see_also('G5215', 'G5603') # ὕμνος <--> ᾠδή
 
 #
 #  select count(*), nr, nr_greek from strongs_greek_see group by nr, nr_greek having count(*) > 1;
