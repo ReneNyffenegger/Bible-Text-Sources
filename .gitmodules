@@ -10,3 +10,6 @@
 [submodule "strongs/strongs-numbers"]
 	path = strongs/strongs-numbers
 	url = https://github.com/ReneNyffenegger/strongs-numbers
+[submodule "strongs/github.openscriptures/strongs"]
+	path = strongs/github.openscriptures/strongs
+	url = https://github.com/openscriptures/strongs
