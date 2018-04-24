@@ -57,41 +57,42 @@ books = [ #_{
 
 def create_db_schema(): #_{
     cur.execute('create table book (abbr text primary key, ord integer not null)')
+
     cur.execute("""create table verse(
   id  integer not null primary key,
   b   text not null references book,
   c   integer not null,
-  v   integer not null,
-  txt text null
+  v   integer not null /*,
+  txt text null */
 )""")
 
     cur.execute("""create table word (
-  v integer not null references verse,
-  txt     text    not null,
-  strongs text    not null, -- G\d\d\d\d
-  parsed  text    not null,
-  no   integer    not null
+  v      integer not null references verse,
+  txt       text    not null,
+  strongs   text        null, -- H\d\d\d\d
+--parsed    text    not null,
+--no     integer        null,
+  order_ integer    not null
 )""")
 
-    cur.execute("""create view word_v as
-  select
-    v.b         ,
-    v.c         ,
-    v.v         ,
-    v.id  v_id  ,
-    w.txt word  ,
-    w.strongs   ,
-    w.parsed    ,
-    w.no
-  from
-    verse v join
-    word  w on v.id = w.v
-  order by
-    w.no
-""")
+#     cur.execute("""create view word_v as
+#    select
+#      v.b         ,
+#      v.c         ,
+#      v.v         ,
+#      v.id  v_id  ,
+#      w.txt word  ,
+#      w.strongs   ,
+#  --  w.parsed    ,
+#      w.order_
+#    from
+#      verse v join
+#      word  w on v.id = w.v
+#    order by
+#      w.no
+#  """)
 
 #_}
-    
 
 def load_book(book, book_order): #_{
 
@@ -102,12 +103,13 @@ def load_book(book, book_order): #_{
     xml  = ET.parse('morphhb/wlc/' + book['nm'] + '.xml')
     root = xml.getroot()
     osisText = root.find(ns + "osisText")
-    book     = osisText.find(ns+"div[@type='book']")
+    bookElem = osisText.find(ns+"div[@type='book']")
 
-    word_no = 0
+#   word_no = 0
+    word_order = 0
 
     c = 0
-    for chapter in book.findall(ns + 'chapter'): #_{
+    for chapter in bookElem.findall(ns + 'chapter'): #_{
         c += 1
 
         v = 0
@@ -115,35 +117,42 @@ def load_book(book, book_order): #_{
             v += 1
 
 #           cur.execute('insert into verse (b, c, v, txt) values (?, ?, ?, ?)', (book['abbr'], c, v, 'todo: verse text'))
+            cur.execute('insert into verse (b, c, v     ) values (?, ?, ?   )', (book['abbr'], c, v                    ))
+            rowid_verse = cur.lastrowid
 
             for elem in verse.findall('*'): #_{
 #               if elem.tag not in [ns + 'w', ns + 'seg', ns + 'note']:
 #                  raise Exception('word.tag: ' + elem.tag)
 
+                word_order += 1
+
                 if   elem.tag == ns + 'w':
-                     pass
+
+                     lemma = elem.attrib['lemma']
+                     strongs = 'H' + re.sub(r'\D', '', lemma).zfill(4)
+
                 elif elem.tag == ns + 'seg':
 
+                     strongs = None
 
-                     if elem.attrib['type'] not in ['x-samekh', 'x-sof-pasuq', 'x-paseq', 'x-pe', 'x-maqqef', 'x-reversednun']:
-                        print (elem.attrib['type'])
-#                       raise Exception('elem.type = ' + elem.attrib['type'])
+   #                 if elem.attrib['type'] not in ['x-samekh', 'x-sof-pasuq', 'x-paseq', 'x-pe', 'x-maqqef', 'x-reversednun']:
+   #                    print (elem.attrib['type'])
+#  #                    raise Exception('elem.type = ' + elem.attrib['type'])
+
+                cur.execute('insert into word (v, txt, strongs, order_) values (?, ?, ?, ?)', (rowid_verse, '...', strongs, word_order))
+
 
 #               print(word.tag)
-#               lemma = word.attrib['lemma']
-#               lemma = re.sub(r'\D', '', lemma)
 #               print (lemma)
 
             #_}
 
 #           print(str(c) + ':' + str(v))
 
-            w = 0
 
     #_}
 
 #_}
-
 
 create_db_schema()
 
