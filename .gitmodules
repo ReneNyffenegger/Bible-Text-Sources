@@ -13,3 +13,6 @@
 [submodule "strongs/github.openscriptures/strongs"]
 	path = strongs/github.openscriptures/strongs
 	url = https://github.com/openscriptures/strongs
+[submodule "github.openscriptures/morphhb"]
+	path = github.openscriptures/morphhb
+	url = https://github.com/openscriptures/morphhb
