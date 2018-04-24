@@ -128,12 +128,15 @@ def update_strongs(): #_{
     do_('G1519', 'in'                              ) # örtl.: hinein...in
     do_('G1537', 'aus'                             ) # aus...(heraus)
     do_('G1563', 'dort'                            ) # als Antwort auf Frage: Wo?: dort
+    do_('G1565', 'jener'                           ) # ἐκεῖνος - jene (-er, -es, en, usw.)
     do_('G1608', 'rum-huren'                       ) # Aor.fem.: außergewöhnlich gehurt-Habende
+    do_('G1626', 'Fehlgeburt'                      ) # εκτρωματι - verächtlich: Fehlgeburt
     do_('G1646', 'gering'                          ) # als Superl., Geringste
     do_('G1715', 'vor'                             ) # als Adv.: (nach) vorne
     do_('G1722', 'in'                              ) # örtl.: auf
     do_('G1909', 'auf'                             ) # örtl.: auf
     do_('G1276', 'überqueren'                      ) # zum jenseitigen (Ufer) queren
+    do_('G2078', 'zuletzt'                         ) # ὡσπερεί - örtl.: äußerste
     do_('G2192', 'haben'                           ) # Akt. haben
     do_('G2193', 'bis'                             ) # als Konj. - solange bis...
     do_('G2228', 'oder'                            ) # trennend: oder
@@ -159,6 +162,7 @@ def update_strongs(): #_{
     do_('G3936', 'beistehen'                       ) # im Akt. , Ipf., Aor.1, und Fut.): darstellen
     do_('G3956', 'alle'                            )
     do_('G4007', 'sehr'                            ) # im NT immer an ein anderes Wort angehängt um diesem eine positive<br>Betonung zu geben - hervorhebend oder verschärfend: ... wirklich; ... anders;<br>durchaus; eben.
+    do_('G4012', 'herum'                           ) # περί - betreffs...
     do_('G4049', 'umhergerissen'                   ) # Ind.Impf....war ständig hin- und hergerissen
     do_('G4314', 'für'                             ) # zugunsten von...
     do_('G4381', 'Ansehen-Betrachtender'           ) # der auf Ansehen (Person Rücksicht) Nehmende
@@ -177,8 +181,10 @@ def update_strongs(): #_{
     do_('G5435', 'Gerücht'                         ) # Kunde
     do_('G5503', 'Witwe'                           )
     do_('G5537', 'anweisen'                        ) # (göttliche) Weisung erteilen
+    do_('G5580', 'falscher Messias'                ) # ψευδόχριστος - falsche Messiase
     do_('G5424', 'Zwerchfell'                      ) # Verstand(esregungen)
     do_('G5616', 'wie'                             ) # vergleichend: gleichsam wie...
+    do_('G5619', 'gleichsam'                       ) # ὡσπερεί - ganz genauso wie bei...
 #_}
 
 def noun_adj_verb(): #_{

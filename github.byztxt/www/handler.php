@@ -160,10 +160,10 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
     );
 
 
-  print "Strong's Eintrag:";
+  print "Englischer Eintrag für die Strong Nummer:";
   print "<pre style='background-color:#c9ffaf; border:1px solid black'><code>" . $strongs_en . "</code></pre>";
 
-  print "Google-Übersetzung vom Strong's-Eintrag:";
+  print "Deutsche Google-Übersetzung:";
   print "<pre style='background-color:#c9faff; border:1px solid black'><code>" . $strongs_de . "</code></pre>";
 
   print "<hr>";
@@ -330,6 +330,9 @@ function to_greek_letters($letters) { #_{
 } #_}
 
 function start_html($title) { #_{
+
+  $title = strip_tags($title);
+
    print "<!DOCTYPE html>
   <html>
   <head>
