@@ -10,25 +10,25 @@ $uri_ = end(explode('/', $uri));
 
 # print_r(SQLite3::version());
 
-if ($uri_ == 'index') {
+if ($uri_ == 'index') { #_{
   start_html('BP5');
   $db = db_connect('BP5.db');
   index($db);
-}
-elseif ($uri_ == 'Strongs') {
+} #_}
+elseif ($uri_ == 'Strongs') { #_{
   start_html('Griechische Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)');
   $db = db_connect('strongs.db');
   strongs_alle($db);
-}
-elseif (preg_match('/^Kapitel-(\w+)-(\d+)$/', $uri_, $m)) {
+} #_}
+elseif (preg_match('/^Kapitel-(\w+)-(\d+)$/', $uri_, $m)) { #_{
   start_html(sprintf('Kapitel %s %s', $m[1], $m[2]));
   $db = db_connect('BP5.db');
   print_chapter($db, $m[1], $m[2]);
-}
-elseif (preg_match('/^Strongs-(G|H)(\d+)$/', $uri_, $m)) {
+} #_}
+elseif (preg_match('/^Strongs-(G|H)(\d+)$/', $uri_, $m)) { #_{
   $db = db_connect('BP5.db');
   show_verses_with_strongs($db, $m[1], $m[2]);
-}
+} #_}
 elseif (preg_match('/^tq84-Strongs-(G|H)(\d+)$/', $uri_, $m)) { #_{
   $db = db_connect('BP5.db');
   tq84_show_verses_with_strongs($db, $m[1], $m[2]);
@@ -36,13 +36,13 @@ elseif (preg_match('/^tq84-Strongs-(G|H)(\d+)$/', $uri_, $m)) { #_{
 elseif (preg_match('/^Haeufige-Woerter-Neues-Testament/', $uri_, $m)) { #_{
   frequent_words_nt();
 } #_}
-elseif (preg_match('/^Strongs-(\d+)$/', $uri_, $m)) {
+elseif (preg_match('/^Strongs-(\d+)$/', $uri_, $m)) { #_{
   header('Location: Strongs-G' . $m[1], 301);
   exit(0);
-}
-else {
+} #_}
+else { #_{
   print "oh no: $uri_!";
-}
+} #_}
 
 
 print "</body></html>";
@@ -150,7 +150,7 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
   $strongs_en = $row_strongs['strongs_en'];
 
   $strongs_de = $row_strongs['strongs_de']; # Google Übersetzung
-  $strongs_de = preg_replace_callback('/(G)(\d+)/',
+  $strongs_de = preg_replace_callback('/(G|H)(\d+)/',
     function($m) use ($db_strongs) {
       $strongs_nr_ = $m[1] . str_pad($m[2], 4, '0', STR_PAD_LEFT);
        $row_strongs_ = db_prep_exec_fetchrow($db_strongs, 'select word from strongs where nr = ?', array($strongs_nr_));
@@ -315,7 +315,6 @@ function strongs_nr_to_rec($db_strongs, $nr_G_or_H) { #_{
 
   return $row_strongs;
 } #_}
-
 
 function strtr_utf8($str, $from, $to) { #_{
     $keys = array();
