@@ -106,73 +106,79 @@ def extract_gerhard_kautz_I(t): #_{
 #_}
 
 def update_strongs(): #_{
-    cur.execute('update strongs set word_de = ? where nr = ?', ('adramytisch'       , 'G0098'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('sondern'           , 'G0235'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('Einmischender'     , 'G0244'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('-'                 , 'G0302')) # Modalpartikel welche meist unübersetzbar ist; bezeichnet Handlung
-    cur.execute('update strongs set word_de = ? where nr = ?', ('sich verabschieden', 'G0657')) # sich (als Zurückbleibender) verabschieden
-    cur.execute('update strongs set word_de = ? where nr = ?', ('Fluchen'           , 'G0685'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('unsichtbar'        , 'G0855')) # ..er ward entschwunden, weg von ihnen...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('entfernen'         , 'G0868')) # tr. (im , Impf., Fut. und Aor1): abtrünnig machen)
-    cur.execute('update strongs set word_de = ? where nr = ?', ('an der andern Seite vorübergehen', 'G0942')) # an der gegenüberliegenden (Straßenseite) vorübergehen
-    cur.execute('update strongs set word_de = ? where nr = ?', ('bezaubern'         , 'G0940')) # jmd. verhexen
-    cur.execute('update strongs set word_de = ? where nr = ?', ('denn'              , 'G1063'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('gottergeben'       , 'G1174')) # als Komp. (für Superl.): mehr Götter fürchtend...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('-'                 , 'G1473')) # ich (mein, mir, mich); betont: i c h (m e i n, m i r, m i c h)
-    cur.execute('update strongs set word_de = ? where nr = ?', ('ähneln'            , 'G1503')) # Perfekt mit Präsensbedeutung: ist ähnlich...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('in'                , 'G1519')) # örtl.: hinein...in
-    cur.execute('update strongs set word_de = ? where nr = ?', ('aus'               , 'G1537')) # aus...(heraus)
-    cur.execute('update strongs set word_de = ? where nr = ?', ('dort'              , 'G1563')) # als Antwort auf Frage: Wo?: dort
-    cur.execute('update strongs set word_de = ? where nr = ?', ('rum-huren'         , 'G1608')) # Aor.fem.: außergewöhnlich gehurt-Habende
-    cur.execute('update strongs set word_de = ? where nr = ?', ('gering'            , 'G1646')) # als Superl., Geringste
-    cur.execute('update strongs set word_de = ? where nr = ?', ('vor'               , 'G1715')) # als Adv.: (nach) vorne
-    cur.execute('update strongs set word_de = ? where nr = ?', ('in'                , 'G1722')) # örtl.: auf
-    cur.execute('update strongs set word_de = ? where nr = ?', ('auf'               , 'G1909')) # örtl.: auf
-    cur.execute('update strongs set word_de = ? where nr = ?', ('haben'             , 'G2192')) # Akt. haben
-    cur.execute('update strongs set word_de = ? where nr = ?', ('bis'               , 'G2193')) # als Konj. - solange bis...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('oder'              , 'G2228')) # trennend: oder
-    cur.execute('update strongs set word_de = ? where nr = ?', ('unfähig'           , 'G2316')) # akt. von Personen: unvermögend
-    cur.execute('update strongs set word_de = ? where nr = ?', ('damit'             , 'G2443')) # damit...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('stellen'           , 'G2476')) # tr.(, Impf., Aor.1 Akt. und Fut.Akt.): stellen
-    cur.execute('update strongs set word_de = ? where nr = ?', ('und'               , 'G2532'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('herab'             , 'G2596')) # räuml.: herab
-    cur.execute('update strongs set word_de = ? where nr = ?', ('erwarten'          , 'G3195'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('inmitten'          , 'G3326')) # örtl. inmitten
-    cur.execute('update strongs set word_de = ? where nr = ?', ('kurzsichtig'       , 'G3467'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('-'                 , 'G3588'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('hinten'            , 'G3694')) # als Antwort auf Frage: Wo?: hinten
-    cur.execute('update strongs set word_de = ? where nr = ?', ('damit'             , 'G3704'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('refl. pr.'         , 'G3739')) # welche (-er, -en, -es, usw.)
-    cur.execute('update strongs set word_de = ? where nr = ?', ('jeder, der'        , 'G3748')) # verallgemeinernd: jeder, der...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('daß'               , 'G3754')) # daß...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('nicht'             , 'G3756')) # nein
-    cur.execute('update strongs set word_de = ? where nr = ?', ('keineswegs'        , 'G3760')) # durchaus nicht
-    cur.execute('update strongs set word_de = ? where nr = ?', ('niemand'           , 'G3762')) # nicht ein (-er, -e, -en, -es, usw.)
-    cur.execute('update strongs set word_de = ? where nr = ?', ('-'                 , 'G3801')) # der "Seiende" und der "Er war" und der "Kommende"
-    cur.execute('update strongs set word_de = ? where nr = ?', ('zurück'            , 'G3825')) # örtl.: zurück
-    cur.execute('update strongs set word_de = ? where nr = ?', ('beistehen'         , 'G3936')) # im Akt. , Ipf., Aor.1, und Fut.): darstellen
-    cur.execute('update strongs set word_de = ? where nr = ?', ('alle'              , 'G3956'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('sehr'              , 'G4007')) # im NT immer an ein anderes Wort angehängt um diesem eine positive<br>Betonung zu geben - hervorhebend oder verschärfend: ... wirklich; ... anders;<br>durchaus; eben.
-    cur.execute('update strongs set word_de = ? where nr = ?', ('umhergerissen'     , 'G4049')) # Ind.Impf....war ständig hin- und hergerissen
-    cur.execute('update strongs set word_de = ? where nr = ?', ('für'               , 'G4314')) # zugunsten von...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('Ansehen-Betrachtender', 'G4381')) # der auf Ansehen (Person Rücksicht) Nehmende
-    cur.execute('update strongs set word_de = ? where nr = ?', ('Irrtum'            , 'G4106')) # im passiven Sinn: Irrtum
-    cur.execute('update strongs set word_de = ? where nr = ?', ('verharren'         , 'G4357')) # weiterhin bleiben bei...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('verfault'          , 'G4595')) # intr. Ind.Pf.Akt. im pass. Sinn: verfault
-    cur.execute('update strongs set word_de = ? where nr = ?', ('erbarmen'          , 'G4697')) # erbarmen
-    cur.execute('update strongs set word_de = ? where nr = ?', ('anwerben'          , 'G4758')) # Aor.: zum Kriegsdienst angeworben Habende
-    cur.execute('update strongs set word_de = ? where nr = ?', ('Band'              , 'G4886')) # (zusammenhaltende) Band
-    cur.execute('update strongs set word_de = ? where nr = ?', ('sehr'              , 'G4970')) # in Verbindung mit einem Adj. oder einem Zeitwort: sehr ...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('Heil'              , 'G4992')) # als Adj. ohne Art., prädikativ: Errettung bringend (für)...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('jemand'            , 'G5100')) # irgendeiner, -e, -es
-    cur.execute('update strongs set word_de = ? where nr = ?', ('wer'               , 'G5101')) # wer (was, welcher)
-    cur.execute('update strongs set word_de = ? where nr = ?', ('sicher'            , 'G5104')) # wird nur in Verbindung mit anderen Partikeln gebraucht: gewiß
-    cur.execute('update strongs set word_de = ? where nr = ?', ('von'               , 'G5259')) # von...
-    cur.execute('update strongs set word_de = ? where nr = ?', ('Gerücht'           , 'G5435')) # Kunde
-    cur.execute('update strongs set word_de = ? where nr = ?', ('Witwe'             , 'G5503'))
-    cur.execute('update strongs set word_de = ? where nr = ?', ('anweisen'          , 'G5537')) # (göttliche) Weisung erteilen
-    cur.execute('update strongs set word_de = ? where nr = ?', ('Zwerchfell'        , 'G5424')) # Verstand(esregungen)
-    cur.execute('update strongs set word_de = ? where nr = ?', ('wie'               , 'G5616')) # vergleichend: gleichsam wie...
+
+
+    def do_(nr, new_word):
+        cur.execute('update strongs set word_de = ? where nr = ?', (new_word, nr))
+
+    do_('G0098', 'adramytisch'                     )
+    do_('G0235', 'sondern'                         )
+    do_('G0244', 'Einmischender'                   )
+    do_('G0302', '-'                               ) # Modalpartikel welche meist unübersetzbar ist; bezeichnet Handlung
+    do_('G0657', 'sich verabschieden'              ) # sich (als Zurückbleibender) verabschieden
+    do_('G0685', 'Fluchen'                         )
+    do_('G0855', 'unsichtbar'                      ) # ..er ward entschwunden, weg von ihnen...
+    do_('G0868', 'entfernen'                       ) # tr. (im , Impf., Fut. und Aor1): abtrünnig machen)
+    do_('G0942', 'an der andern Seite vorübergehen') # an der gegenüberliegenden (Straßenseite) vorübergehen
+    do_('G0940', 'bezaubern'                       ) # jmd. verhexen
+    do_('G1063', 'denn'                            )
+    do_('G1174', 'gottergeben'                     ) # als Komp. (für Superl.): mehr Götter fürchtend...
+    do_('G1473', '-'                               ) # ich (mein, mir, mich); betont: i c h (m e i n, m i r, m i c h)
+    do_('G1503', 'ähneln'                          ) # Perfekt mit Präsensbedeutung: ist ähnlich...
+    do_('G1519', 'in'                              ) # örtl.: hinein...in
+    do_('G1537', 'aus'                             ) # aus...(heraus)
+    do_('G1563', 'dort'                            ) # als Antwort auf Frage: Wo?: dort
+    do_('G1608', 'rum-huren'                       ) # Aor.fem.: außergewöhnlich gehurt-Habende
+    do_('G1646', 'gering'                          ) # als Superl., Geringste
+    do_('G1715', 'vor'                             ) # als Adv.: (nach) vorne
+    do_('G1722', 'in'                              ) # örtl.: auf
+    do_('G1909', 'auf'                             ) # örtl.: auf
+    do_('G1276', 'überqueren'                      ) # zum jenseitigen (Ufer) queren
+    do_('G2192', 'haben'                           ) # Akt. haben
+    do_('G2193', 'bis'                             ) # als Konj. - solange bis...
+    do_('G2228', 'oder'                            ) # trennend: oder
+    do_('G2316', 'unfähig'                         ) # akt. von Personen: unvermögend
+    do_('G2443', 'damit'                           ) # damit...
+    do_('G2476', 'stellen'                         ) # tr.(, Impf., Aor.1 Akt. und Fut.Akt.): stellen
+    do_('G2532', 'und'                             )
+    do_('G2596', 'herab'                           ) # räuml.: herab
+    do_('G3195', 'erwarten'                        )
+    do_('G3326', 'inmitten'                        ) # örtl. inmitten
+    do_('G3467', 'kurzsichtig'                     )
+    do_('G3588', '-'                               )
+    do_('G3694', 'hinten'                          ) # als Antwort auf Frage: Wo?: hinten
+    do_('G3704', 'damit'                           )
+    do_('G3739', 'refl. pr.'                       ) # welche (-er, -en, -es, usw.)
+    do_('G3748', 'jeder, der'                      ) # verallgemeinernd: jeder, der...
+    do_('G3754', 'daß'                             ) # daß...
+    do_('G3756', 'nicht'                           ) # nein
+    do_('G3760', 'keineswegs'                      ) # durchaus nicht
+    do_('G3762', 'niemand'                         ) # nicht ein (-er, -e, -en, -es, usw.)
+    do_('G3801', '-'                               ) # der "Seiende" und der "Er war" und der "Kommende"
+    do_('G3825', 'zurück'                          ) # örtl.: zurück
+    do_('G3936', 'beistehen'                       ) # im Akt. , Ipf., Aor.1, und Fut.): darstellen
+    do_('G3956', 'alle'                            )
+    do_('G4007', 'sehr'                            ) # im NT immer an ein anderes Wort angehängt um diesem eine positive<br>Betonung zu geben - hervorhebend oder verschärfend: ... wirklich; ... anders;<br>durchaus; eben.
+    do_('G4049', 'umhergerissen'                   ) # Ind.Impf....war ständig hin- und hergerissen
+    do_('G4314', 'für'                             ) # zugunsten von...
+    do_('G4381', 'Ansehen-Betrachtender'           ) # der auf Ansehen (Person Rücksicht) Nehmende
+    do_('G4106', 'Irrtum'                          ) # im passiven Sinn: Irrtum
+    do_('G4357', 'verharren'                       ) # weiterhin bleiben bei...
+    do_('G4595', 'verfault'                        ) # intr. Ind.Pf.Akt. im pass. Sinn: verfault
+    do_('G4697', 'erbarmen'                        ) # erbarmen
+    do_('G4758', 'anwerben'                        ) # Aor.: zum Kriegsdienst angeworben Habende
+    do_('G4886', 'Band'                            ) # (zusammenhaltende) Band
+    do_('G4970', 'sehr'                            ) # in Verbindung mit einem Adj. oder einem Zeitwort: sehr ...
+    do_('G4992', 'Heil'                            ) # als Adj. ohne Art., prädikativ: Errettung bringend (für)...
+    do_('G5100', 'jemand'                          ) # irgendeiner, -e, -es
+    do_('G5101', 'wer'                             ) # wer (was, welcher)
+    do_('G5104', 'sicher'                          ) # wird nur in Verbindung mit anderen Partikeln gebraucht: gewiß
+    do_('G5259', 'von'                             ) # von...
+    do_('G5435', 'Gerücht'                         ) # Kunde
+    do_('G5503', 'Witwe'                           )
+    do_('G5537', 'anweisen'                        ) # (göttliche) Weisung erteilen
+    do_('G5424', 'Zwerchfell'                      ) # Verstand(esregungen)
+    do_('G5616', 'wie'                             ) # vergleichend: gleichsam wie...
 #_}
 
 def noun_adj_verb(): #_{
