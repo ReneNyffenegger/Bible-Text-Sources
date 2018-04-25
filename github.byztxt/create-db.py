@@ -1,10 +1,11 @@
 #!/bin/python
+# vi: foldmarker=_{,_} foldmethod=marker
 import re
 import sys
 import sqlite3
 import os.path
 
-books = [
+books = [ #_{
   {'nm': 'MT'  , 'abbr': 'mt'   },
   {'nm': 'MR'  , 'abbr': 'mk'   },
   {'nm': 'LU'  , 'abbr': 'lk'   },
@@ -33,6 +34,7 @@ books = [
   {'nm': 'JUDE', 'abbr': 'jud'  },
   {'nm': 'RE'  , 'abbr': 'offb' },
 ]
+#_}
 
 db_name = 'BP5.db'
 if os.path.isfile(db_name):
@@ -55,7 +57,7 @@ cur.execute("""create table word (
   txt     text    not null,
   strongs text    not null, -- G\d\d\d\d
   parsed  text    not null,
-  no   integer    not null
+  order_  integer not null
 )""")
 
 cur.execute("""create view word_v as
@@ -67,12 +69,12 @@ cur.execute("""create view word_v as
     w.txt word  ,
     w.strongs   ,
     w.parsed    ,
-    w.no
+    w.order_
   from
     verse v join
     word  w on v.id = w.v
   order by
-    w.no
+    w.order_
 """)
 
 book_order = 1
@@ -140,7 +142,7 @@ for book in books:
 
               
               try:
-                cur.execute('insert into word (v, txt, strongs, parsed, no) values (?,?,?,?,?)', (rowid_verse, word_strongs_parsed.group(1), 'G' + strongs.zfill(4), word_strongs_parsed.group(3), word_no))
+                cur.execute('insert into word (v, txt, strongs, parsed, order_) values (?,?,?,?,?)', (rowid_verse, word_strongs_parsed.group(1), 'G' + strongs.zfill(4), word_strongs_parsed.group(3), word_no))
               except BaseException as e:
                 print('! Oops ' + str(e) + ' in ' + book['nm'] + ', v = ' + str(v) + ', word_ = ' + word_)
                 sys.exit(1)
