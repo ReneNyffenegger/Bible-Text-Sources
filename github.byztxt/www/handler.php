@@ -29,8 +29,7 @@ elseif ($uri_ == 'Strongs-Hebraeisch') { #_{
 } #_}
 elseif (preg_match('/^Kapitel-(\w+)-(\d+)$/', $uri_, $m)) { #_{
   start_html(sprintf('Kapitel %s %s', $m[1], $m[2]));
-  $db = db_connect('BP5.db');
-  print_chapter($db, $m[1], $m[2]);
+  print_chapter($m[1], $m[2]);
 } #_}
 elseif (preg_match('/^Strongs-(G|H)(\d+)$/', $uri_, $m)) { #_{
   show_verses_with_strongs($m[1], $m[2]);
@@ -316,7 +315,21 @@ function frequent_words_nt() { #_{
 
 } #_}
 
-function print_chapter($db, $abbr, $c) { #_{
+function print_chapter($abbr, $c) { #_{
+
+  $books_db = db_connect('BibleBooks.db'); # Created by https://github.com/ReneNyffenegger/Biblisches/blob/master/db/create-db.py
+
+
+  $book_row = db_prep_exec_fetchrow($books_db, 'select testament from book where id = ?', array($abbr));
+
+  $testament = $book_row['testament'];
+
+  if ($testament == 'new') {
+    $db = db_connect('BP5.db');
+  }
+  else {
+    $db = db_connect('wlc.db');
+  }
 
   $res = db_prep_exec_fetchall($db, 'select strongs, v, word, parsed from word_v where b=? and c=? order by order_', array($abbr, $c));
 
