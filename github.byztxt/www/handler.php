@@ -1,8 +1,6 @@
 <?php
 
 
-# $db = db_connect('BP5.db');
-
 $uri = $_SERVER['REQUEST_URI'];
 
 # Get uri's last portion:
@@ -16,9 +14,18 @@ if ($uri_ == 'index') { #_{
   index($db);
 } #_}
 elseif ($uri_ == 'Strongs') { #_{
+  header('Location: Strongs-Griechisch' . $m[1], 301);
+  exit(0);
+} #_}
+elseif ($uri_ == 'Strongs-Griechisch') { #_{
   start_html('Griechische Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)');
   $db = db_connect('strongs.db');
-  strongs_alle($db);
+  strongs_alle($db, 'G');
+} #_}
+elseif ($uri_ == 'Strongs-Hebraeisch') { #_{
+  start_html('Hebräiesche Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)');
+  $db = db_connect('strongs.db');
+  strongs_alle($db, 'H');
 } #_}
 elseif (preg_match('/^Kapitel-(\w+)-(\d+)$/', $uri_, $m)) { #_{
   start_html(sprintf('Kapitel %s %s', $m[1], $m[2]));
@@ -118,16 +125,21 @@ function index($db) { #_{
 
 } #_}
 
-function strongs_alle($db) { #_{
+function strongs_alle($db, $G_or_H) { #_{
 
-  $res = db_prep_exec_fetchall($db, 'select nr, word, word_de from strongs order by nr', array());
+  $res = db_prep_exec_fetchall($db, 'select nr, word, word_de from strongs where nr like ? order by nr', array("$G_or_H" . '%'));
 
   if (! $res) {
     print("Well...<br>");
     exit(1);
   }
 
-  print("<table>");
+  $class_table = '';
+  if ($G_or_H == 'H') {
+    $class_table = ' class="all-hebr-strongs"';
+  }
+
+  print("<table$class_table>");
   foreach ($res as $row) {
     printf("<tr><td><a href='Strongs-%s'>%s</a></td><td>%s</td></tr>", $row['nr'], $row['word'], $row['word_de']);
   }
@@ -195,7 +207,7 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
 
   $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ? order by v_id limit 50', array($nr_G_or_H));
 
-  foreach ($res_1 as $row_1) {
+  foreach ($res_1 as $row_1) { #_{
 
     printf("lw.emit('<a href=\"Kapitel-%s-%d\">%s-%d-%d</a>:<br><a href=\"/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s\">dt.</a>');\n",
       $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'],
@@ -241,12 +253,12 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
     }
 
 
-  }
+  } #_}
 
   print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
   print ("}\n</script>\n");
 
-  print("<hr><a href='Strongs'>Alle Strongs Nummern</a>");
+  print("<hr><a href='Strongs-Griechisch'>Alle Griechischen Strongs Nummern</a> / <a href='Strongs-Hebraeisch'>Alle Hebräischen Strongs Nummern</a>");
 
 
 } #_}
@@ -343,6 +355,7 @@ function start_html($title) { #_{
 
     a.strong {font-size: 70%}
    .parsed   {font-size: 80%; color: #339;}
+   table.all-hebr-strongs td:nth-child(1) {text-align: right}
 
   </style>
   <script type='text/javascript' src='/requisites/js/line_writer.js'></script>
