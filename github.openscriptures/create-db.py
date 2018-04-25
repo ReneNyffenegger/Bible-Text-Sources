@@ -83,7 +83,7 @@ def create_db_schema(): #_{
      v.id  v_id  ,
      w.txt word  ,
      w.strongs   ,
- --  w.parsed    ,
+     w.parsed    ,
      w.order_
    from
      verse v join
