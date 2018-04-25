@@ -70,27 +70,27 @@ def create_db_schema(): #_{
   v      integer not null references verse,
   txt       text    not null,
   strongs   text        null, -- H\d\d\d\d
---parsed    text    not null,
+  parsed    text    not null,
 --no     integer        null,
   order_ integer    not null
 )""")
 
-#     cur.execute("""create view word_v as
-#    select
-#      v.b         ,
-#      v.c         ,
-#      v.v         ,
-#      v.id  v_id  ,
-#      w.txt word  ,
-#      w.strongs   ,
-#  --  w.parsed    ,
-#      w.order_
-#    from
-#      verse v join
-#      word  w on v.id = w.v
-#    order by
-#      w.no
-#  """)
+    cur.execute("""create view word_v as
+   select
+     v.b         ,
+     v.c         ,
+     v.v         ,
+     v.id  v_id  ,
+     w.txt word  ,
+     w.strongs   ,
+ --  w.parsed    ,
+     w.order_
+   from
+     verse v join
+     word  w on v.id = w.v
+-- order by
+--   w.order_
+ """)
 
 #_}
 
@@ -128,18 +128,44 @@ def load_book(book, book_order): #_{
 
                 if   elem.tag == ns + 'w':
 
+                     do_insert = True
+
                      lemma = elem.attrib['lemma']
                      strongs = 'H' + re.sub(r'\D', '', lemma).zfill(4)
+                     word_hebr = elem.text
 
                 elif elem.tag == ns + 'seg':
 
+                     do_insert = True
+
                      strongs = None
+
+                     if   elem.attrib['type'] == 'x-samekh':
+                          word_hebr = 'ס'
+                     elif elem.attrib['type'] == 'x-sof-pasuq':
+                          word_hebr = '׃'
+                     elif elem.attrib['type'] == 'x-paseq':
+                          word_hebr = '׀'
+                     elif elem.attrib['type'] == 'x-pe':
+                          word_hebr = 'פ'
+                     elif elem.attrib['type'] == 'x-maqqef':
+                          word_hebr = '־'
+                     elif elem.attrib['type'] == 'x-reversednun':
+                          word_hebr = '׆'
+                     else:
+                          raise Exception('unknown elem.attrib')
 
    #                 if elem.attrib['type'] not in ['x-samekh', 'x-sof-pasuq', 'x-paseq', 'x-pe', 'x-maqqef', 'x-reversednun']:
    #                    print (elem.attrib['type'])
 #  #                    raise Exception('elem.type = ' + elem.attrib['type'])
+                else:
+                #
+                #   Skip variants for the moment.
+                #
+                    do_insert = False
 
-                cur.execute('insert into word (v, txt, strongs, order_) values (?, ?, ?, ?)', (rowid_verse, '...', strongs, word_order))
+                if do_insert:
+                   cur.execute('insert into word (v, txt, strongs, parsed, order_) values (?, ?, ?, ?, ?)', (rowid_verse, word_hebr, strongs, 'n/a', word_order))
 
 
 #               print(word.tag)
