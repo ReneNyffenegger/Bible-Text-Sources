@@ -33,8 +33,7 @@ elseif (preg_match('/^Kapitel-(\w+)-(\d+)$/', $uri_, $m)) { #_{
   print_chapter($db, $m[1], $m[2]);
 } #_}
 elseif (preg_match('/^Strongs-(G|H)(\d+)$/', $uri_, $m)) { #_{
-  $db = db_connect('BP5.db');
-  show_verses_with_strongs($db, $m[1], $m[2]);
+  show_verses_with_strongs($m[1], $m[2]);
 } #_}
 elseif (preg_match('/^tq84-Strongs-(G|H)(\d+)$/', $uri_, $m)) { #_{
   $db = db_connect('BP5.db');
@@ -147,11 +146,19 @@ function strongs_alle($db, $G_or_H) { #_{
 
 } #_}
 
-function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
+function show_verses_with_strongs($G_or_H, $nr) { #_{
 
   $nr_G_or_H = "$G_or_H$nr";
 
   $db_strongs = db_connect('strongs.db');
+
+  if ($G_or_H == 'G') {
+    $db = db_connect('BP5.db');
+  }
+  else {
+    $db = db_connect('wlc.db');
+  }
+
   $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de, strongs_en, strongs_de from strongs where nr = ?', array($nr_G_or_H));
 
 
@@ -193,6 +200,11 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
 
   print("Achtung, zur Zeit werden wegen Performancegründen nur die ersten 50 Verse angezeigt");
 
+  $left_to_right = '';
+  if ($G_or_H == 'H') {
+     $left_to_right = ', left_to_right: 0'; 
+  }
+
   print "
    <div id='canvas'>
 </div>
@@ -200,7 +212,7 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
    let d = document.getElementById('canvas');
    d.style.width = '20cm';
    d.style.position = 'relative';
-   let lw = new tq84.line_writer(d, '20cm', {start_from_top_px: 30 });
+   let lw = new tq84.line_writer(d, '20cm', {start_from_top_px: 30 $left_to_right });
 
 ";
 
@@ -222,7 +234,7 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
       where
         v = ?
       order by
-        no
+        order_
        ', array($row_1['v_id'])
     );
 
@@ -238,6 +250,7 @@ function show_verses_with_strongs($db, $G_or_H, $nr) { #_{
       else{
         $b = $b_ = '';
       }
+
 
       printf("lw.emit('$b%s$b_<br>" .
              "<span class=\"parsed\">%s</span><br>" .
@@ -305,7 +318,7 @@ function frequent_words_nt() { #_{
 
 function print_chapter($db, $abbr, $c) { #_{
 
-  $res = db_prep_exec_fetchall($db, 'select strongs, v, word, parsed from word_v where b=? and c=? order by no', array($abbr, $c));
+  $res = db_prep_exec_fetchall($db, 'select strongs, v, word, parsed from word_v where b=? and c=? order by order_', array($abbr, $c));
 
   if (! $res) {
     print("hmm, what now?<br>");
