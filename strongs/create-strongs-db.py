@@ -123,6 +123,7 @@ def update_strongs(): #_{
     do_('G0940', 'bezaubern'                       ) # jmd. verhexen
     do_('G1063', 'denn'                            )
     do_('G1174', 'gottergeben'                     ) # als Komp. (für Superl.): mehr Götter fürchtend...
+    do_('G1121', 'Schrift'                         ) # Schrift-
     do_('G1473', '-'                               ) # ich (mein, mir, mich); betont: i c h (m e i n, m i r, m i c h)
     do_('G1503', 'ähneln'                          ) # Perfekt mit Präsensbedeutung: ist ähnlich...
     do_('G1519', 'in'                              ) # örtl.: hinein...in
@@ -188,7 +189,10 @@ def update_strongs(): #_{
 #_}
 
 def noun_adj_verb(): #_{
-    cur.execute('insert into strongs_noun_adj_verb values (?, ?, ?)', ('G2549', 'G2556', None)) # κακία - κακός
+
+    cur.execute('insert into strongs_noun_adj_verb values (?, ?, ?)', ('G1124',  None  , 'G1121')) # γραφή - γράφω
+    cur.execute('insert into strongs_noun_adj_verb values (?, ?, ?)', ('G2549', 'G2556', None   )) # κακία - κακός
+
 #_}
 
 def see_also(nr_1, nr_2): #_{
@@ -360,9 +364,10 @@ for entry in root_greek.findall('entries/entry'): #_{
 
 # TQ84's entries:
 #
-see_also('G5485', 'G1435') # δῶρον <--> χάρις
-see_also('G1722', 'G1519') # ἐν <--> εἰς
 see_also('G0894', 'G4088') # ἄψινθος <--> ...  Wermut / Bitterkeit
+see_also('G1121', 'G1124') # γράμμα <--> γραφή
+see_also('G1435', 'G5485') # δῶρον <--> χάρις
+see_also('G1519', 'G1722') # ἐν <--> εἰς
 see_also('G2549', 'G4189') # κακία <-->  πονηρία   ( 1. Kor 5:8 )
 see_also('G4105', 'G4107') # πλανάω <-->  πλανήτης
 see_also('G5215', 'G5603') # ὕμνος <--> ᾠδή
