@@ -21,12 +21,13 @@ cur = db.cursor()
 #_{ Create tables
 
 cur.execute("""create table strongs (
-  nr           text    not null primary key, -- G\d\d\d\d or H\d\d\d\d
-  word         text    not null,
-  lang         text    not null check (lang in ('G', 'H', 'A')), -- Greek, Hebrew, Aramaeic
-  word_de      text,
-  strongs_en   text    not null,
-  strongs_de   text    not null
+  nr              text    not null primary key, -- G\d\d\d\d or H\d\d\d\d
+  word            text    not null,
+  lang            text    not null check (lang in ('G', 'H', 'A')), -- Greek, Hebrew, Aramaeic
+  gerhard_kautz_I text,
+  word_de         text,
+  strongs_en      text    not null,
+  strongs_de      text    not null
 )""")
 
 cur.execute("""create table strongs_see (
@@ -107,6 +108,7 @@ def extract_gerhard_kautz_I(t): #_{
 
 def update_strongs(): #_{
 
+    raise Exception('update_strongs should not be used anymore!')
 
     def do_(nr, new_word):
         cur.execute('update strongs set word_de = ? where nr = ?', (new_word, nr))
@@ -282,7 +284,12 @@ def load_hebrew(): #_{
         strongs_en_hebr = read_strong_hebr('en', strongs_nr_hebr)
         strongs_de_hebr = read_strong_hebr('de', strongs_nr_hebr)
 
-        cur.execute('insert into strongs(nr, word, lang, strongs_en, strongs_de) values (?, ?, ?, ?, ?)', ('H' + str(strongs_nr_hebr).zfill(4), cur_hebr_word, cur_hebr_lang, strongs_en_hebr, strongs_de_hebr))
+        data_uebersetzung.line('^(H\d\d\d\d) (.*)')
+        word_de       = data_uebersetzung.re_group(2)
+        if word_de == '':
+           word_de       = 'n/a'
+
+        cur.execute('insert into strongs(nr, word, lang, word_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?)', ('H' + str(strongs_nr_hebr).zfill(4), cur_hebr_word, cur_hebr_lang, word_de, strongs_en_hebr, strongs_de_hebr))
 
 
 #_}
@@ -354,7 +361,8 @@ for entry in root_greek.findall('entries/entry'): #_{
 #      print(strongs_en)
 
 
-       data_strongs.line('^(G\d\d\d\d) (.) (.*)')
+       data_strongs     .line('^(G\d\d\d\d) (.) (.*)')
+       data_uebersetzung.line('^(G\d\d\d\d) (.*)')
 
 #q cl  data_strongs_l = data_strongs_f.readline()
 #q cl  data_strongs_m = re.search('^(G\d\d\d\d) (.) (.*)', data_strongs_l)
@@ -363,9 +371,12 @@ for entry in root_greek.findall('entries/entry'): #_{
        greek_lang    = data_strongs.re_group(2)
        greek_unicode = data_strongs.re_group(3)
 
+       word_de       = data_uebersetzung.re_group(2)
+
+
 #      print('nr {:4d} {:s} - {:20s} {:20s}'.format(strongs_nr, data_strongs_m[1], greek_unicode, data_strongs_m[2]))
 #      cur.execute('insert into strongs(nr, word, lang, word_de, strongs_en, strongs_de) values (?, ?, "G", ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, gerhard_kautz_I, strongs_en, strongs_de))
-       cur.execute('insert into strongs(nr, word, lang, word_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, greek_lang, gerhard_kautz_I, strongs_en, strongs_de))
+       cur.execute('insert into strongs(nr, word, lang, gerhard_kautz_I, word_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, greek_lang, gerhard_kautz_I, word_de, strongs_en, strongs_de))
 
        strongs_derivations=entry.findall('./strongs_derivation')
        if strongs_derivations is not None:
@@ -375,16 +386,11 @@ for entry in root_greek.findall('entries/entry'): #_{
                raise Exception('strongs_nr: {:d}, len(strongs_derivations) = {:d}'.format(strongs_nr, len(strongs_derivations)))
           else:
                for strongsref in strongs_derivations[0].findall("./strongsref[@language='GREEK']"):
-#                  print(strongsref.attrib['strongs'])
                    try:
                      cur.execute('insert into strongs_see(nr_1, nr_2) values (?, ?)', ('G' + str(strongs_nr).zfill(4), 'G' + strongsref.attrib['strongs'].zfill(4) ))
                    except sqlite3.IntegrityError as e:
                      print('* Could not insert ' + str(e))
 
-#      for see in entry.findall("./see/[@language='GREEK']"):
-
-#      for see in entry.findall("./see/[@language='HEBREW']"):
-#          print('x: ' + see.attrib['strongs'])
 #_}
 
 
@@ -400,6 +406,7 @@ see_also('G2549', 'G4189') # κακία <-->  πονηρία   ( 1. Kor 5:8 )
 see_also('G4105', 'G4107') # πλανάω <-->  πλανήτης
 see_also('G5215', 'G5603') # ὕμνος <--> ᾠδή
 
+see_also('H1961', 'H3068') # sein <--> JHWH
 #
 #  select count(*), nr, nr_greek from strongs_greek_see group by nr, nr_greek having count(*) > 1;
 #
@@ -407,7 +414,7 @@ see_also('G5215', 'G5603') # ὕμνος <--> ᾠδή
 
 load_hebrew()
 
-update_strongs()
+# update_strongs()
 noun_adj_verb()
 
 cur.execute('commit')
