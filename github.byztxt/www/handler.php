@@ -199,76 +199,17 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
 
   print("Achtung, zur Zeit werden wegen Performancegründen nur die ersten 50 Verse angezeigt");
 
-  $left_to_right = '';
+
+  $left_to_right = true;
   if ($G_or_H == 'H') {
-     $left_to_right = ', left_to_right: 0'; 
+    $left_to_right = false;
   }
 
-  print "
-   <div id='canvas'>
-</div>
-<script>function init() {
-   let d = document.getElementById('canvas');
-   d.style.width = '20cm';
-   d.style.position = 'relative';
-   let lw = new tq84.line_writer(d, '20cm', {start_from_top_px: 30 $left_to_right });
-
-";
-
+  canvas_and_init_and_opened_script($left_to_right);
 
   $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ? order by v_id limit 50', array($nr_G_or_H));
 
-  foreach ($res_1 as $row_1) { #_{
-
-    printf("lw.emit('<a href=\"Kapitel-%s-%d\">%s-%d-%d</a>:<br><a href=\"/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s\">dt.</a>');\n",
-      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'],
-      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
-
-
-    $res_2 = db_prep_exec_fetchall($db, '
-      select
-        strongs, txt, parsed
-      from
-        word
-      where
-        v = ?
-      order by
-        order_
-       ', array($row_1['v_id'])
-    );
-
-
-    foreach ($res_2 as $row_2) {
-
-      $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word_de from strongs where nr = ?', array($row_2['strongs']));
-
-      if ($row_2['strongs'] == $nr_G_or_H) {
-        $b = '<b style="color:#cc5300">';
-        $b_ = '</b>';
-      }
-      else{
-        $b = $b_ = '';
-      }
-
-
-      printf("lw.emit('$b%s$b_<br>" .
-             "<span class=\"parsed\">%s</span><br>" .
-             "<span class=\"word_de\">%s</span><br>" .
-             "<a class=\"strong\" href=\"Strongs-%s\">%s</a>');\n",
-        to_greek_letters($row_2['txt']),
-        $row_2['parsed'],
-        $row_strongs['word_de'],
-        $row_2['strongs'], $row_2['strongs']
-      );
-
-
-    }
-
-
-  } #_}
-
-  print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
-  print ("}\n</script>\n");
+  emit_verses($res_1, $db, $db_strongs, $nr_G_or_H);
 
   print("<hr><a href='Strongs-Griechisch'>Alle Griechischen Strongs Nummern</a> / <a href='Strongs-Hebraeisch'>Alle Hebräischen Strongs Nummern</a>");
 
@@ -289,11 +230,6 @@ function frequent_words_nt() { #_{
     $nr_G_or_H = $row_cnt['strongs'];
     $strongs_rec = strongs_nr_to_rec($db_strongs, $nr_G_or_H);
 
-#   print "nr_G_or_H: $nr_G_or_H - ";
-#   print $row_cnt['cnt'];
-#   print " - ";
-#   print to_greek_letters($row_cnt['txt']);
-#   print "<br>";
 
     printf("<tr>" . 
       "<td>%d</td>" . 
@@ -319,30 +255,39 @@ function print_chapter($abbr, $c) { #_{
 
   $books_db = db_connect('BibleBooks.db'); # Created by https://github.com/ReneNyffenegger/Biblisches/blob/master/db/create-db.py
 
-
   $book_row = db_prep_exec_fetchrow($books_db, 'select testament from book where id = ?', array($abbr));
 
   $testament = $book_row['testament'];
 
   if ($testament == 'new') {
-    $db = db_connect('BP5.db');
+    $left_to_right = true;
+    $db_text = db_connect('BP5.db');
   }
   else {
-    $db = db_connect('wlc.db');
+    $left_to_right = false;
+    $db_text = db_connect('wlc.db');
   }
 
-  $res = db_prep_exec_fetchall($db, 'select strongs, v, word, parsed from word_v where b=? and c=? order by order_', array($abbr, $c));
+  $res = db_prep_exec_fetchall($db_text, 'select distinct v_id, c, b, v from word_v where b=? and c=? order by v_id', array($abbr, $c));
 
   if (! $res) {
     print("hmm, what now?<br>");
     exit(1);
   }
 
-  print "<table border=1>";
-  foreach ($res as $row) {
-    printf ("<tr><td>%d</td><td><a href='Strongs-%s'>%s</a></td><td>%s</td></tr>",  $row['v'], $row['strongs'], to_greek_letters($row['word']), $row['parsed']);
-  }
-  print "</table>";
+  canvas_and_init_and_opened_script($left_to_right);
+  $db_strongs = db_connect('strongs.db');
+  emit_verses($res, $db_text, $db_strongs, 'n/a');
+
+
+
+# print "<table border=1>";
+# foreach ($res as $row) {
+#   printf ("<tr><td>%d</td><td><a href='Strongs-%s'>%s</a></td><td>%s</td></tr>",  $row['v'], $row['strongs'], to_greek_letters($row['word']), $row['parsed']);
+# }
+# print "</table>";
+
+  print "</script>";
 
   print "<p><a href='index'>Inhaltsverzeichnis</a>";
 } #_}
@@ -388,6 +333,90 @@ function start_html($title) { #_{
   </head>
   <body onload='init()'><h1>$title</h1>
 ";
+
+} #_}
+
+function canvas_and_init_and_opened_script($left_to_right) { #_{
+  #
+  # When calling canvas_and_init_and_opened_script(), it writes a <script> tag
+  # but no </script> tag! This must be done by the caller!
+  #
+
+  $left_to_right_ = '';
+  if ($left_to_right_) {
+     $left_to_right_ = ', left_to_right: 0'; 
+  }
+
+  print "
+   <div id='canvas'>
+</div>
+<script>function init() {
+   let d = document.getElementById('canvas');
+   d.style.width = '20cm';
+   d.style.position = 'relative';
+   let lw = new tq84.line_writer(d, '20cm', {start_from_top_px: 30 $left_to_right_ });
+
+";
+
+} #_}
+
+function emit_verses($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_{
+
+    $first_verse = 1;
+    foreach ($res_1 as $row_1) { #_{
+
+      if (! $first_verse) {
+        printf("lw.new_line();\n");
+      }
+      else {
+        $first_verse = 0;
+      }
+
+
+    printf("lw.emit('<a href=\"Kapitel-%s-%d\">%s-%d-%d</a>:<br><a href=\"/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s\">dt.</a>');\n",
+      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'],
+      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
+
+    $res_2 = db_prep_exec_fetchall($db_text, '
+      select
+        strongs, txt, parsed
+      from
+        word
+      where
+        v = ?
+      order by
+        order_
+       ', array($row_1['v_id'])
+    );
+
+
+    foreach ($res_2 as $row_2) {
+
+      $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word_de from strongs where nr = ?', array($row_2['strongs']));
+
+      if ($row_2['strongs'] == $nr_G_or_H_highlight) {
+        $b = '<b style="color:#cc5300">';
+        $b_ = '</b>';
+      }
+      else{
+        $b = $b_ = '';
+      }
+
+
+      printf("lw.emit('$b%s$b_<br>" .
+             "<span class=\"parsed\">%s</span><br>" .
+             "<span class=\"word_de\">%s</span><br>" .
+             "<a class=\"strong\" href=\"Strongs-%s\">%s</a>');\n",
+        to_greek_letters($row_2['txt']),
+        $row_2['parsed'],
+        $row_strongs['word_de'],
+        $row_2['strongs'], $row_2['strongs']
+      );
+    }
+  } #_}
+
+  print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
+  print ("}\n</script>\n");
 
 } #_}
 
