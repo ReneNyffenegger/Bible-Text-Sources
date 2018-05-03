@@ -343,7 +343,7 @@ function canvas_and_init_and_opened_script($left_to_right) { #_{
   #
 
   $left_to_right_ = '';
-  if ($left_to_right_) {
+  if (! $left_to_right) {
      $left_to_right_ = ', left_to_right: 0'; 
   }
 
