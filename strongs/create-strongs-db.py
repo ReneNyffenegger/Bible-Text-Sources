@@ -116,6 +116,7 @@ def update_strongs(): #_{
     do_('G0235', 'sondern'                         )
     do_('G0244', 'Einmischender'                   )
     do_('G0302', '-'                               ) # Modalpartikel welche meist unübersetzbar ist; bezeichnet Handlung
+    do_('G0450', 'aufstehen'                       ) # tr. (Aor.1 und Fut.Akt.): aufstellen
     do_('G0657', 'sich verabschieden'              ) # sich (als Zurückbleibender) verabschieden
     do_('G0685', 'Fluchen'                         )
     do_('G0855', 'unsichtbar'                      ) # ..er ward entschwunden, weg von ihnen...
@@ -250,10 +251,15 @@ def load_hebrew(): #_{
 #               cur_hebr_lang = next_hebr_lang
 #               cur_hebr_word = next_hebr_word
 
-                data_strongs_l = data_strongs_f.readline()
-                data_strongs_m = re.search('^(H\d\d\d\d) (.) (.*)', data_strongs_l)
-                cur_hebr_lang = data_strongs_m[2]
-                cur_hebr_word = data_strongs_m[3]
+                data_strongs.line('^(H\d\d\d\d) (.) (.*)')
+
+# q cl          data_strongs_l = data_strongs_f.readline()
+# q cl          data_strongs_m = re.search('^(H\d\d\d\d) (.) (.*)', data_strongs_l)
+# q cl          cur_hebr_lang = data_strongs_m[2]
+# q cl          cur_hebr_word = data_strongs_m[3]
+
+                cur_hebr_lang = data_strongs.re_group(2)
+                cur_hebr_word = data_strongs.re_group(3)
 
 #               next_hebr_lang = m[1]
 #               next_hebr_word = m[3]
@@ -281,7 +287,21 @@ def load_hebrew(): #_{
 
 #_}
 
-data_strongs_f = open('data/strongs')
+class strongs_file:
+    def __init__(self, file_name):
+        self.f = open('data/{:s}'.format(file_name))
+
+    def line(self, re_pattern):
+        l = self.f.readline()
+        self.m = re.search(re_pattern, l)
+
+    def re_group(self, group):
+        return self.m[group]
+
+
+data_strongs      = strongs_file('strongs')
+data_uebersetzung = strongs_file('uebersetzung')
+# data_strongs_f      = open('data/strongs')
 
 for entry in root_greek.findall('entries/entry'): #_{
 
@@ -333,10 +353,15 @@ for entry in root_greek.findall('entries/entry'): #_{
        strongs_de = read_strong('de', strongs_nr)
 #      print(strongs_en)
 
-       data_strongs_l = data_strongs_f.readline()
-       data_strongs_m = re.search('^(G\d\d\d\d) (.) (.*)', data_strongs_l)
-       greek_lang    = data_strongs_m[2]
-       greek_unicode = data_strongs_m[3]
+
+       data_strongs.line('^(G\d\d\d\d) (.) (.*)')
+
+#q cl  data_strongs_l = data_strongs_f.readline()
+#q cl  data_strongs_m = re.search('^(G\d\d\d\d) (.) (.*)', data_strongs_l)
+#q cl  greek_lang    = data_strongs_m[2]
+#q cl  greek_unicode = data_strongs_m[3]
+       greek_lang    = data_strongs.re_group(2)
+       greek_unicode = data_strongs.re_group(3)
 
 #      print('nr {:4d} {:s} - {:20s} {:20s}'.format(strongs_nr, data_strongs_m[1], greek_unicode, data_strongs_m[2]))
 #      cur.execute('insert into strongs(nr, word, lang, word_de, strongs_en, strongs_de) values (?, ?, "G", ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, gerhard_kautz_I, strongs_en, strongs_de))
