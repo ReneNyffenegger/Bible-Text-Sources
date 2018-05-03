@@ -23,7 +23,7 @@ cur = db.cursor()
 cur.execute("""create table strongs (
   nr           text    not null primary key, -- G\d\d\d\d or H\d\d\d\d
   word         text    not null,
-  lang         text    check (lang in ('G', 'H', 'A')), -- Greek, Hebrew, Aramaeic
+  lang         text    not null check (lang in ('G', 'H', 'A')), -- Greek, Hebrew, Aramaeic
   word_de      text,
   strongs_en   text    not null,
   strongs_de   text    not null
@@ -112,6 +112,7 @@ def update_strongs(): #_{
         cur.execute('update strongs set word_de = ? where nr = ?', (new_word, nr))
 
     do_('G0098', 'adramytisch'                     )
+    do_('G0102', 'unfähig'                         ) # akt. von Personen: unvermögend
     do_('G0235', 'sondern'                         )
     do_('G0244', 'Einmischender'                   )
     do_('G0302', '-'                               ) # Modalpartikel welche meist unübersetzbar ist; bezeichnet Handlung
@@ -141,11 +142,11 @@ def update_strongs(): #_{
     do_('G2192', 'haben'                           ) # Akt. haben
     do_('G2193', 'bis'                             ) # als Konj. - solange bis...
     do_('G2228', 'oder'                            ) # trennend: oder
-    do_('G2316', 'unfähig'                         ) # akt. von Personen: unvermögend
     do_('G2443', 'damit'                           ) # damit...
     do_('G2476', 'stellen'                         ) # tr.(, Impf., Aor.1 Akt. und Fut.Akt.): stellen
     do_('G2532', 'und'                             )
     do_('G2596', 'herab'                           ) # räuml.: herab
+    do_('G3101', 'Jünger'                          ) # Schüler
     do_('G3195', 'erwarten'                        )
     do_('G3326', 'inmitten'                        ) # örtl. inmitten
     do_('G3467', 'kurzsichtig'                     )
@@ -165,9 +166,10 @@ def update_strongs(): #_{
     do_('G4007', 'sehr'                            ) # im NT immer an ein anderes Wort angehängt um diesem eine positive<br>Betonung zu geben - hervorhebend oder verschärfend: ... wirklich; ... anders;<br>durchaus; eben.
     do_('G4012', 'herum'                           ) # περί - betreffs...
     do_('G4049', 'umhergerissen'                   ) # Ind.Impf....war ständig hin- und hergerissen
+    do_('G4106', 'Irrtum'                          ) # im passiven Sinn: Irrtum
+    do_('G4151', 'Geist'                           ) # Hauch
     do_('G4314', 'für'                             ) # zugunsten von...
     do_('G4381', 'Ansehen-Betrachtender'           ) # der auf Ansehen (Person Rücksicht) Nehmende
-    do_('G4106', 'Irrtum'                          ) # im passiven Sinn: Irrtum
     do_('G4357', 'verharren'                       ) # weiterhin bleiben bei...
     do_('G4595', 'verfault'                        ) # intr. Ind.Pf.Akt. im pass. Sinn: verfault
     do_('G4697', 'erbarmen'                        ) # erbarmen
@@ -212,9 +214,9 @@ def see_also(nr_1, nr_2): #_{
 def load_hebrew(): #_{
 
     cur_hebr_word  = ''
-    next_hebr_word = 'אָב'
+#   next_hebr_word = 'אָב'
     cur_hebr_lang  = ''
-    next_hebr_lang = 'A'
+#   next_hebr_lang = 'A'
     strongs_xx_hebr = {}
 #   cur_hebr_nr = 0
 
@@ -223,8 +225,8 @@ def load_hebrew(): #_{
 
     def read_strong_hebr(lang, nr_expected): #_{
         nonlocal strongs_xx_hebr
-        nonlocal next_hebr_lang
-        nonlocal next_hebr_word
+#       nonlocal next_hebr_lang
+#       nonlocal next_hebr_word
         nonlocal cur_hebr_lang
         nonlocal cur_hebr_word
         ret  = strongs_xx_hebr[lang]['line']
@@ -245,11 +247,16 @@ def load_hebrew(): #_{
 
 
              if lang == 'en':
-                cur_hebr_lang = next_hebr_lang
-                cur_hebr_word = next_hebr_word
+#               cur_hebr_lang = next_hebr_lang
+#               cur_hebr_word = next_hebr_word
 
-                next_hebr_lang = m[1]
-                next_hebr_word = m[3]
+                data_strongs_l = data_strongs_f.readline()
+                data_strongs_m = re.search('^(H\d\d\d\d) (.) (.*)', data_strongs_l)
+                cur_hebr_lang = data_strongs_m[2]
+                cur_hebr_word = data_strongs_m[3]
+
+#               next_hebr_lang = m[1]
+#               next_hebr_word = m[3]
                 
 
              return ret
@@ -257,12 +264,6 @@ def load_hebrew(): #_{
              ret += strongs_xx_hebr[lang]['line']
     #_}
 
-#   def insert_hebrew():
-#       cur.execute('insert into strongs(nr, word, lang, strongs_en, strongs_de) values (?, ?, ?, ?, ?)', ('H' + str(cur_strongs_nr).zfill(4), cur_hebr_word, strongs_en, strongs_de))
-
-
-#      strongs_en = read_strong('en', strongs_nr)
-#      strongs_de = read_strong('de', strongs_nr)
 
     for xx in ['de', 'en']: #_{
        strongs_xx_hebr[xx] = {}
@@ -278,22 +279,12 @@ def load_hebrew(): #_{
         cur.execute('insert into strongs(nr, word, lang, strongs_en, strongs_de) values (?, ?, ?, ?, ?)', ('H' + str(strongs_nr_hebr).zfill(4), cur_hebr_word, cur_hebr_lang, strongs_en_hebr, strongs_de_hebr))
 
 
-
-#       if m:
-#          hebr_nr = int(m[2])
-
-#          if hebr_nr != cur_hebr_nr +1:
-#             print('! hebr_nr: {:d}, cur_hebr_nr: {:d}'.format(hebr_nr, cur_hebr_nr))
-
-#          insert_hebrew()
-
-#          cur_hebr_nr = hebr_nr
-
-#       hebr_l = hebr.readline()
-
 #_}
 
+data_strongs_f = open('data/strongs')
+
 for entry in root_greek.findall('entries/entry'): #_{
+
 
     strongs_de = ''
     strongs_en = ''
@@ -303,7 +294,8 @@ for entry in root_greek.findall('entries/entry'): #_{
        strongs_nr = int(entry.findtext('./strongs'))
 
 
-       greek_unicode = greek.attrib['unicode']
+#      greek_unicode = greek.attrib['unicode']
+
 
        if strongs_nr < last_strongs_nr:
           print('cur_strongs_nr={:d}, strongs_nr={:d}'.format(strongs_nr, cur_strongs_nr))
@@ -341,7 +333,14 @@ for entry in root_greek.findall('entries/entry'): #_{
        strongs_de = read_strong('de', strongs_nr)
 #      print(strongs_en)
 
-       cur.execute('insert into strongs(nr, word, word_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, gerhard_kautz_I, strongs_en, strongs_de))
+       data_strongs_l = data_strongs_f.readline()
+       data_strongs_m = re.search('^(G\d\d\d\d) (.) (.*)', data_strongs_l)
+       greek_lang    = data_strongs_m[2]
+       greek_unicode = data_strongs_m[3]
+
+#      print('nr {:4d} {:s} - {:20s} {:20s}'.format(strongs_nr, data_strongs_m[1], greek_unicode, data_strongs_m[2]))
+#      cur.execute('insert into strongs(nr, word, lang, word_de, strongs_en, strongs_de) values (?, ?, "G", ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, gerhard_kautz_I, strongs_en, strongs_de))
+       cur.execute('insert into strongs(nr, word, lang, word_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, greek_lang, gerhard_kautz_I, strongs_en, strongs_de))
 
        strongs_derivations=entry.findall('./strongs_derivation')
        if strongs_derivations is not None:
@@ -368,6 +367,7 @@ for entry in root_greek.findall('entries/entry'): #_{
 #
 see_also('G0894', 'G4088') # ἄψινθος <--> ...  Wermut / Bitterkeit
 see_also('G1121', 'G1124') # γράμμα <--> γραφή
+see_also('G1320', 'G3101') # Jünger - Lehrer
 see_also('G1435', 'G5485') # δῶρον <--> χάρις
 see_also('G1519', 'G1722') # ἐν <--> εἰς
 see_also('G1841', 'G3598') # ἔξοδος <--> ὁδός
