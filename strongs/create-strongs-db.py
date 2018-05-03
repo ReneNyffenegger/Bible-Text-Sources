@@ -182,6 +182,7 @@ def update_strongs(): #_{
     do_('G5435', 'Gerücht'                         ) # Kunde
     do_('G5503', 'Witwe'                           )
     do_('G5537', 'anweisen'                        ) # (göttliche) Weisung erteilen
+    do_('G5578', 'falscher Prophet'                ) # falsche Prophet
     do_('G5580', 'falscher Messias'                ) # ψευδόχριστος - falsche Messiase
     do_('G5424', 'Zwerchfell'                      ) # Verstand(esregungen)
     do_('G5616', 'wie'                             ) # vergleichend: gleichsam wie...
