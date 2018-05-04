@@ -139,7 +139,7 @@ function strongs_alle($db, $G_or_H) { #_{
 
   print("<table$class_table>");
   foreach ($res as $row) {
-    printf("<tr><td><a href='Strongs-%s'>%s</a></td><td>%s</td></tr>", $row['nr'], $row['word'], $row['word_de']);
+    printf("<tr><td><a href='Strongs-%s'>%s</a></td><td>%s</td><td>%s</td></tr>", $row['nr'], $row['nr'], $row['word'], $row['word_de']);
   }
   print("</table>");
 
@@ -326,7 +326,7 @@ function start_html($title) { #_{
 
     a.strong {font-size: 70%}
    .parsed   {font-size: 80%; color: #339;}
-   table.all-hebr-strongs td:nth-child(1) {text-align: right}
+   table.all-hebr-strongs td:nth-child(2) {text-align: right}
 
   </style>
   <script type='text/javascript' src='/requisites/js/line_writer.js'></script>
