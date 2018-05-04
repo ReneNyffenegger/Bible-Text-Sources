@@ -158,7 +158,7 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
     $db = db_connect('wlc.db');
   }
 
-  $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de, strongs_en, strongs_de from strongs where nr = ?', array($nr_G_or_H));
+  $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de, note_de, strongs_en, strongs_de from strongs where nr = ?', array($nr_G_or_H));
 
 
   $word_de = $row_strongs['word_de'];
@@ -178,6 +178,7 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
     );
 
 
+
   print "Englischer Eintrag für die Strong Nummer:";
   print "<pre style='background-color:#c9ffaf; border:1px solid black'><code>" . $strongs_en . "</code></pre>";
 
@@ -185,6 +186,12 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
   print "<pre style='background-color:#c9faff; border:1px solid black'><code>" . $strongs_de . "</code></pre>";
 
   print "<hr>";
+
+  $note_de = $row_strongs['note_de'];
+  if ($note_de != NULL) {
+    print(replace_signum_sectionis($note_de));            
+    print "<hr>";
+  }
 
   $res_strongs_see = db_prep_exec_fetchall($db_strongs, 'select nr_2 from strongs_see where nr_1 = ?', array($nr_G_or_H));
   foreach ($res_strongs_see as $row_strongs_see) {
@@ -418,6 +425,21 @@ function emit_verses($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_{
   print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
   print ("}\n</script>\n");
 
+} #_}
+
+function replace_signum_sectionis($text) { #_{
+  $text = preg_replace_callback(
+    '/§([^-]+)-(\d+)-(\d+)/',
+    function($m) { # use  ($var)
+      $b=$m[1];
+      $c=$m[2];
+      $v=$m[3];
+      return "<a href='/Biblisches/Kommentare/${b}_${c}.html#I$b-$c-$v'>$b $c:$v</a>";
+    },
+    $text
+  );
+  return $text;
+  
 } #_}
 
 ?>
