@@ -26,6 +26,7 @@ cur.execute("""create table strongs (
   lang            text    not null check (lang in ('G', 'H', 'A')), -- Greek, Hebrew, Aramaeic
   gerhard_kautz_I text,
   word_de         text,
+  note_de         text,
   strongs_en      text    not null,
   strongs_de      text    not null
 )""")
@@ -285,12 +286,14 @@ def load_hebrew(): #_{
         strongs_de_hebr = read_strong_hebr('de', strongs_nr_hebr)
 
         data_uebersetzung.line('^(H\d\d\d\d) (.*)')
+        data_bemerkung   .line('^(H\d\d\d\d) (.*)')
         word_de       = data_uebersetzung.re_group(2)
+        note_de       = data_bemerkung   .re_group(2)
+
         if word_de == '':
            word_de       = 'n/a'
 
-        cur.execute('insert into strongs(nr, word, lang, word_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?)', ('H' + str(strongs_nr_hebr).zfill(4), cur_hebr_word, cur_hebr_lang, word_de, strongs_en_hebr, strongs_de_hebr))
-
+        cur.execute('insert into strongs(nr, word, lang, word_de, note_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?, ?)', ('H' + str(strongs_nr_hebr).zfill(4), cur_hebr_word, cur_hebr_lang, word_de, note_de, strongs_en_hebr, strongs_de_hebr))
 
 #_}
 
@@ -303,12 +306,14 @@ class strongs_file:
         self.m = re.search(re_pattern, l)
 
     def re_group(self, group):
+        if self.m is None:
+           return None
         return self.m[group]
 
 
 data_strongs      = strongs_file('strongs')
 data_uebersetzung = strongs_file('uebersetzung')
-# data_strongs_f      = open('data/strongs')
+data_bemerkung    = strongs_file('bemerkung')
 
 for entry in root_greek.findall('entries/entry'): #_{
 
@@ -363,6 +368,7 @@ for entry in root_greek.findall('entries/entry'): #_{
 
        data_strongs     .line('^(G\d\d\d\d) (.) (.*)')
        data_uebersetzung.line('^(G\d\d\d\d) (.*)')
+       data_bemerkung   .line('^(G\d\d\d\d) (.*)')
 
 #q cl  data_strongs_l = data_strongs_f.readline()
 #q cl  data_strongs_m = re.search('^(G\d\d\d\d) (.) (.*)', data_strongs_l)
@@ -372,11 +378,13 @@ for entry in root_greek.findall('entries/entry'): #_{
        greek_unicode = data_strongs.re_group(3)
 
        word_de       = data_uebersetzung.re_group(2)
+       note_de       = data_bemerkung   .re_group(2)
+
 
 
 #      print('nr {:4d} {:s} - {:20s} {:20s}'.format(strongs_nr, data_strongs_m[1], greek_unicode, data_strongs_m[2]))
 #      cur.execute('insert into strongs(nr, word, lang, word_de, strongs_en, strongs_de) values (?, ?, "G", ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, gerhard_kautz_I, strongs_en, strongs_de))
-       cur.execute('insert into strongs(nr, word, lang, gerhard_kautz_I, word_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, greek_lang, gerhard_kautz_I, word_de, strongs_en, strongs_de))
+       cur.execute('insert into strongs(nr, word, lang, gerhard_kautz_I, word_de, note_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, greek_lang, gerhard_kautz_I, word_de, note_de, strongs_en, strongs_de))
 
        strongs_derivations=entry.findall('./strongs_derivation')
        if strongs_derivations is not None:
@@ -403,6 +411,7 @@ see_also('G1435', 'G5485') # δῶρον <--> χάρις
 see_also('G1519', 'G1722') # ἐν <--> εἰς
 see_also('G1841', 'G3598') # ἔξοδος <--> ὁδός
 see_also('G2549', 'G4189') # κακία <-->  πονηρία   ( 1. Kor 5:8 )
+see_also('G3684', 'G3688')
 see_also('G4105', 'G4107') # πλανάω <-->  πλανήτης
 see_also('G5215', 'G5603') # ὕμνος <--> ᾠδή
 
