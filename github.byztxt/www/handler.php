@@ -168,16 +168,8 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
   $strongs_en = $row_strongs['strongs_en'];
 
   $strongs_de = $row_strongs['strongs_de']; # Google Übersetzung
-  $strongs_de = preg_replace_callback('/(G|H)(\d+)/',
-    function($m) use ($db_strongs) {
-      $strongs_nr_ = $m[1] . str_pad($m[2], 4, '0', STR_PAD_LEFT);
-       $row_strongs_ = db_prep_exec_fetchrow($db_strongs, 'select word from strongs where nr = ?', array($strongs_nr_));
-       return "<a href='Strongs-$strongs_nr_'>" . $row_strongs_['word'] . "</a>";
-    },
-    $strongs_de
-    );
 
-
+  $strongs_de = replace_GH_numbers($strongs_de, $db_strongs);
 
   print "Englischer Eintrag für die Strong Nummer:";
   print "<pre style='background-color:#c9ffaf; border:1px solid black'><code>" . $strongs_en . "</code></pre>";
@@ -189,7 +181,7 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
 
   $note_de = $row_strongs['note_de'];
   if ($note_de != NULL) {
-    print(replace_signum_sectionis($note_de));            
+    print(replace_signum_sectionis(replace_GH_numbers($note_de, $db_strongs)));
     print "<hr>";
   }
 
@@ -227,7 +219,7 @@ function frequent_words_nt() { #_{
 
   start_html('Häufige Wörter im Neuen Testament');
 
-  $db_bp5 = db_connect('BP5.db'); 
+  $db_bp5 = db_connect('BP5.db');
   $db_strongs = db_connect('strongs.db');
   print ("<table>");
   $res_cnt = db_prep_exec_fetchall($db_bp5, 'select count(*) cnt, strongs, txt from word group by strongs order by count(*) desc limit 50');
@@ -238,8 +230,8 @@ function frequent_words_nt() { #_{
     $strongs_rec = strongs_nr_to_rec($db_strongs, $nr_G_or_H);
 
 
-    printf("<tr>" . 
-      "<td>%d</td>" . 
+    printf("<tr>" .
+      "<td>%d</td>" .
       "<td>%s</td>" .
       "<td>%s</td></tr>",
       $row_cnt['cnt'],
@@ -285,8 +277,6 @@ function print_chapter($abbr, $c) { #_{
   canvas_and_init_and_opened_script($left_to_right);
   $db_strongs = db_connect('strongs.db');
   emit_verses($res, $db_text, $db_strongs, 'n/a');
-
-
 
 # print "<table border=1>";
 # foreach ($res as $row) {
@@ -351,7 +341,7 @@ function canvas_and_init_and_opened_script($left_to_right) { #_{
 
   $left_to_right_ = '';
   if (! $left_to_right) {
-     $left_to_right_ = ', left_to_right: 0'; 
+     $left_to_right_ = ', left_to_right: 0';
   }
 
   print "
@@ -439,7 +429,21 @@ function replace_signum_sectionis($text) { #_{
     $text
   );
   return $text;
-  
+
+} #_}
+
+function replace_GH_numbers($text, $db_strongs) { #_{
+  $text = preg_replace_callback('/(G|H)(\d+)/',
+    function($m) use ($db_strongs) {
+      $strongs_nr_ = $m[1] . str_pad($m[2], 4, '0', STR_PAD_LEFT);
+       $row_strongs_ = db_prep_exec_fetchrow($db_strongs, 'select word from strongs where nr = ?', array($strongs_nr_));
+       return "<a href='Strongs-$strongs_nr_'>" . $row_strongs_['word'] . "</a>";
+    },
+    $text
+    );
+
+  return $text;
+
 } #_}
 
 ?>
