@@ -285,13 +285,13 @@ def load_hebrew(): #_{
         strongs_en_hebr = read_strong_hebr('en', strongs_nr_hebr)
         strongs_de_hebr = read_strong_hebr('de', strongs_nr_hebr)
 
-        data_uebersetzung.line('^(H\d\d\d\d) (.*)')
+        data_uebersetzung.line('^(H\d\d\d\d) (.) (.*)')
         data_bemerkung   .line('^(H\d\d\d\d) (.*)')
-        word_de       = data_uebersetzung.re_group(2)
+        word_de       = data_uebersetzung.re_group(3)
         note_de       = data_bemerkung   .re_group(2)
 
         if word_de == '':
-           word_de       = 'n/a'
+           word_de       = '' # 'n/a'
 
         cur.execute('insert into strongs(nr, word, lang, word_de, note_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?, ?)', ('H' + str(strongs_nr_hebr).zfill(4), cur_hebr_word, cur_hebr_lang, word_de, note_de, strongs_en_hebr, strongs_de_hebr))
 
@@ -367,17 +367,13 @@ for entry in root_greek.findall('entries/entry'): #_{
 
 
        data_strongs     .line('^(G\d\d\d\d) (.) (.*)')
-       data_uebersetzung.line('^(G\d\d\d\d) (.*)')
+       data_uebersetzung.line('^(G\d\d\d\d) (.) (.*)')
        data_bemerkung   .line('^(G\d\d\d\d) (.*)')
 
-#q cl  data_strongs_l = data_strongs_f.readline()
-#q cl  data_strongs_m = re.search('^(G\d\d\d\d) (.) (.*)', data_strongs_l)
-#q cl  greek_lang    = data_strongs_m[2]
-#q cl  greek_unicode = data_strongs_m[3]
        greek_lang    = data_strongs.re_group(2)
        greek_unicode = data_strongs.re_group(3)
 
-       word_de       = data_uebersetzung.re_group(2)
+       word_de       = data_uebersetzung.re_group(3)
        note_de       = data_bemerkung   .re_group(2)
 
 
@@ -409,16 +405,22 @@ see_also('G1121', 'G1124') # γράμμα <--> γραφή
 see_also('G1320', 'G3101') # Jünger - Lehrer
 see_also('G1435', 'G5485') # δῶρον <--> χάρις
 see_also('G1519', 'G1722') # ἐν <--> εἰς
+see_also('G1763', 'G2094') # Jahr
 see_also('G1841', 'G3598') # ἔξοδος <--> ὁδός
 see_also('G2166', 'H6578') # Euphrat
+see_also('G2411', 'G2413') # heilig
 see_also('G2549', 'G4189') # κακία <-->  πονηρία   ( 1. Kor 5:8 )
+see_also('G3529', 'G3534') # Sieg
 see_also('G3684', 'G3688')
 see_also('G4105', 'G4107') # πλανάω <-->  πλανήτης
+see_also('G4215', 'H5103') # Strom
+see_also('G4215', 'H5104') # Strom
 see_also('G5215', 'G5603') # ὕμνος <--> ᾠδή
 
 see_also('H1908', 'H1910') # Hadad <--> Hadad-Rimmon
 see_also('H1910', 'H7417') # Hadad-Rimmon <--> Rimmon
 see_also('H1961', 'H3068') # sein <--> JHWH
+see_also('H5103', 'H5104') # Strom
 #
 #  select count(*), nr, nr_greek from strongs_greek_see group by nr, nr_greek having count(*) > 1;
 #
