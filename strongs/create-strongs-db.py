@@ -291,7 +291,7 @@ def load_hebrew(): #_{
         note_de       = data_bemerkung   .re_group(2)
 
         if word_de == '':
-           word_de       = '' # 'n/a'
+           word_de =  '' # 'n/a'
 
         cur.execute('insert into strongs(nr, word, lang, word_de, note_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?, ?)', ('H' + str(strongs_nr_hebr).zfill(4), cur_hebr_word, cur_hebr_lang, word_de, note_de, strongs_en_hebr, strongs_de_hebr))
 
@@ -408,10 +408,13 @@ see_also('G1519', 'G1722') # ἐν <--> εἰς
 see_also('G1763', 'G2094') # Jahr
 see_also('G1841', 'G3598') # ἔξοδος <--> ὁδός
 see_also('G2166', 'H6578') # Euphrat
+see_also('G2213', 'G2214') # Streitfrage
 see_also('G2411', 'G2413') # heilig
+see_also('G2451', 'G2453') # jüdisch
 see_also('G2549', 'G4189') # κακία <-->  πονηρία   ( 1. Kor 5:8 )
 see_also('G3529', 'G3534') # Sieg
 see_also('G3684', 'G3688')
+see_also('G3720', 'G3721') # frühmorgens
 see_also('G4105', 'G4107') # πλανάω <-->  πλανήτης
 see_also('G4215', 'H5103') # Strom
 see_also('G4215', 'H5104') # Strom

@@ -64,7 +64,7 @@ G0063   auf freiem Feld sein
 G0064   fangen
 G0065   vom wilden Ölbaum
 G0066   wild
-G0067   Agrippa
+G0067 t Agrippa
 G0068   Feld
 G0069   schlaflos (wachen)
 G0070   Schlaflosigkeiten
@@ -140,7 +140,7 @@ G0139   Partei
 G0140   (erwählend) vorziehen
 G0141   Parteiungen (anrichtend)
 G0142   aufheben
-G0143   merken auf...
+G0143   merken auf
 G0144   Erfahrung
 G0145   Sinneswerkzeuge
 G0146   schandgewinn(süchtig)
@@ -300,7 +300,7 @@ G0299   makellos
 G0300   Amon
 G0301   Amos
 G0302   -
-G0303   inmitten...
+G0303   inmitten
 G0304   Stufe
 G0305   hinaufsteigen
 G0306   aufschieben
@@ -324,7 +324,7 @@ G0323   Einsetzung
 G0324   gastfreundlich empfangen
 G0325   überreichen
 G0326   aufleben
-G0327   forschen nach...
+G0327   forschen nach
 G0328   sich hinaufgürten
 G0329   wieder anfachen
 G0330   wieder aufblühen lassen
@@ -343,7 +343,7 @@ G0342   Erneuerung
 G0343   wieder enthüllen
 G0344   wieder umkehren
 G0345   zu Tisch liegen
-G0346   (zu einem Ganzen) zusammenfassen
+G0346   zusammenfassen
 G0347   sich lagern
 G0348   zurückhalten
 G0349   laut aufschreien
@@ -360,8 +360,8 @@ G0359   Aufbruch
 G0360   aufbrechen
 G0361   sündlos
 G0362   erwarten
-G0363   erinnern an...
-G0364   Erinnerung an...
+G0363   erinnern an
+G0364   Erinnerung an
 G0365   wieder neu machen
 G0366   wieder nüchtern werden
 G0367   Ananias
@@ -384,7 +384,7 @@ G0383   aufwiegeln
 G0384   jmdn. beunruhigen
 G0385   hinaufreißen
 G0386   Tät.: Aufstehen
-G0387   aufständisch machen
+G0387   aufwiegeln
 G0388   wieder kreuzigen
 G0389   aufseufzen
 G0390   verkehren
@@ -478,7 +478,7 @@ G0477   Widerspruch
 G0478   sich entgegenstellen
 G0479   wiedereinladen
 G0480   feindlich gegenüberliegen
-G0481   gegenüber von ...
+G0481   gegenüber von 
 G0482   sich annehmen
 G0483   widersprechen
 G0484   Sichannehmen
@@ -494,7 +494,7 @@ G0493   Antipas
 G0494   Antipatris
 G0495   gegenüber
 G0496   widerstreben
-G0497   zu Felde ziehen gegen...
+G0497   zu Felde ziehen gegen
 G0498   sich entgegenstellen
 G0499   Gegenbild
 G0500   Antichristus
@@ -507,7 +507,7 @@ G0506   nicht untergeordnet
 G0507   droben
 G0508   Oberzimmer
 G0509   örtl.: von oben her
-G0510   oberen...
+G0510   oberen
 G0511   adv.: weiter nach oben
 G0512   nutzlos
 G0513   Axt
@@ -526,7 +526,7 @@ G0525   loskommen
 G0526   entfremdet
 G0527   frisch
 G0528   begegnen
-G0529   zu einer Begegnung (mit)...
+G0529   zu einer Begegnung (mit)
 G0530   einmal
 G0531   unveränderlich
 G0532   unvorbereitet
@@ -534,7 +534,7 @@ G0533   verleugnen
 G0534   von jetzt an
 G0535   Fertigstellung
 G0536   Erstling(e)
-G0537   Mit einem Substantiv mit Artikel: ganz
+G0537   alle(s)
 G0538   täuschen
 G0539   Täuschung
 G0540   ohne Vater
@@ -628,7 +628,7 @@ G0627   Verantwortung
 G0628   sich vollständig baden lassen
 G0629   Erlösung
 G0630   loslassen
-G0631   sich abwischen von...
+G0631   sich abwischen von
 G0632   jmdm. etw. erweisen
 G0633   sich abwaschen
 G0634   abfallen
@@ -639,7 +639,7 @@ G0638   vollends ersticken
 G0639   ratlos sein
 G0640   Ratlosigkeit
 G0641   sich wegschleudern
-G0642   übertr. Aor.verwaist worden von...
+G0642   verwaist worden von
 G0643   sich rüsten
 G0644   Verschattung
 G0645   losreißen
@@ -717,7 +717,7 @@ G0716   Wagen
 G0717   Harmagedon
 G0718   verloben
 G0719   Gelenk
-G0720   sich weigern
+G0720   (ver)leugnen
 G0721   Lämmlein
 G0722   pflügen
 G0723   Pflug
@@ -878,9 +878,9 @@ G0877   Unbesonnenheit
 G0878   unbesonnen
 G0879   einschlafen
 G0880   stimmlos
-G0881   Ahas
-G0882   Achaia
-G0883   Achaicus
+G0881 t Ahas
+G0882 t Achaia
+G0883 t Achaikus
 G0884   undankbar
 G0885   Achim
 G0886   nicht von Menschenhand gemacht
@@ -954,18 +954,18 @@ G0953   entheiligen
 G0954   Beelzebul
 G0955   Beliar
 G0956   Wurfpfeil
-G0957   adv. elativisch: am besten
-G0958   Benjamin
-G0959   Bernike
-G0960   Beröa
-G0961   Beröer
-G0962   Bethabara
-G0963   Bethanien
-G0964   Bethesda
-G0965   Bethlehem
-G0966   Bethsaida
-G0967   Bethphage
-G0968   Schritt
+G0957   am besten
+G0958 t Benjamin
+G0959 t Bernike
+G0960 t Beröa
+G0961 t Beröer
+G0962 t Bethabara
+G0963 t Bethanien
+G0964 t Bethesda
+G0965 t Bethlehem
+G0966 t Bethsaida
+G0967 t Bethphage
+G0968   Richterstuhl/Fussbreit
 G0969   Beryll
 G0970   Gewalt
 G0971   mit Gewalt (hineindrängen)
@@ -1039,8 +1039,8 @@ G1038   Gerber
 G1039   aus Byssos
 G1040   Byssus
 G1041   Stufenaltar
-G1042   Gabbatha
-G1043   Gabriel
+G1042 t Gabbatha
+G1043 t Gabriel
 G1044   Krebsgeschwür
 G1045   Gad
 G1046   Gadarener
@@ -1055,7 +1055,7 @@ G1054   galatisch
 G1055   Flaute
 G1056   Galiläa
 G1057   galiläisch
-G1058   Gallio
+G1058 t Gallio
 G1059   Gamaliel
 G1060   heiraten
 G1061   verheiraten
@@ -1160,8 +1160,8 @@ G1159   aufwenden
 G1160   Aufwand
 G1161   aber
 G1162   Flehen
-G1163   (man) muß...
-G1164   beispielhafte Beweis
+G1163   müssen
+G1164   beispielhafter Beweis
 G1165   jmdn. zur Schau stellen
 G1166   zeigen
 G1167   Verzagtheit
@@ -1176,7 +1176,7 @@ G1175   Götterverehrung
 G1176   zehn
 G1177   zwölf
 G1178   fünfzehn
-G1179   Dekapolis
+G1179 t Dekapolis
 G1180   vierzehn
 G1181   Zehnte
 G1182   zehnte
@@ -1756,7 +1756,7 @@ G1755   Wirkungen
 G1756   wirksam
 G1757   gesegnet werden in...
 G1758   bedrücken
-G1759   Antwort auf Frage: Wohin?: hierher
+G1759   hier(her)
 G1760   überlegen
 G1761   Überlegung
 G1762   es gibt
@@ -1984,7 +1984,7 @@ G1983   aufpassen
 G1984   Heimsuchung
 G1985   Aufseher
 G1986   sich (Vorhaut) überziehen
-G1987   bekannt sein mit...
+G1987 ? verstehen/wissen
 G1988   Meister
 G1989   jmdm. etw. (brieflich) mitteilen
 G1990   verstehend
@@ -2062,7 +2062,7 @@ G2061   Hermogenes
 G2062   kriechendes Getier
 G2063   rote (Meer)
 G2064   kommen
-G2065   fragen
+G2065   fragen/bitten
 G2066   Kleidung
 G2067   
 G2068   essen
@@ -2177,8 +2177,8 @@ G2176   links
 G2177   auf jmdn. losspringen
 G2178   ein für allemal
 G2179   
-G2180   Epheser
-G2181   Ephesus
+G2180 t Epheser
+G2181 t Ephesus
 G2182   Erfinder
 G2183   (diensthabende) Priesterklasse
 G2184   täglich
@@ -2210,8 +2210,8 @@ G2209   Verlust
 G2210   verlieren
 G2211   Zenas
 G2212   suchen
-G2213   Streitfrage
-G2214   Untersuchung
+G2213 ? Streitfrage (2213)
+G2214 ? Streitfrage (2214)
 G2215   Lolch
 G2216   Serubabel
 G2217   tiefste Finsternis
@@ -2293,7 +2293,7 @@ G2292   guten Mutes sein
 G2293   guten Mutes sein (Imperativ)
 G2294   Mut
 G2295   Erstaunliche
-G2296   Akt.intr. und Dep.erstaunen
+G2296   verwundern
 G2297   erstaunliche (Dinge)
 G2298   erstaunlich
 G2299   Göttin
@@ -2450,7 +2450,7 @@ G2449   Judäa
 G2450   sich jüdisch verhalten
 G2451   jüdisch
 G2452   nach jüdischer Art und Weise
-G2453   als Adj.: jüdisch
+G2453   jüdisch
 G2454   Judentum
 G2455   Judas
 G2456   Julia
@@ -2509,7 +2509,7 @@ G2508   säuberlich reinigen
 G2509   gerade so wie
 G2510   festbeißen
 G2511   reinigen
-G2512   (sühnende) Reinigung
+G2512   Reinigung
 G2513   rein
 G2514   Reinheit
 G2515   Lehrstuhl
@@ -2528,7 +2528,7 @@ G2527   verneint: prinzipiell (nicht)...
 G2528   vollständig bewaffnet
 G2529   Ind.wird mit Einsicht gesehen
 G2530   je nachdem wie...
-G2531   so wie...
+G2531   so wie
 G2532   und
 G2533   Kaiphas
 G2534   wenigstens
@@ -2885,7 +2885,7 @@ G2885   schmücken
 G2886   weltlich
 G2887   anständig
 G2888   Weltbeherrscher
-G2889   Schmuck
+G2889   Welt
 G2890   Quartus
 G2891   Imp.: steh auf!
 G2892   Wache
@@ -3475,7 +3475,7 @@ G3575   Noah
 G3576   träge
 G3577   Rücken
 G3578   Gastzimmer
-G3579   als Fremde (beherbergen)
+G3579   (be)herbergen
 G3580   gastfrei sein
 G3581   fremdartig
 G3582   Krug
@@ -3592,9 +3592,9 @@ G3692   Loch
 G3693   von hinten
 G3694   hinten
 G3695   sich bewaffnen
-G3696   Waf e
+G3696   Waffe
 G3697   welcher Art...
-G3698   auf Vergangenheit bezogen: als
+G3698   als
 G3699   wo
 G3700   sich sehen lassend
 G3701   Gesicht
@@ -3609,7 +3609,7 @@ G3709   Zorn
 G3710   zürnen
 G3711   jähzornig
 G3712   Faden
-G3713   trachten nach...
+G3713   trachten nach
 G3714   Bergland
 G3715   Verlangen
 G3716   aufrecht wandeln
@@ -3662,8 +3662,8 @@ G3762   niemand
 G3763   niemals
 G3764   aber noch nicht
 G3765   nicht mehr
-G3766   also doch...?
-G3767   also...
+G3766   also doch
+G3767   (al)so
 G3768   noch nicht
 G3769   Schwanz
 G3770   aus Himmeln...
@@ -3673,7 +3673,7 @@ G3773   Urbanus
 G3774   Uria
 G3775   Ohr
 G3776   Vermögen
-G3777   weder...noch
+G3777   weder/noch
 G3778   dies*
 G3779   ebenso
 G3780   n i c h t
@@ -3868,7 +3868,7 @@ G3968   Vaterland
 G3969   Patrobas
 G3970   väterüberliefert
 G3971   väterlich (ererbt)
-G3972   Paulus
+G3972 t Paulus
 G3973   ruhen
 G3974   Paphos
 G3975   dick werden
@@ -4034,7 +4034,7 @@ G4134   voll
 G4135   gänzlich erfüllen
 G4136   volle (Gewißheit)
 G4137   voll machen
-G4138   als Erg.: Füllung
+G4138   (Er-)Füllung
 G4139   Nächste
 G4140   Befriedigung
 G4141   von einem Schlag getroffen werden
@@ -4233,7 +4233,7 @@ G4333   dazu erwerben
 G4334   hinzutreten
 G4335   Gebet
 G4336   beten
-G4337   achten auf...
+G4337 ? achten haben/sich hüten
 G4338   annageln
 G4339   Proselyt
 G4340   befristet
@@ -5514,9 +5514,9 @@ G5614   Hosianna
 G5615   ebenso
 G5616   wie
 G5617   Hosea
-G5618   geradeso wie...
+G5618   geradeso wie
 G5619   gleichsam
-G5620   so daß...
+G5620   so daß
 G5621   Ohrmuschel
 G5622   Nutzen
 G5623   nützen
@@ -6762,7 +6762,7 @@ H1238
 H1239   
 H1240   
 H1241   
-H1242   
+H1242   Morgen
 H1243   
 H1244   
 H1245   
@@ -7338,7 +7338,7 @@ H1814
 H1815   
 H1816   
 H1817   
-H1818   
+H1818   Blut
 H1819   
 H1820   
 H1821   
@@ -7835,7 +7835,7 @@ H2311
 H2312   
 H2313   Hiddekel
 H2314   
-H2315   
+H2315   Gemach
 H2316   
 H2317   
 H2318   
@@ -8341,7 +8341,7 @@ H2817
 H2818   
 H2819   
 H2820   
-H2821   
+H2821   verfinstern
 H2822   
 H2823   
 H2824   
@@ -8740,7 +8740,7 @@ H3216
 H3217   
 H3218   
 H3219   
-H3220   
+H3220   Meer
 H3221   
 H3222   
 H3223   
@@ -9118,7 +9118,7 @@ H3594
 H3595   
 H3596   
 H3597   
-H3598   
+H3598   Plejaden
 H3599   
 H3600   
 H3601   
@@ -9435,7 +9435,7 @@ H3911
 H3912   
 H3913   
 H3914   
-H3915   
+H3915   Nacht
 H3916   
 H3917   
 H3918   
@@ -9709,7 +9709,7 @@ H4185
 H4186   
 H4187   
 H4188   
-H4189   
+H4189   Fessel
 H4190   
 H4191   
 H4192   
@@ -9845,7 +9845,7 @@ H4321
 H4322   
 H4323   
 H4324   
-H4325   
+H4325   Wasser
 H4326   
 H4327   
 H4328   
@@ -10095,7 +10095,7 @@ H4571
 H4572   
 H4573   
 H4574   
-H4575   
+H4575   Gebinde
 H4576   
 H4577   
 H4578   
@@ -11426,7 +11426,7 @@ H5902
 H5903   
 H5904   
 H5905   
-H5906   
+H5906   großer Bär
 H5907   
 H5908   
 H5909   
@@ -11673,7 +11673,7 @@ H6149
 H6150   
 H6151   
 H6152   
-H6153   
+H6153   Abend
 H6154   
 H6155   
 H6156   
@@ -12125,7 +12125,7 @@ H6601
 H6602   
 H6603   
 H6604   
-H6605   
+H6605   öffnen/lösen
 H6606   
 H6607   
 H6608   
@@ -12277,7 +12277,7 @@ H6753
 H6754   
 H6755   
 H6756   
-H6757   
+H6757   Todesschatten
 H6758   
 H6759   
 H6760   
@@ -12641,7 +12641,7 @@ H7117
 H7118   
 H7119   
 H7120   
-H7121   
+H7121   nennen/anrufen
 H7122   
 H7123   
 H7124   
@@ -12714,7 +12714,7 @@ H7190
 H7191   
 H7192   
 H7193   
-H7194   
+H7194   binden
 H7195   
 H7196   
 H7197   
@@ -13730,7 +13730,7 @@ H8206
 H8207   
 H8208   
 H8209   
-H8210   
+H8210   (ver-)gießen
 H8211   
 H8212   
 H8213   
@@ -14006,7 +14006,7 @@ H8482
 H8483   
 H8484   
 H8485   
-H8486   
+H8486   Süden
 H8487   
 H8488   
 H8489   
