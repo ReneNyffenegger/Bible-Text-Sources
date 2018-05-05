@@ -424,6 +424,7 @@ see_also('H1908', 'H1910') # Hadad <--> Hadad-Rimmon
 see_also('H1910', 'H7417') # Hadad-Rimmon <--> Rimmon
 see_also('H1961', 'H3068') # sein <--> JHWH
 see_also('H5103', 'H5104') # Strom
+see_also('H5303', 'H7497') # Riese, Nephilim
 #
 #  select count(*), nr, nr_greek from strongs_greek_see group by nr, nr_greek having count(*) > 1;
 #
