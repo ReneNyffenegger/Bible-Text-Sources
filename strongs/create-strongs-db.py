@@ -402,6 +402,7 @@ for entry in root_greek.findall('entries/entry'): #_{
 #
 see_also('G0894', 'G4088') # ἄψινθος <--> ...  Wermut / Bitterkeit
 see_also('G1121', 'G1124') # γράμμα <--> γραφή
+see_also('G1136', 'H1463') # Gog
 see_also('G1320', 'G3101') # Jünger - Lehrer
 see_also('G1435', 'G5485') # δῶρον <--> χάρις
 see_also('G1519', 'G1722') # ἐν <--> εἰς
@@ -412,6 +413,7 @@ see_also('G2213', 'G2214') # Streitfrage
 see_also('G2411', 'G2413') # heilig
 see_also('G2451', 'G2453') # jüdisch
 see_also('G2549', 'G4189') # κακία <-->  πονηρία   ( 1. Kor 5:8 )
+see_also('G3098', 'H4031') # Magog
 see_also('G3529', 'G3534') # Sieg
 see_also('G3684', 'G3688')
 see_also('G3720', 'G3721') # frühmorgens
@@ -423,6 +425,7 @@ see_also('G5215', 'G5603') # ὕμνος <--> ᾠδή
 see_also('H1908', 'H1910') # Hadad <--> Hadad-Rimmon
 see_also('H1910', 'H7417') # Hadad-Rimmon <--> Rimmon
 see_also('H1961', 'H3068') # sein <--> JHWH
+see_also('H3541', 'H3651') # so
 see_also('H5103', 'H5104') # Strom
 see_also('H5303', 'H7497') # Riese, Nephilim
 #
