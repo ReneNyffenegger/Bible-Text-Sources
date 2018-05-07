@@ -130,8 +130,14 @@ def load_book(book, book_order): #_{
 
                      do_insert = True
 
-                     lemma = elem.attrib['lemma']
-                     strongs = 'H' + re.sub(r'\D', '', lemma).zfill(4)
+                     lemma     = elem.attrib['lemma']
+                     strongs   = 'H' + re.sub(r'\D', '', lemma).zfill(4)
+                     try:
+                       morph     = elem.attrib['morph']
+                     except KeyError:
+#                      print(verse.attrib['osisID'] + ' - ' + strongs)
+                       morph = ''
+
                      word_hebr = elem.text
 
                 elif elem.tag == ns + 'seg':
@@ -139,6 +145,7 @@ def load_book(book, book_order): #_{
                      do_insert = True
 
                      strongs = None
+                     morph   =''
 
                      if   elem.attrib['type'] == 'x-samekh':
                           word_hebr = 'ס'
@@ -165,7 +172,7 @@ def load_book(book, book_order): #_{
                     do_insert = False
 
                 if do_insert:
-                   cur.execute('insert into word (v, txt, strongs, parsed, order_) values (?, ?, ?, ?, ?)', (rowid_verse, word_hebr, strongs, 'n/a', word_order))
+                   cur.execute('insert into word (v, txt, strongs, parsed, order_) values (?, ?, ?, ?, ?)', (rowid_verse, word_hebr, strongs, morph, word_order))
 
 
 #               print(word.tag)
