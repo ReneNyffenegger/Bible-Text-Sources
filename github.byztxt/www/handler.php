@@ -210,6 +210,10 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
 
   emit_verses($res_1, $db, $db_strongs, $nr_G_or_H);
 
+  if ($G_or_H == 'H') {
+    print("<hr>Parsing information und Lemma-Daten sind unter <a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a> veröffentlicht und stammen aus dem <a href='http://openscriptures.github.io/morphhb/index.html'>OpenScriptures Hebrew Bible</a> Projekt.");
+  }
+
   print("<hr><a href='Strongs-Griechisch'>Alle Griechischen Strongs Nummern</a> / <a href='Strongs-Hebraeisch'>Alle Hebräischen Strongs Nummern</a>");
 
 
