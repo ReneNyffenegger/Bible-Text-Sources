@@ -277,6 +277,7 @@ function print_chapter($abbr, $c) { #_{
     print("hmm, what now?<br>");
     exit(1);
   }
+  is_tq_browser();
 
   canvas_and_init_and_opened_script($left_to_right);
   $db_strongs = db_connect('strongs.db');
@@ -373,10 +374,17 @@ function emit_verses($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_{
         $first_verse = 0;
       }
 
+      $kommentar_url = sprintf("/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s", $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
+      if (is_tq_browser) {
+         $kommentar_url = "http://localhost" . $kommentar_url;
+      }
 
-    printf("lw.emit('<a href=\"Kapitel-%s-%d\">%s-%d-%d</a>:<br><a href=\"/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s\">dt.</a>');\n",
-      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'],
-      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
+
+
+    printf("lw.emit('<a href=\"Kapitel-%s-%d\">%s, Kap %d</a>:<br><a href=\"$kommentar_url\">dt.</a>');\n",
+      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'] #, $row_1['v'],
+      #     $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']
+      );
 
     $res_2 = db_prep_exec_fetchall($db_text, '
       select
@@ -447,6 +455,16 @@ function replace_GH_numbers($text, $db_strongs) { #_{
     );
 
   return $text;
+
+} #_}
+
+function is_tq_browser() { #_{
+  $ua  = $_SERVER['HTTP_USER_AGENT' ];
+
+  if ($ua == 'Mozilla/5.0 (TQ)') {
+    return true;
+  }
+  return false;
 
 } #_}
 
