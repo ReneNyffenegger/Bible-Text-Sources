@@ -381,8 +381,8 @@ function emit_verses($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_{
 
 
 
-    printf("lw.emit('<a href=\"Kapitel-%s-%d\">%s, Kap %d</a>:<br><a href=\"$kommentar_url\">dt.</a>');\n",
-      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'] #, $row_1['v'],
+    printf("lw.emit('<a href=\"Kapitel-%s-%d\">%s %d:%d</a>:<br><a href=\"$kommentar_url\">dt.</a>');\n",
+      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'] #,
       #     $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']
       );
 
