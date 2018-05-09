@@ -200,6 +200,7 @@ def noun_adj_verb(): #_{
     cur.execute('insert into strongs_noun_adj_verb values (?, ?, ?)', ('G1124',  None  , 'G1121')) # γραφή  - γράφω
     cur.execute('insert into strongs_noun_adj_verb values (?, ?, ?)', ('G2549', 'G2556', None   )) # κακία  - κακός
     cur.execute('insert into strongs_noun_adj_verb values (?, ?, ?)', ('G5162',  None  , 'G5142')) # τροφός - τρέφω
+    cur.execute('insert into strongs_noun_adj_verb values (?, ?, ?)', ('H8318',  None  , 'H8317')) # wimmeln - Gewimmel
 
 #_}
 
