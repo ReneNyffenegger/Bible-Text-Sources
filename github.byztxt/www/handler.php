@@ -526,7 +526,7 @@ function replace_GH_numbers($text, $db_strongs) { #_{
 
 function strong_nr_to_html_link($nr, $db_strongs) { #_{
    $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de from strongs where nr = ?', array($nr));
-   return sprintf("<a href=\"Strongs-%s\">%s</a> (%s)", $nr, $row_strongs['word'], $row_strongs['word_de']);
+   return sprintf("%s: <a href=\"Strongs-%s\">%s</a> (%s)", $nr, $nr, $row_strongs['word'], $row_strongs['word_de']);
 } #_}
 
 function is_tq_browser() { #_{
