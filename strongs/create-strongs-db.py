@@ -43,6 +43,14 @@ cur.execute("""create table strongs_noun_adj_verb (
   verb       text references strongs
 )""")
 
+cur.execute("""create table strongs_root (
+  nr         text references strongs,
+  root       text references strongs,
+  unique (nr, root)
+)""")
+
+# TODO: Proabably, an index on strongs_root(root) would not hurt.
+
 #_}
 
 strongs_xx      = {}
@@ -398,6 +406,24 @@ for entry in root_greek.findall('entries/entry'): #_{
 
 #_}
 
+def load_roots():
+    f_root = open('data/root')
+    line = f_root.readline()
+    while line:
+
+#         try:
+          (nr, root) =(re.findall('(.....):(.....)', line))[0]
+#         print (re.findall('(.....):(.....)', line))
+#         except:
+#            print(line)
+
+          try:
+            cur.execute('insert into strongs_root values (?, ?)', (nr, root))
+          except sqlite3.IntegrityError as e:
+            print('Could not insert into strongs_root: {:s} {:s}'.format(nr, root))
+
+          line = f_root.readline()
+
 
 # TQ84's entries:
 #
@@ -438,5 +464,7 @@ load_hebrew()
 
 # update_strongs()
 noun_adj_verb()
+
+load_roots()
 
 cur.execute('commit')
