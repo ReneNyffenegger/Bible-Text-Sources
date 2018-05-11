@@ -185,25 +185,54 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
     print "<hr>";
   }
 
-  $res_strongs_see = db_prep_exec_fetchall($db_strongs, 'select nr_2 from strongs_see where nr_1 = ?', array($nr_G_or_H));
+  #_{ See also
+  
+
+
+  $see_also_first = true;
+  $res_strongs_see = db_prep_exec_fetchall($db_strongs, 'select e.id, s.description from strongs_see s join strongs_see_entry e on s.id = e.id where e.nr = ?', array($nr_G_or_H));
   foreach ($res_strongs_see as $row_strongs_see) {
-    $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de from strongs where nr = ?', array($row_strongs_see['nr_2']));
-    printf ("<br><a href=\"Strongs-%s\">%s: %s</a>", $row_strongs_see['nr_2'], $row_strongs['word'], $row_strongs['word_de']);
+
+    if ($see_also_first) {
+      $see_also_first = false;
+      print("<h2>Siehe auch</h2>");
+    }
+
+    $res_strongs_see_entry = db_prep_exec_fetchall($db_strongs, 'select nr from strongs_see_entry where id = ?', array($row_strongs_see['id']));
+    printf("<b>%s</b><ul>", $row_strongs_see['description']);
+    foreach ($res_strongs_see_entry as $row_strongs_see_entry) {
+
+#     $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de from strongs where nr = ?', array($row_strongs_see_entry['nr']));
+#     printf ("<li><a href=\"Strongs-%s\">%s: %s</a>", $row_strongs_see_entry['nr'], $row_strongs['word'], $row_strongs['word_de']);
+      print("<li>" . strong_nr_to_html_link($row_strongs_see_entry['nr'], $db_strongs));
+        
+    }
+    print("</ul>");
+
   }
+  if (! $see_also_first) {
+    print("<hr>");
+  }
+
+  #_}
 
   #_{ Show root of strongs
   
   $res_strongs_root = db_prep_exec_fetchall($db_strongs, 'select root from strongs_root where nr = ?', array($nr_G_or_H));
-  $first_root = 1;
+  $first_root = true;
   foreach ($res_strongs_root as $row_strongs_root) {
     if ($first_root) {
-      $first_root = 0;
-      print("<hr>Wurzel(n) von $word ist/sind: ");
+      $first_root = false;
+      print("<hr>Wurzel(n) von $word ist/sind:<ul> ");
     }
-    else {
-      print(" - ");
-    }
-    print (replace_GH_numbers($row_strongs_root['root'], $db_strongs));
+#   else {
+#     print(" - ");
+#   }
+ #  print (replace_GH_numbers($row_strongs_root['root'], $db_strongs));
+      print("<li>" . strong_nr_to_html_link($row_strongs_root['root'], $db_strongs));
+  }
+  if (! $first_root) {
+    print("</ul>");
   }
 
 
@@ -214,18 +243,22 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
   $first_toor = 1;
   foreach ($res_strongs_toor as $row_strongs_toor) {
     if ($first_toor) {
-      print("<hr>$word is Wurzel von: ");
+      print("<hr>$word is Wurzel von: <ul>");
       $first_toor = 0;
     }
-    else {
-      print(" - ");
-    }
-    print (replace_GH_numbers($row_strongs_toor['nr'], $db_strongs));
+#   else {
+#     print(" - ");
+#   }
+#   print (replace_GH_numbers($row_strongs_toor['nr'], $db_strongs));
+      print("<li>" . strong_nr_to_html_link($row_strongs_toor['nr'], $db_strongs));
+  }
+  if (! $first_toor) {
+    print("</ul>");
   }
   #_}
 
 
-  print "<h2>Siehe auch</h2>";
+# print "<h2>Siehe auch</h2>";
 
   printf("<h2>Verse, die %s enthalten</h2>", $word);
 
@@ -489,6 +522,11 @@ function replace_GH_numbers($text, $db_strongs) { #_{
 
   return $text;
 
+} #_}
+
+function strong_nr_to_html_link($nr, $db_strongs) { #_{
+   $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de from strongs where nr = ?', array($nr));
+   return sprintf("<a href=\"Strongs-%s\">%s</a> (%s)", $nr, $row_strongs['word'], $row_strongs['word_de']);
 } #_}
 
 function is_tq_browser() { #_{
