@@ -32,9 +32,13 @@ cur.execute("""create table strongs (
 )""")
 
 cur.execute("""create table strongs_see (
-  nr_1       text not null references strongs,
-  nr_2       text not null references strongs,
-  unique (nr_1, nr_2)
+  id          integer primary key,
+  description text not null
+)""")
+
+cur.execute("""create table strongs_see_entry (
+  id          integer not null references strongs_see,
+  nr          text not null references strongs
 )""")
 
 cur.execute("""create table strongs_noun_adj_verb (
@@ -212,17 +216,17 @@ def noun_adj_verb(): #_{
 
 #_}
 
-def see_also(nr_1, nr_2): #_{
-    try:
-      cur.execute('insert into strongs_see(nr_1, nr_2) values (?, ?)', (nr_1, nr_2))
-    except sqlite3.IntegrityError as e:
-      print('! {:s} nr_1 = {:s}, nr_2 = {:s}'.format(str(e), nr_1, nr_2))
-    try:
-      cur.execute('insert into strongs_see(nr_1, nr_2) values (?, ?)', (nr_2, nr_1))
-    except sqlite3.IntegrityError as e:
-      print('! {:s} nr_1 = {:s}, nr_2 = {:s}'.format(str(e), nr_1, nr_2))
-
-#_}
+#q def see_also(nr_1, nr_2): #_{
+#q     try:
+#q       cur.execute('insert into strongs_see(nr_1, nr_2) values (?, ?)', (nr_1, nr_2))
+#q     except sqlite3.IntegrityError as e:
+#q       print('! {:s} nr_1 = {:s}, nr_2 = {:s}'.format(str(e), nr_1, nr_2))
+#q     try:
+#q       cur.execute('insert into strongs_see(nr_1, nr_2) values (?, ?)', (nr_2, nr_1))
+#q     except sqlite3.IntegrityError as e:
+#q       print('! {:s} nr_1 = {:s}, nr_2 = {:s}'.format(str(e), nr_1, nr_2))
+#q 
+#q #_}
 
 def load_hebrew(): #_{
 
@@ -397,12 +401,12 @@ for entry in root_greek.findall('entries/entry'): #_{
                pass
           elif len(strongs_derivations) > 1:
                raise Exception('strongs_nr: {:d}, len(strongs_derivations) = {:d}'.format(strongs_nr, len(strongs_derivations)))
-          else:
-               for strongsref in strongs_derivations[0].findall("./strongsref[@language='GREEK']"):
-                   try:
-                     cur.execute('insert into strongs_see(nr_1, nr_2) values (?, ?)', ('G' + str(strongs_nr).zfill(4), 'G' + strongsref.attrib['strongs'].zfill(4) ))
-                   except sqlite3.IntegrityError as e:
-                     print('* Could not insert ' + str(e))
+#q  TODO else:
+#q  TODO      for strongsref in strongs_derivations[0].findall("./strongsref[@language='GREEK']"):
+#q  TODO          try:
+#q  TODO            cur.execute('insert into strongs_see(nr_1, nr_2) values (?, ?)', ('G' + str(strongs_nr).zfill(4), 'G' + strongsref.attrib['strongs'].zfill(4) ))
+#q  TODO          except sqlite3.IntegrityError as e:
+#q  TODO            print('* Could not insert ' + str(e))
 
 #_}
 
@@ -424,37 +428,25 @@ def load_roots():
 
           line = f_root.readline()
 
+def load_see_also():
+    f_root = open('data/see-also')
+    line = f_root.readline()
+    while line:
+
+          (desc, entries) =(re.findall('([^:]+): *(.*)', line))[0]
+
+          cur.execute('insert into strongs_see (description) values (?)', (desc, ))
+          id_see_also = cur.lastrowid
+
+          for nr_sa_entry in re.findall('(\w+) *', entries):
+              cur.execute('insert into strongs_see_entry values (?, ?)', (id_see_also, nr_sa_entry))
+
+
+          line = f_root.readline()
+
 
 # TQ84's entries:
 #
-see_also('G0894', 'G4088') # ἄψινθος <--> ...  Wermut / Bitterkeit
-see_also('G1121', 'G1124') # γράμμα <--> γραφή
-see_also('G1136', 'H1463') # Gog
-see_also('G1320', 'G3101') # Jünger - Lehrer
-see_also('G1435', 'G5485') # δῶρον <--> χάρις
-see_also('G1519', 'G1722') # ἐν <--> εἰς
-see_also('G1763', 'G2094') # Jahr
-see_also('G1841', 'G3598') # ἔξοδος <--> ὁδός
-see_also('G2166', 'H6578') # Euphrat
-see_also('G2213', 'G2214') # Streitfrage
-see_also('G2411', 'G2413') # heilig
-see_also('G2451', 'G2453') # jüdisch
-see_also('G2549', 'G4189') # κακία <-->  πονηρία   ( 1. Kor 5:8 )
-see_also('G3098', 'H4031') # Magog
-see_also('G3529', 'G3534') # Sieg
-see_also('G3684', 'G3688')
-see_also('G3720', 'G3721') # frühmorgens
-see_also('G4105', 'G4107') # πλανάω <-->  πλανήτης
-see_also('G4215', 'H5103') # Strom
-see_also('G4215', 'H5104') # Strom
-see_also('G5215', 'G5603') # ὕμνος <--> ᾠδή
-
-see_also('H1908', 'H1910') # Hadad <--> Hadad-Rimmon
-see_also('H1910', 'H7417') # Hadad-Rimmon <--> Rimmon
-see_also('H1961', 'H3068') # sein <--> JHWH
-see_also('H3541', 'H3651') # so
-see_also('H5103', 'H5104') # Strom
-see_also('H5303', 'H7497') # Riese, Nephilim
 #
 #  select count(*), nr, nr_greek from strongs_greek_see group by nr, nr_greek having count(*) > 1;
 #
@@ -466,5 +458,6 @@ load_hebrew()
 noun_adj_verb()
 
 load_roots()
+load_see_also()
 
 cur.execute('commit')

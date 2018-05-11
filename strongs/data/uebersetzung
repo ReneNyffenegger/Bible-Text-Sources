@@ -3,14 +3,14 @@ G0002   Aaron
 G0003   Abaddon
 G0004   unbeschwerlich
 G0005 t Abba
-G0006 t Abel
+G0006 P Abel
 G0007 t Abia
 G0008 t Abiathar
 G0009 t Abilene
 G0010 t Abihud
-G0011 t Abraham
+G0011 P Abraham
 G0012   Abgrund
-G0013 t Agabus
+G0013 P Agabus
 G0014   Gutes wirken
 G0015   Gutes tun
 G0016   Gutestun
@@ -64,7 +64,7 @@ G0063   auf freiem Feld sein
 G0064   fangen
 G0065   vom wilden Ölbaum
 G0066   wild
-G0067 t Agrippa
+G0067 P Agrippa
 G0068   Feld
 G0069   schlaflos (wachen)
 G0070   Schlaflosigkeiten
@@ -878,9 +878,9 @@ G0877   Unbesonnenheit
 G0878   unbesonnen
 G0879   einschlafen
 G0880   stimmlos
-G0881 t Ahas
-G0882 t Achaia
-G0883 t Achaikus
+G0881 P Ahas
+G0882 P Achaia
+G0883 P Achaikus
 G0884   undankbar
 G0885   Achim
 G0886   nicht von Menschenhand gemacht
@@ -955,16 +955,16 @@ G0954   Beelzebul
 G0955   Beliar
 G0956   Wurfpfeil
 G0957   am besten
-G0958 t Benjamin
-G0959 t Bernike
-G0960 t Beröa
+G0958 P Benjamin
+G0959 P Bernike
+G0960 O Beröa
 G0961 t Beröer
-G0962 t Bethabara
-G0963 t Bethanien
-G0964 t Bethesda
-G0965 t Bethlehem
-G0966 t Bethsaida
-G0967 t Bethphage
+G0962 O Bethabara
+G0963 O Bethanien
+G0964 O Bethesda
+G0965 O Bethlehem
+G0966 O Bethsaida
+G0967 O Bethphage
 G0968   Richterstuhl/Fussbreit
 G0969   Beryll
 G0970   Gewalt
@@ -1039,8 +1039,8 @@ G1038   Gerber
 G1039   aus Byssos
 G1040   Byssus
 G1041   Stufenaltar
-G1042 t Gabbatha
-G1043 t Gabriel
+G1042 O Gabbatha
+G1043 P Gabriel
 G1044   Krebsgeschwür
 G1045   Gad
 G1046   Gadarener
@@ -1055,7 +1055,7 @@ G1054   galatisch
 G1055   Flaute
 G1056   Galiläa
 G1057   galiläisch
-G1058 t Gallio
+G1058 P Gallio
 G1059   Gamaliel
 G1060   heiraten
 G1061   verheiraten
@@ -1176,7 +1176,7 @@ G1175   Götterverehrung
 G1176   zehn
 G1177   zwölf
 G1178   fünfzehn
-G1179 t Dekapolis
+G1179 O Dekapolis
 G1180   vierzehn
 G1181   Zehnte
 G1182   zehnte
@@ -2178,7 +2178,7 @@ G2177   auf jmdn. losspringen
 G2178   ein für allemal
 G2179   
 G2180 t Epheser
-G2181 t Ephesus
+G2181 O Ephesus
 G2182   Erfinder
 G2183   (diensthabende) Priesterklasse
 G2184   täglich
@@ -2759,9 +2759,9 @@ G2759   Stachel
 G2760   Centurio
 G2761   vergeblich
 G2762   Strichlein
-G2763   
+G2763   Töpfer
 G2764   tönern
-G2765   
+G2765   (irdener) Krug
 G2766   Tonziegel
 G2767   vermengen
 G2768   Horn
@@ -3066,7 +3066,7 @@ G3066   Lucius
 G3067   Bad
 G3068   baden
 G3069   Lydda
-G3070   Lydia
+G3070 P Lydia
 G3071   Lykaonien
 G3072   auf lykaonisch
 G3073   Lycien
@@ -3094,7 +3094,7 @@ G3094   Magdalenerin
 G3095   magische (Künste)
 G3096   Magie treiben
 G3097   Magier
-G3098   Magog
+G3098 P Magog
 G3099   Madiam
 G3100   Dep.Pass., Schüler werden
 G3101   Jünger
@@ -3868,7 +3868,7 @@ G3968   Vaterland
 G3969   Patrobas
 G3970   väterüberliefert
 G3971   väterlich (ererbt)
-G3972 t Paulus
+G3972 P Paulus
 G3973   ruhen
 G3974   Paphos
 G3975   dick werden
@@ -5419,7 +5419,7 @@ G5519   Schwein
 G5520   zürnen
 G5521   Galle
 G5522   Erd(staub)
-G5523 t Chorazin
+G5523 O Chorazin
 G5524   jmdn. mit etw. ausstatten
 G5525   Reigentanz
 G5526   sättigen
@@ -5521,7 +5521,7 @@ G5621   Ohrmuschel
 G5622   Nutzen
 G5623   nützen
 G5624   nützlich
-H0001   
+H0001   VaterVater
 H0002   
 H0003   
 H0004   
@@ -5605,7 +5605,7 @@ H0081
 H0082   
 H0083   
 H0084   
-H0085 t Abraham
+H0085 P Abraham
 H0086   
 H0087   
 H0088   
@@ -5641,12 +5641,12 @@ H0117
 H0118   
 H0119   
 H0120   Mensch
-H0121 t Adam
+H0121 P Adam
 H0122   
-H0123 t Edom
+H0123 P Edom
 H0124   Sardis
 H0125   
-H0126 t Adama
+H0126 O Adama
 H0127   
 H0128   
 H0129   
@@ -5695,7 +5695,7 @@ H0171
 H0172   
 H0173   
 H0174   
-H0175 t Aaron
+H0175 P Aaron
 H0176   
 H0177   
 H0178   
@@ -5730,7 +5730,7 @@ H0206
 H0207   
 H0208   
 H0209   
-H0210 t Uphas
+H0210 O Uphas
 H0211   
 H0212   
 H0213   
@@ -5910,7 +5910,7 @@ H0386
 H0387   
 H0388   
 H0389   
-H0390 t Akkad
+H0390 O Akkad
 H0391   
 H0392   
 H0393   
@@ -5993,7 +5993,7 @@ H0469
 H0470   
 H0471   
 H0472   
-H0473 t Elisa
+H0473 P Elisa
 H0474   
 H0475   
 H0476   
@@ -6015,7 +6015,7 @@ H0491
 H0492   
 H0493   
 H0494   
-H0495 t Ellasar
+H0495 P Ellasar
 H0496   
 H0497   
 H0498   
@@ -6089,7 +6089,7 @@ H0565
 H0566   
 H0567   
 H0568   
-H0569 t Ampraphel
+H0569 P Ampraphel
 H0570   
 H0571   
 H0572   
@@ -6234,7 +6234,7 @@ H0710
 H0711   
 H0712   
 H0713   
-H0714 t Kain
+H0714 P Kain
 H0715   
 H0716   
 H0717   
@@ -6266,19 +6266,19 @@ H0742
 H0743   
 H0744   
 H0745   
-H0746 t Arioch
+H0746 P Arioch
 H0747   
 H0748   
 H0749   
 H0750   
-H0751 t Erek
+H0751 P Erek
 H0752   
 H0753   
 H0754   
 H0755   
 H0756   
 H0757   
-H0758 t Aram
+H0758 P Aram
 H0759   
 H0760   
 H0761   
@@ -6294,8 +6294,8 @@ H0770
 H0771   
 H0772   
 H0773   
-H0774 t Arpad
-H0775 t Arpaksad
+H0774 P Arpad
+H0775 P Arpaksad
 H0776   Land/Erde
 H0777   
 H0778   
@@ -6324,7 +6324,7 @@ H0800
 H0801   
 H0802   Frau
 H0803   
-H0804 t Assur
+H0804 P Assur
 H0805   
 H0806   
 H0807   
@@ -6333,7 +6333,7 @@ H0809
 H0810   
 H0811   
 H0812   
-H0813 t Askenas
+H0813 P Askenas
 H0814   
 H0815   
 H0816   
@@ -6414,7 +6414,7 @@ H0890
 H0891   
 H0892   
 H0893   
-H0894 t Babel
+H0894 O Babel
 H0895   
 H0896   
 H0897   
@@ -6626,7 +6626,7 @@ H1102
 H1103   
 H1104   
 H1105   
-H1106 t Bela
+H1106 P Bela
 H1107   
 H1108   
 H1109   
@@ -6818,7 +6818,7 @@ H1294
 H1295   
 H1296   
 H1297   
-H1298 t Bera
+H1298 P Bera
 H1299   
 H1300   
 H1301   
@@ -6826,7 +6826,7 @@ H1302
 H1303   
 H1304   Smaragd
 H1305   
-H1306 t Birscha
+H1306 P Birscha
 H1307   
 H1308   
 H1309   
@@ -6966,7 +6966,7 @@ H1442
 H1443   
 H1444   
 H1445   
-H1446   
+H1446 P Gedor
 H1447   
 H1448   
 H1449   
@@ -6983,7 +6983,7 @@ H1459
 H1460   Rücken
 H1461   
 H1462   
-H1463 t Gog
+H1463 P Gog
 H1464   
 H1465   
 H1466   
@@ -7106,7 +7106,7 @@ H1582
 H1583   
 H1584   
 H1585   
-H1586 t Gomer
+H1586 P Gomer
 H1587   
 H1588   Garten
 H1589   
@@ -7186,7 +7186,7 @@ H1662
 H1663   
 H1664   
 H1665   
-H1666 t Gether
+H1666 P Gether
 H1667   
 H1668   
 H1669   
@@ -7239,9 +7239,9 @@ H1715
 H1716   
 H1717   
 H1718   
-H1719 t Dedan
-H1720 t Dedanim
-H1721 t Dodanim
+H1719 P Dedan
+H1720 P Dedanim
+H1721 P Dodanim
 H1722   
 H1723   
 H1724   
@@ -7266,7 +7266,7 @@ H1742
 H1743   
 H1744   
 H1745   
-H1746 t Duma
+H1746 P Duma
 H1747   
 H1748   
 H1749   
@@ -7571,7 +7571,7 @@ H2047
 H2048   
 H2049   
 H2050   
-H2051 t Wedan
+H2051 P Wedan
 H2052   
 H2053   
 H2054   
@@ -7788,7 +7788,7 @@ H2264
 H2265   
 H2266   vereinen
 H2267   
-H2268   
+H2268 P Heber
 H2269   
 H2270   
 H2271   
@@ -7861,9 +7861,9 @@ H2337
 H2338   
 H2339   
 H2340   
-H2341 t Hawila
+H2341 O Hawila
 H2342   
-H2343 t Hul
+H2343 P Hul
 H2344   
 H2345   
 H2346   
@@ -8046,7 +8046,7 @@ H2522
 H2523   
 H2524   
 H2525   
-H2526 t Ham
+H2526 P Ham
 H2527   
 H2528   
 H2529   
@@ -8088,13 +8088,13 @@ H2564
 H2565   
 H2566   
 H2567   
-H2568 t fünf
+H2568 n fünf
 H2569   
 H2570   
 H2571   
 H2572   
 H2573   
-H2574 t Hamath
+H2574 O Hamath
 H2575   
 H2576   
 H2577   
@@ -8577,14 +8577,14 @@ H3053
 H3054   
 H3055   
 H3056   
-H3057   
+H3057 t Jüdin
 H3058   
 H3059   
 H3060   
 H3061   
 H3062   
 H3063   
-H3064   
+H3064 t Jude
 H3065   
 H3066   
 H3067   
@@ -8640,17 +8640,17 @@ H3116
 H3117   Tag
 H3118   
 H3119   
-H3120 t Jawan
+H3120 P Jawan
 H3121   
 H3122   
 H3123   Taube
-H3124 t Jona
+H3124 P Jona
 H3125   
 H3126   
 H3127   
 H3128   
 H3129   
-H3130 t Joseph
+H3130 P Joseph
 H3131   
 H3132   
 H3133   
@@ -8810,7 +8810,7 @@ H3286
 H3287   
 H3288   
 H3289   
-H3290 t Jakob
+H3290 P Jakob
 H3291   
 H3292   
 H3293   Wald
@@ -8835,7 +8835,7 @@ H3311
 H3312   
 H3313   
 H3314   
-H3315 t Japhet
+H3315 P Japhet
 H3316   
 H3317   
 H3318   ausgehen
@@ -8847,7 +8847,7 @@ H3323
 H3324   
 H3325   
 H3326   
-H3327 t Isaak
+H3327 P Isaak
 H3328   
 H3329   
 H3330   
@@ -8890,7 +8890,7 @@ H3366
 H3367   
 H3368   
 H3369   
-H3370 t Jokschan
+H3370 P Jokschan
 H3371   
 H3372   
 H3373   
@@ -8902,14 +8902,14 @@ H3378
 H3379   
 H3380   
 H3381   
-H3382   
+H3382 P Jered
 H3383   
 H3384   
 H3385   
 H3386   
 H3387   
 H3388   
-H3389 t Jerusalem
+H3389 O Jerusalem
 H3390   
 H3391   
 H3392   
@@ -8978,7 +8978,7 @@ H3454
 H3455   
 H3456   
 H3457   
-H3458 t Ismael
+H3458 P Ismael
 H3459 t Ismaeliter
 H3460   
 H3461   
@@ -9060,7 +9060,7 @@ H3536
 H3537   
 H3538   
 H3539   
-H3540 t Kedorlaomer
+H3540 O Kedorlaomer
 H3541   so
 H3542   
 H3543   
@@ -9145,7 +9145,7 @@ H3621
 H3622   
 H3623   
 H3624   
-H3625 t Kalach
+H3625 O Kalach
 H3626   
 H3627   
 H3628   
@@ -9161,7 +9161,7 @@ H3637
 H3638   
 H3639   
 H3640   
-H3641 t Kalne
+H3641 O Kalne
 H3642   
 H3643   
 H3644   
@@ -9187,7 +9187,7 @@ H3663
 H3664   
 H3665   
 H3666   
-H3667 t Kanaan
+H3667 P Kanaan
 H3668   
 H3669   
 H3670   
@@ -9271,7 +9271,7 @@ H3747
 H3748   
 H3749   
 H3750   
-H3751 t Karkemisch
+H3751 O Karkemisch
 H3752   
 H3753   
 H3754   
@@ -9314,7 +9314,7 @@ H3790
 H3791   
 H3792   
 H3793   
-H3794 t Kittim
+H3794 O Kittim
 H3795   
 H3796   
 H3797   
@@ -9385,7 +9385,7 @@ H3861
 H3862   
 H3863   
 H3864   
-H3865 t Lud
+H3865 P Lud
 H3866   
 H3867   
 H3868   
@@ -9398,7 +9398,7 @@ H3874
 H3875   
 H3876   
 H3877   
-H3878 t Levi
+H3878 P Levi
 H3879   
 H3880   
 H3881   
@@ -9551,7 +9551,7 @@ H4027
 H4028   
 H4029   
 H4030   
-H4031 t Magog
+H4031 P Magog
 H4032   
 H4033   
 H4034   
@@ -9594,7 +9594,7 @@ H4070
 H4071   
 H4072   
 H4073   
-H4074 t Madai
+H4074 P Madai
 H4075   
 H4076   
 H4077   
@@ -9611,7 +9611,7 @@ H4087
 H4088   
 H4089   
 H4090   
-H4091 t Medan
+H4091 P Medan
 H4092   
 H4093   
 H4094   
@@ -10329,7 +10329,7 @@ H4805
 H4806   
 H4807   
 H4808   
-H4809 t Meriba
+H4809 O Meriba
 H4810   
 H4811   
 H4812   
@@ -10374,7 +10374,7 @@ H4850
 H4851   
 H4852   
 H4853   
-H4854 t Massa
+H4854 O Massa
 H4855   
 H4856   
 H4857   
@@ -10422,7 +10422,7 @@ H4898
 H4899   
 H4900   
 H4901   
-H4902 t Mesech
+H4902 P Mesech
 H4903   
 H4904   
 H4905   
@@ -10447,7 +10447,7 @@ H4923
 H4924   
 H4925   
 H4926   
-H4927 t Mischma
+H4927 O Mischma
 H4928   
 H4929   
 H4930   
@@ -10666,7 +10666,7 @@ H5142
 H5143   
 H5144   
 H5145   
-H5146 t Noah
+H5146 P Noah
 H5147   
 H5148   
 H5149   
@@ -10730,7 +10730,7 @@ H5206
 H5207   
 H5208   
 H5209   
-H5210 t Ninive
+H5210 O Ninive
 H5211   
 H5212   
 H5213   
@@ -10768,7 +10768,7 @@ H5244
 H5245   
 H5246   
 H5247   
-H5248 t Nimrod
+H5248 P Nimrod
 H5249   
 H5250   
 H5251   
@@ -10799,7 +10799,7 @@ H5275
 H5276   
 H5277   
 H5278   
-H5279   
+H5279 P Naama
 H5280   
 H5281   
 H5282   
@@ -10954,7 +10954,7 @@ H5430
 H5431   
 H5432   
 H5433   
-H5434 t Seba
+H5434 P Seba
 H5435   
 H5436   
 H5437   
@@ -10974,8 +10974,8 @@ H5450
 H5451   
 H5452   
 H5453   
-H5454 t Sabta
-H5455 t Sabtecha
+H5454 P Sabta
+H5455 P Sabtecha
 H5456   
 H5457   
 H5458   
@@ -10987,7 +10987,7 @@ H5463
 H5464   
 H5465   
 H5466   
-H5467 t Sodom
+H5467 O Sodom
 H5468   
 H5469   
 H5470   
@@ -11041,10 +11041,10 @@ H5517
 H5518   
 H5519   
 H5520   
-H5521   
+H5521   Hütte
 H5522   
-H5523   
-H5524   
+H5523 O Sukkot
+H5524 ? Sukkot Benot
 H5525   
 H5526   
 H5527   
@@ -11387,7 +11387,7 @@ H5863
 H5864   
 H5865   
 H5866   
-H5867 t Elam
+H5867 P Elam
 H5868   
 H5869   Auge
 H5870   
@@ -11672,7 +11672,7 @@ H6148
 H6149   
 H6150   
 H6151   
-H6152 t Arabien
+H6152 O Arabien
 H6153   Abend
 H6154   
 H6155   
@@ -11735,7 +11735,7 @@ H6211
 H6212   
 H6213   machen
 H6214   
-H6215 t Esau
+H6215 P Esau
 H6216   
 H6217   
 H6218   
@@ -11836,13 +11836,13 @@ H6312
 H6313   
 H6314   
 H6315   
-H6316 t Put
+H6316 P Put
 H6317   
 H6318   
 H6319   
 H6320   
 H6321   
-H6322 t Pul
+H6322 P Pul
 H6323   
 H6324   
 H6325   
@@ -12036,7 +12036,7 @@ H6512
 H6513   
 H6514   
 H6515   
-H6516 t Parwaim
+H6516 O Parwaim
 H6517   
 H6518   
 H6519   
@@ -12059,7 +12059,7 @@ H6535
 H6536   
 H6537   
 H6538   
-H6539 t Persien
+H6539 O Persien
 H6540   
 H6541   
 H6542   
@@ -12067,7 +12067,7 @@ H6543
 H6544   
 H6545   
 H6546   
-H6547   
+H6547 t Pharao
 H6548   
 H6549   
 H6550   
@@ -12156,7 +12156,7 @@ H6632
 H6633   
 H6634   
 H6635   Heer
-H6636 t Zeboim
+H6636 O Zeboim
 H6637   
 H6638   
 H6639   
@@ -12340,7 +12340,7 @@ H6816
 H6817   
 H6818   
 H6819   
-H6820 t Zoar
+H6820 O Zoar
 H6821   
 H6822   
 H6823   
@@ -12458,7 +12458,7 @@ H6934
 H6935   
 H6936   
 H6937   
-H6938 t Kedar
+H6938 O Kedar
 H6939   
 H6940   
 H6941   
@@ -12864,7 +12864,7 @@ H7340
 H7341   
 H7342   
 H7343   
-H7344 t Rechobot
+H7344 O Rechobot
 H7345   
 H7346   
 H7347   
@@ -12904,7 +12904,7 @@ H7380
 H7381   
 H7382   
 H7383   
-H7384 t Riphat
+H7384 O Riphat
 H7385   
 H7386   
 H7387   
@@ -12969,7 +12969,7 @@ H7445
 H7446   
 H7447   
 H7448   
-H7449 t Resen
+H7449 O Resen
 H7450   
 H7451   
 H7452   
@@ -13004,7 +13004,7 @@ H7480
 H7481   
 H7482   
 H7483   
-H7484 t Ragma
+H7484 P Ragma
 H7485   
 H7486   
 H7487   
@@ -13046,7 +13046,7 @@ H7522
 H7523   
 H7524   
 H7525   
-H7526 t Rezin
+H7526 P Rezin
 H7527   
 H7528   
 H7529   
@@ -13134,7 +13134,7 @@ H7610
 H7611   
 H7612   
 H7613   
-H7614 t Scheba
+H7614 P Scheba
 H7615   
 H7616   
 H7617   gefangen wegführen
@@ -13228,7 +13228,7 @@ H7704
 H7705   
 H7706   
 H7707   
-H7708 t Siddim
+H7708 O Siddim
 H7709   
 H7710   
 H7711   
@@ -13530,7 +13530,7 @@ H8006
 H8007   
 H8008   
 H8009   
-H8010 t Salomo
+H8010 P Salomo
 H8011   
 H8012   
 H8013   
@@ -13555,10 +13555,10 @@ H8031
 H8032   
 H8033   dort
 H8034   Name
-H8035 t Sem
+H8035 P Sem
 H8036   
 H8037   
-H8038 t Schemeber
+H8038 P Schemeber
 H8039   
 H8040   
 H8041   
@@ -13570,7 +13570,7 @@ H8046
 H8047   
 H8048   
 H8049   
-H8050 t Samuel
+H8050 P Samuel
 H8051   
 H8052   
 H8053   
@@ -13615,7 +13615,7 @@ H8091
 H8092   
 H8093   
 H8094   
-H8095 t Simeon
+H8095 P Simeon
 H8096   
 H8097   
 H8098   
@@ -13654,7 +13654,7 @@ H8130
 H8131   
 H8132   
 H8133   
-H8134 t Schineab
+H8134 P Schineab
 H8135   
 H8136   
 H8137   
@@ -13672,7 +13672,7 @@ H8148
 H8149   
 H8150   
 H8151   
-H8152 t Sinear
+H8152 O Sinear
 H8153   
 H8154   
 H8155   
@@ -13872,7 +13872,7 @@ H8348
 H8349   
 H8350   
 H8351   
-H8352 t Set
+H8352 P Set
 H8353   
 H8354   
 H8355   
@@ -13933,7 +13933,7 @@ H8409
 H8410   
 H8411   
 H8412   
-H8413 t Tideal
+H8413 P Tideal
 H8414   
 H8415   
 H8416   
@@ -13942,10 +13942,10 @@ H8418
 H8419   
 H8420   
 H8421   
-H8422 t Tubal
-H8423 t Tubal-Kain
+H8422 P Tubal
+H8423 P Tubal-Kain
 H8424   
-H8425 t Togarma
+H8425 P Togarma
 H8426   
 H8427   
 H8428   
@@ -14135,7 +14135,7 @@ H8611
 H8612   
 H8613   
 H8614   
-H8615 t Seir
+H8615 P Seir
 H8616   
 H8617   
 H8618   
@@ -14166,7 +14166,7 @@ H8642
 H8643   
 H8644   
 H8645   
-H8646 t Tarah
+H8646 P Tarah
 H8647   
 H8648   
 H8649   
@@ -14179,7 +14179,7 @@ H8655
 H8656   
 H8657   
 H8658   Chrysolith
-H8659 t Tarsis
+H8659 O Tarsis
 H8660   
 H8661   
 H8662   
