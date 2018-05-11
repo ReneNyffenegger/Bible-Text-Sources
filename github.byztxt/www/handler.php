@@ -197,10 +197,13 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
   $first_root = 1;
   foreach ($res_strongs_root as $row_strongs_root) {
     if ($first_root) {
-      print("<hr>Wurzel(n) von $word ist/sind: ");
       $first_root = 0;
-      print (replace_GH_numbers($row_strongs_root['root'], $db_strongs));
+      print("<hr>Wurzel(n) von $word ist/sind: ");
     }
+    else {
+      print(" - ");
+    }
+    print (replace_GH_numbers($row_strongs_root['root'], $db_strongs));
   }
 
 
@@ -213,8 +216,11 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
     if ($first_toor) {
       print("<hr>$word is Wurzel von: ");
       $first_toor = 0;
-      print (replace_GH_numbers($row_strongs_toor['nr'], $db_strongs));
     }
+    else {
+      print(" - ");
+    }
+    print (replace_GH_numbers($row_strongs_toor['nr'], $db_strongs));
   }
   #_}
 
