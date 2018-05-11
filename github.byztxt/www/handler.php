@@ -191,6 +191,33 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
     printf ("<br><a href=\"Strongs-%s\">%s: %s</a>", $row_strongs_see['nr_2'], $row_strongs['word'], $row_strongs['word_de']);
   }
 
+  #_{ Show root of strongs
+  
+  $res_strongs_root = db_prep_exec_fetchall($db_strongs, 'select root from strongs_root where nr = ?', array($nr_G_or_H));
+  $first_root = 1;
+  foreach ($res_strongs_root as $row_strongs_root) {
+    if ($first_root) {
+      print("<hr>Wurzel(n) von $word ist/sind: ");
+      $first_root = 0;
+      print (replace_GH_numbers($row_strongs_root['root'], $db_strongs));
+    }
+  }
+
+
+  #_}
+  #_{ Show strongs of which word is root
+
+  $res_strongs_toor = db_prep_exec_fetchall($db_strongs, 'select nr from strongs_root where root = ?', array($nr_G_or_H));
+  $first_toor = 1;
+  foreach ($res_strongs_toor as $row_strongs_toor) {
+    if ($first_toor) {
+      print("<hr>$word is Wurzel von: ");
+      $first_toor = 0;
+      print (replace_GH_numbers($row_strongs_toor['nr'], $db_strongs));
+    }
+  }
+  #_}
+
 
   print "<h2>Siehe auch</h2>";
 
