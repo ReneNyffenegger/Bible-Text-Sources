@@ -159,4 +159,5 @@ for book in books:
     
 #   break
 
+cur.execute('create index ix_word_v on word (v)')
 cur.execute('commit')
