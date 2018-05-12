@@ -194,4 +194,6 @@ for book in books:
     book_order += 1
     load_book(book, book_order)
 
+cur.execute('create index ix_word_v on word (v)')
+
 cur.execute('commit')
