@@ -190,7 +190,7 @@ function css_verses($G_or_H) { #_{
 
 
     a.strong   {font-size: 70%}
-   .txt        {display: block: height: 2em; }
+   .txt        {display: block: height: 2em; font-size: 1.4em;}
    .parsed     {display: block; height: 2em; font-size: 80%; color: #339;}
    .word_de    {display: block; height: 2em; font-size: 80%; color: #933;}
    .css_strong {display: block; height: 2em; }
