@@ -406,12 +406,6 @@ function frequent_words_nt() { #_{
 
 function print_chapter($abbr, $c) { #_{
 
-  start_html_title(sprintf('Kapitel %s %s', $m[1], $m[2]));
-
-  print("\n<style>\n");
-  css_verses($G_or_H);
-  print("\n</style>\n");
-  print ("</head><body>\n");
 
   $books_db = db_connect('BibleBooks.db'); # Created by https://github.com/ReneNyffenegger/Biblisches/blob/master/db/create-db.py
 
@@ -419,14 +413,25 @@ function print_chapter($abbr, $c) { #_{
 
   $testament = $book_row['testament'];
 
+
   if ($testament == 'new') {
-    $left_to_right = true;
+    $G_or_H = 'G';
+#   $left_to_right = true;
     $db_text = db_connect('BP5.db');
   }
   else {
-    $left_to_right = false;
+    $G_or_H = 'H';
+#   $left_to_right = false;
     $db_text = db_connect('wlc.db');
   }
+  $title = sprintf('Kapitel %s %s', $abbr, $c);
+  start_html_title($title);
+  print("\n<style>\n");
+  css_verses($G_or_H);
+  print("\n</style>\n");
+  print ("</head><body>\n");
+
+  print("<h1>$title</h1>");
 
   $res = db_prep_exec_fetchall($db_text, 'select distinct v_id, c, b, v from word_v where b=? and c=? order by v_id', array($abbr, $c));
 
