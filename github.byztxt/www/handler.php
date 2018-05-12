@@ -18,12 +18,12 @@ elseif ($uri_ == 'Strongs') { #_{
   exit(0);
 } #_}
 elseif ($uri_ == 'Strongs-Griechisch') { #_{
-  start_html('Griechische Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)');
+# start_html('Griechische Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)');
   $db = db_connect('strongs.db');
   strongs_alle($db, 'G');
 } #_}
 elseif ($uri_ == 'Strongs-Hebraeisch') { #_{
-  start_html('Hebräiesche Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)');
+# start_html('Hebräische Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)');
   $db = db_connect('strongs.db');
   strongs_alle($db, 'H');
 } #_}
@@ -125,6 +125,28 @@ function index($db) { #_{
 
 function strongs_alle($db, $G_or_H) { #_{
 
+  $class_table = '';
+  $title = 'Griechische Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)';
+  if ($G_or_H == 'H') {
+    $class_table = ' class="all-hebr-strongs"';
+    $title = 'Hebräische Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)';
+  }
+
+  start_html_title($title);
+
+  print("\n<style>
+   table.all-hebr-strongs td:nth-child(2) {text-align: right}
+
+   @media screen and (max-width: 1000px) {
+     td { font-size: 1.4em; }
+   }
+
+</style>\n");
+
+  print("</head><body>\n");
+
+  print("<h1>$title</h1>\n");
+
   $res = db_prep_exec_fetchall($db, 'select nr, word, word_de from strongs where nr like ? order by nr', array("$G_or_H" . '%'));
 
   if (! $res) {
@@ -132,10 +154,6 @@ function strongs_alle($db, $G_or_H) { #_{
     exit(1);
   }
 
-  $class_table = '';
-  if ($G_or_H == 'H') {
-    $class_table = ' class="all-hebr-strongs"';
-  }
 
   print("<table$class_table>");
   foreach ($res as $row) {
@@ -519,7 +537,6 @@ function start_html($title) { #_{
    .parsed     {/* display: block; height: 2em; */ font-size: 80%; color: #339;}
    .word_de    {/* display: block; height: 4em; */ font-size: 80%; color: #933;}
    .css_strong {/* display: block; height: 6em; */ }
-   table.all-hebr-strongs td:nth-child(2) {text-align: right}
 
    @media screen and (max-width: 1000px) {
      #css_verses_container {width: 400px;}
