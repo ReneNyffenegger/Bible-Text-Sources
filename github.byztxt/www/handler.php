@@ -270,17 +270,32 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
     $left_to_right = false;
   }
 
+// emit_verses_2
   canvas_and_init_and_opened_script($left_to_right);
+  
+// emit_verses_2  $style_rtl = '';
+// emit_verses_2  if (! $left_to_right) {
+// emit_verses_2    $style_rtl = ' style="direction:rtl"';
+// emit_verses_2  }
+// emit_verses_2
+// emit_verses_2  print("\n<div id='css_verses'$style_rtl>");
 
   $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ? order by v_id limit 50', array($nr_G_or_H));
 
   emit_verses($res_1, $db, $db_strongs, $nr_G_or_H);
+//emit_verses_2($res_1, $db, $db_strongs, $nr_G_or_H);
+// emit_verses_2:
+//print("</div>");
+  
+  print("<div style='clear:left;float:left'>");
 
   if ($G_or_H == 'H') {
     print("<hr>Parsing Information (<a href='http://openscriptures.github.io/morphhb/parsing/HebrewMorphologyCodes.html'>Morphologie-Codes</a>) und Lemma-Daten sind unter <a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a> veröffentlicht und stammen aus dem <a href='http://openscriptures.github.io/morphhb/index.html'>OpenScriptures Hebrew Bible</a> Projekt.");
   }
 
   print("<hr><a href='Strongs-Griechisch'>Alle Griechischen Strongs Nummern</a> / <a href='Strongs-Hebraeisch'>Alle Hebräischen Strongs Nummern</a>");
+
+  print ("</div>");
 
 
 } #_}
@@ -388,13 +403,28 @@ function start_html($title) { #_{
   <html>
   <head>
   <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
   <! -- meta name='description' content='' / -->
   <title>$title</title>
   <style>
 
-    a.strong {font-size: 70%}
-   .parsed   {font-size: 80%; color: #339;}
+   .css_verse_id,
+   .css_word {float: left; margin: 0.25em; height: 9em}
+
+   #css_verses {width: 60em;}
+
+    a.strong   {font-size: 70%}
+   .css_word   {/* display: block: height: 2em; */ }
+   .parsed     {/* display: block; height: 2em; */ font-size: 80%; color: #339;}
+   .word_de    {/* display: block; height: 4em; */ font-size: 80%; color: #933;}
+   .css_strong {/* display: block; height: 6em; */ }
    table.all-hebr-strongs td:nth-child(2) {text-align: right}
+
+   @media screen and (max-width: 1000px) {
+     #css_verses {width: 400px;}
+   }
+
+   
 
   </style>
   <script type='text/javascript' src='/requisites/js/line_writer.js'></script>
@@ -492,6 +522,76 @@ function emit_verses($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_{
 
   print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
   print ("}\n</script>\n");
+
+} #_}
+
+function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_{
+
+    $first_verse = 1;
+    foreach ($res_1 as $row_1) { #_{
+
+      if (! $first_verse) {
+// q2   printf("lw.new_line();\n");
+        print("<div style='clear:left;float:left'></div>");
+      }
+      else {
+        $first_verse = 0;
+      }
+
+      $kommentar_url = sprintf("/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s", $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
+      if (is_tq_browser) {
+         $kommentar_url = "http://localhost" . $kommentar_url;
+      }
+
+      printf("<span class='css_verse_id'><a href=\"Kapitel-%s-%d\">%s %d:%d</a>:<br><a href=\"$kommentar_url\">dt.</a></span>",
+        $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'] #,
+      );
+
+    $res_2 = db_prep_exec_fetchall($db_text, '
+      select
+        strongs, txt, parsed
+      from
+        word
+      where
+        v = ?
+      order by
+        order_
+       ', array($row_1['v_id'])
+    );
+
+
+    foreach ($res_2 as $row_2) {
+
+      $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word_de from strongs where nr = ?', array($row_2['strongs']));
+
+      if ($row_2['strongs'] == $nr_G_or_H_highlight) {
+        $b = '<b style="color:#cc5300">';
+        $b_ = '</b>';
+      }
+      else{
+        $b = $b_ = '';
+      }
+
+
+
+       printf("<span class='css_word'>$b%s$b_" .
+              "<span class='parsed'>%s</span>" .
+              "<span class=\"word_de\">%s</span>" .
+              "<span class=\"css_strong\"><a class=\"strong\" href=\"Strongs-%s\">%s</a></span>" .
+#             "<span class=\"css_strong\">\"Strongs-%s\" %s</span>"
+              "</span>\n",
+         to_greek_letters($row_2['txt']),
+         $row_2['parsed'],
+         $row_strongs['word_de'],
+#        $row_strongs['word_de'] ? $row_strongs['word_de'] : '&nbsp;',
+         $row_2['strongs'], $row_2['strongs']
+       );
+
+    }
+  } #_}
+
+//print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
+//print ("}\n</script>\n");
 
 } #_}
 
