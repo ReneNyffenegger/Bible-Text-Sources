@@ -225,13 +225,16 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
 
   $word_de = $row_strongs['word_de'];
   $word = $row_strongs['word'];
-  start_html_title(sprintf('Strongs Nummer %d (%s - <i>%s</i>)', $nr, $word, $word_de));
+  $title = sprintf('Strongs Nummer %d (%s - <i>%s</i>)', $nr, $word, $word_de);
+  start_html_title($title);
 
   print("\n<style>\n");
   css_verses($G_or_H);
   print("\n</style>\n");
 
   print ("</head><body>\n");
+
+  print ("<h1>$title</h1>");
 
 
   $strongs_en = $row_strongs['strongs_en'];
