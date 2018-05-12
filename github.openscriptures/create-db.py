@@ -34,7 +34,7 @@ books = [ #_{
   {'nm': 'Job'  , 'abbr': 'hi'    },
   {'nm': 'Ps'   , 'abbr': 'ps'    },
   {'nm': 'Prov' , 'abbr': 'spr'   },
-  {'nm': 'Eccl' , 'abbr': 'koh'   },
+  {'nm': 'Eccl' , 'abbr': 'pred'  },
   {'nm': 'Song' , 'abbr': 'hl'    },
   {'nm': 'Isa'  , 'abbr': 'jes'   },
   {'nm': 'Jer'  , 'abbr': 'jer'   },
