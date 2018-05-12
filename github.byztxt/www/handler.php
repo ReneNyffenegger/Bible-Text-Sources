@@ -145,6 +145,68 @@ function strongs_alle($db, $G_or_H) { #_{
 
 } #_}
 
+function css_verses($G_or_H) { #_{
+
+  $left_right = 'left';
+  $ltrtr      = 'ltr';
+
+  if ($G_or_H == 'H') {
+    $left_right = 'right';
+    $ltrtr      = 'rtl';
+  }
+
+  print("
+
+   #css_verses_container {
+     width: 60em;
+     direction: $ltrtr;
+   }
+
+   .css_word_box {
+      float: $left_right;
+      padding: 0.25em;
+      height: 9em
+    }
+
+
+   .css_verse_id {
+     float: $left_right;
+     position:absolute;
+     $left_right: 0;
+    }
+
+
+   .css_verse {
+      text-align: $left_right;
+      position: relative;
+      padding-$left_right: 5em; /* Adjust indentation here */
+      margin-bottom: 20px;
+      display: table;
+    }
+
+   .css_verse_break {
+      clear:both;
+    }
+
+
+    a.strong   {font-size: 70%}
+   .txt        {display: block: height: 2em; }
+   .parsed     {display: block; height: 2em; font-size: 80%; color: #339;}
+   .word_de    {display: block; height: 2em; font-size: 80%; color: #933;}
+   .css_strong {display: block; height: 2em; }
+/*   table.all-hebr-strongs td:nth-child(2) {text-align: right} */
+
+   @media screen and (max-width: 960px) {
+     #css_verses_container {
+        width: 360px;
+     }
+   }
+  ");
+
+ 
+
+} #_}
+
 function show_verses_with_strongs($G_or_H, $nr) { #_{
 
   $nr_G_or_H = "$G_or_H$nr";
@@ -163,7 +225,14 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
 
   $word_de = $row_strongs['word_de'];
   $word = $row_strongs['word'];
-  start_html(sprintf('Strongs Nummer %d (%s - <i>%s</i>)', $nr, $word, $word_de));
+  start_html_title(sprintf('Strongs Nummer %d (%s - <i>%s</i>)', $nr, $word, $word_de));
+
+  print("\n<style>\n");
+  css_verses($G_or_H);
+  print("\n</style>\n");
+
+  print ("</head><body>\n");
+
 
   $strongs_en = $row_strongs['strongs_en'];
 
@@ -262,7 +331,7 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
 
   printf("<h2>Verse, die %s enthalten</h2>", $word);
 
-  print("Achtung, zur Zeit werden wegen Performancegründen nur die ersten 50 Verse angezeigt");
+  print("<i>Achtung, zur Zeit werden wegen Performancegründen nur die ersten 50 Verse angezeigt.</i><p>");
 
 
   $left_to_right = true;
@@ -271,21 +340,21 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
   }
 
 // emit_verses_2
-  canvas_and_init_and_opened_script($left_to_right);
+//  canvas_and_init_and_opened_script($left_to_right);
   
-// emit_verses_2  $style_rtl = '';
-// emit_verses_2  if (! $left_to_right) {
-// emit_verses_2    $style_rtl = ' style="direction:rtl"';
-// emit_verses_2  }
-// emit_verses_2
-// emit_verses_2  print("\n<div id='css_verses'$style_rtl>");
+// $style_rtl = '';
+// if (! $left_to_right) {
+//   $style_rtl = ' style="direction:rtl"';
+// }
+
+ print("\n\n<div id='css_verses_container'>");
 
   $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ? order by v_id limit 50', array($nr_G_or_H));
 
-  emit_verses($res_1, $db, $db_strongs, $nr_G_or_H);
-//emit_verses_2($res_1, $db, $db_strongs, $nr_G_or_H);
+//emit_verses($res_1, $db, $db_strongs, $nr_G_or_H);
+emit_verses_2($res_1, $db, $db_strongs, $nr_G_or_H);
 // emit_verses_2:
-//print("</div>");
+print("</div> <!-- css_verses_container -->\n");
   
   print("<div style='clear:left;float:left'>");
 
@@ -395,33 +464,46 @@ function to_greek_letters($letters) { #_{
    return strtr_utf8($letters, 'abcdefghiklmnopqrstuvwxyz', 'αβχδεφγηικλμνοπψρστυςωξθζ');
 } #_}
 
-function start_html($title) { #_{
-
+function start_html_title($title) {
   $title = strip_tags($title);
 
-   print "<!DOCTYPE html>
-  <html>
-  <head>
-  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <! -- meta name='description' content='' / -->
-  <title>$title</title>
-  <style>
+   print("<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<! -- meta name='description' content='' / -->
+<title>$title</title>
+");
+}
 
+function start_html($title) { #_{
+
+  start_html_title($title);
+
+  print("<style>
+
+    /*
    .css_verse_id,
-   .css_word {float: left; margin: 0.25em; height: 9em}
+   .css_word_box {
+      float: left;
+      padding: 9em;
+      height: 9em
+    }
+*/
 
-   #css_verses {width: 60em;}
+   #css_verses_container {
+      width: 60em;
+   }
 
     a.strong   {font-size: 70%}
-   .css_word   {/* display: block: height: 2em; */ }
    .parsed     {/* display: block; height: 2em; */ font-size: 80%; color: #339;}
    .word_de    {/* display: block; height: 4em; */ font-size: 80%; color: #933;}
    .css_strong {/* display: block; height: 6em; */ }
    table.all-hebr-strongs td:nth-child(2) {text-align: right}
 
    @media screen and (max-width: 1000px) {
-     #css_verses {width: 400px;}
+     #css_verses_container {width: 400px;}
    }
 
    
@@ -430,7 +512,7 @@ function start_html($title) { #_{
   <script type='text/javascript' src='/requisites/js/line_writer.js'></script>
   </head>
   <body onload='init()'><h1>$title</h1>
-";
+");
 
 } #_}
 
@@ -532,18 +614,22 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_
 
       if (! $first_verse) {
 // q2   printf("lw.new_line();\n");
-        print("<div style='clear:left;float:left'></div>");
+
+        print("\n<div class='css_verse_break'></div>\n");
       }
       else {
         $first_verse = 0;
       }
+      
 
       $kommentar_url = sprintf("/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s", $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
-      if (is_tq_browser) {
+      if (is_tq_browser()) {
          $kommentar_url = "http://localhost" . $kommentar_url;
       }
 
-      printf("<span class='css_verse_id'><a href=\"Kapitel-%s-%d\">%s %d:%d</a>:<br><a href=\"$kommentar_url\">dt.</a></span>",
+      print("\n <div class='css_verse'>\n");
+#     print("\n  <span class='css_verse_id'>V</span>");
+      printf("\n  <span class='css_verse_id'><a href=\"Kapitel-%s-%d\">%s %d:%d</a>:<br><a href=\"$kommentar_url\">dt.</a></span>",
         $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'] #,
       );
 
@@ -574,12 +660,13 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_
 
 
 
-       printf("<span class='css_word'>$b%s$b_" .
-              "<span class='parsed'>%s</span>" .
-              "<span class=\"word_de\">%s</span>" .
-              "<span class=\"css_strong\"><a class=\"strong\" href=\"Strongs-%s\">%s</a></span>" .
-#             "<span class=\"css_strong\">\"Strongs-%s\" %s</span>"
-              "</span>\n",
+      printf("\n  <span class='css_word_box'>"       .
+             "\n   <span class='txt'>$b%s$b_</span>" .
+             "\n   <span class='parsed'>%s</span>" .
+             "\n   <span class=\"word_de\">%s</span>" .
+             "\n   <span class=\"css_strong\"><a class=\"strong\" href=\"Strongs-%s\">%s</a></span>" .
+#            "\n   <span class=\"css_strong\">\"Strongs-%s\" %s</span>"
+             "\n  </span>\n",
          to_greek_letters($row_2['txt']),
          $row_2['parsed'],
          $row_strongs['word_de'],
@@ -588,7 +675,9 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_
        );
 
     }
+    print(" </div> <!-- css_verse -->\n");
   } #_}
+
 
 //print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
 //print ("}\n</script>\n");
