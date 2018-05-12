@@ -667,7 +667,7 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_
 
     foreach ($res_2 as $row_2) {
 
-      $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word_de from strongs where nr = ?', array($row_2['strongs']));
+      $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word_de, flag from strongs where nr = ?', array($row_2['strongs']));
 
       if ($row_2['strongs'] == $nr_G_or_H_highlight) {
         $b = '<b style="color:#cc5300">';
@@ -677,12 +677,19 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_
         $b = $b_ = '';
       }
 
+      $txtS = ''; #_{ Print translated word small and in grey if flag  == '?'
+      $txtE = '';
+      if ($row_strongs['flag'] == '?') {
+        $txtS = '<span style="color:#678;font-size:70%%"><i>';
+        $txtE = '</i></span>';
+      }
+      #_}
 
 
       printf("\n  <span class='css_word_box'>"       .
              "\n   <span class='txt'>$b%s$b_</span>" .
              "\n   <span class='parsed'>%s</span>" .
-             "\n   <span class=\"word_de\">%s</span>" .
+             "\n   <span class=\"word_de\">$txtS%s$txtE</span>" .
              "\n   <span class=\"css_strong\"><a class=\"strong\" href=\"Strongs-%s\">%s</a></span>" .
 #            "\n   <span class=\"css_strong\">\"Strongs-%s\" %s</span>"
              "\n  </span>\n",
