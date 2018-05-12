@@ -28,7 +28,8 @@ cur.execute("""create table strongs (
   word_de         text,
   note_de         text,
   strongs_en      text    not null,
-  strongs_de      text    not null
+  strongs_de      text    not null,
+  flag            text
 )""")
 
 cur.execute("""create table strongs_see (
@@ -300,13 +301,19 @@ def load_hebrew(): #_{
 
         data_uebersetzung.line('^(H\d\d\d\d) (.) (.*)')
         data_bemerkung   .line('^(H\d\d\d\d) (.*)')
+
+        flag          = data_uebersetzung.re_group(2)
+        if flag == ' ':
+           flag = None
+
         word_de       = data_uebersetzung.re_group(3)
         note_de       = data_bemerkung   .re_group(2)
 
         if word_de == '':
            word_de =  '' # 'n/a'
 
-        cur.execute('insert into strongs(nr, word, lang, word_de, note_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?, ?)', ('H' + str(strongs_nr_hebr).zfill(4), cur_hebr_word, cur_hebr_lang, word_de, note_de, strongs_en_hebr, strongs_de_hebr))
+
+        cur.execute('insert into strongs(nr, word, lang, word_de, note_de, strongs_en, strongs_de, flag) values (?, ?, ?, ?, ?, ?, ?, ?)', ('H' + str(strongs_nr_hebr).zfill(4), cur_hebr_word, cur_hebr_lang, word_de, note_de, strongs_en_hebr, strongs_de_hebr, flag))
 
 #_}
 
