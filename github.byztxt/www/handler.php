@@ -28,7 +28,7 @@ elseif ($uri_ == 'Strongs-Hebraeisch') { #_{
   strongs_alle($db, 'H');
 } #_}
 elseif (preg_match('/^Kapitel-(\w+)-(\d+)$/', $uri_, $m)) { #_{
-  start_html(sprintf('Kapitel %s %s', $m[1], $m[2]));
+# start_html(sprintf('Kapitel %s %s', $m[1], $m[2]));
   print_chapter($m[1], $m[2]);
 } #_}
 elseif (preg_match('/^Strongs-(G|H)(\d+)$/', $uri_, $m)) { #_{
@@ -406,6 +406,13 @@ function frequent_words_nt() { #_{
 
 function print_chapter($abbr, $c) { #_{
 
+  start_html_title(sprintf('Kapitel %s %s', $m[1], $m[2]));
+
+  print("\n<style>\n");
+  css_verses($G_or_H);
+  print("\n</style>\n");
+  print ("</head><body>\n");
+
   $books_db = db_connect('BibleBooks.db'); # Created by https://github.com/ReneNyffenegger/Biblisches/blob/master/db/create-db.py
 
   $book_row = db_prep_exec_fetchrow($books_db, 'select testament from book where id = ?', array($abbr));
@@ -429,9 +436,12 @@ function print_chapter($abbr, $c) { #_{
   }
   is_tq_browser();
 
-  canvas_and_init_and_opened_script($left_to_right);
+ // canvas_and_init_and_opened_script($left_to_right);
+ print("\n\n<div id='css_verses_container'>");
   $db_strongs = db_connect('strongs.db');
-  emit_verses($res, $db_text, $db_strongs, 'n/a');
+
+  emit_verses_2($res, $db_text, $db_strongs, 'n/a');
+print("</div> <!-- css_verses_container -->\n");
 
 # print "<table border=1>";
 # foreach ($res as $row) {
@@ -439,7 +449,8 @@ function print_chapter($abbr, $c) { #_{
 # }
 # print "</table>";
 
-  print "</script>";
+  print("<div style='clear:left;float:left'>");
+//print "</script>";
 
   print "<p><a href='index'>Inhaltsverzeichnis</a>";
 } #_}
