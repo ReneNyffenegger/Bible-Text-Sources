@@ -765,7 +765,7 @@ G0764   frevelhaft handeln
 G0765   frevelhaft
 G0766   Ausschweifung
 G0767   unbedeutend
-G0768   Aser
+G0768 P Asser
 G0769   Schwachheit
 G0770   schwach sein
 G0771   Schwäche
@@ -1301,7 +1301,7 @@ G1300   verharren
 G1301   sorgfältig bewahren
 G1302   weshalb?
 G1303   testamentarisch verfügen
-G1304   in intr. Sinn: verweilen
+G1304   verweilen
 G1305   nötigen Ernährung(smittel)
 G1306   aufstrahlen
 G1307   durchscheinend
@@ -2184,14 +2184,14 @@ G2183   (diensthabende) Priesterklasse
 G2184   täglich
 G2185   herangelangen
 G2186   und Aor., sich hinstellen
-G2187   Ephraim
+G2187 P Ephraim
 G2188   tue dich auf!
 G2189   Feindschaft
 G2190   Feind
 G2191   Giftschlange
 G2192   haben
 G2193   bis
-G2194   Sebulon
+G2194 P Sebulon
 G2195   Zacchäus
 G2196   Zara
 G2197   Zacharias
@@ -2445,14 +2445,14 @@ G2444   wozu
 G2445   Joppe
 G2446   Jordan
 G2447   Gift
-G2448   Juda
+G2448 P Juda
 G2449   Judäa
 G2450   sich jüdisch verhalten
 G2451   jüdisch
 G2452   nach jüdischer Art und Weise
 G2453   jüdisch
 G2454   Judentum
-G2455   Judas
+G2455 P Judas
 G2456   Julia
 G2457   Julius
 G2458   Junias
@@ -2461,9 +2461,9 @@ G2460   Reiter
 G2461   Reitenden
 G2462   Pferd
 G2463   Regenbogen
-G2464   Isaak
+G2464 P Isaak
 G2465   engelgleich
-G2466   Isaschar
+G2466 P Issaschar
 G2467   
 G2468   
 G2469   Ischarioth
@@ -2471,8 +2471,8 @@ G2470   ident
 G2471   Identheit
 G2472   gleichwertig
 G2473   gleichgeseelt
-G2474   Israel
-G2475   Israelit
+G2474 P Israel
+G2475 t Israelit
 G2476   stellen
 G2477   besuchen
 G2478   stark
@@ -2498,7 +2498,7 @@ G2497   Jorim
 G2498   Josaphat
 G2499   Jose
 G2500   Jose
-G2501   Joseph
+G2501 P Joseph
 G2502   Josia
 G2503   Jota
 G2504   und ich
@@ -3013,7 +3013,7 @@ G3013   Schuppe
 G3014   Aussatz
 G3015   aussätzig
 G3016   Heller
-G3017   Levi
+G3017 P Levi
 G3018   
 G3019   Levit
 G3020   levitisch
@@ -3124,7 +3124,7 @@ G3124   Malchus
 G3125   Großmutter
 G3126   Mammon
 G3127   Manahen
-G3128   Manasse
+G3128 P Manasse
 G3129   lernen
 G3130   Raserei
 G3131   Manna
@@ -3404,7 +3404,7 @@ G3504   jungbekehrt
 G3505   Nero
 G3506   nicken
 G3507   Wolke
-G3508   Naphthali
+G3508 P Naphtali
 G3509   Bewölkung
 G3510   Nieren
 G3511   Tempelwärter
@@ -4722,7 +4722,7 @@ G4822   zusammengehalten werdend
 G4823   raten
 G4824   Beratung(sbeschluß)
 G4825   Mitberater
-G4826   Symeon
+G4826 P Simeon
 G4827   Mitschüler
 G4828   mitbezeugen
 G4829   sich etw. mit jmd. teilen
@@ -6189,7 +6189,7 @@ H0665
 H0666   
 H0667   
 H0668   
-H0669   
+H0669 P Ephraim
 H0670   
 H0671   
 H0672   
@@ -6356,7 +6356,7 @@ H0832
 H0833   
 H0834   rel. pron.
 H0835   
-H0836   
+H0836 P Asser
 H0837   
 H0838   
 H0839   
@@ -6664,7 +6664,7 @@ H1140
 H1141   
 H1142   
 H1143   
-H1144   
+H1144 P Benjamin
 H1145   
 H1146   
 H1147   
@@ -6805,7 +6805,7 @@ H1281
 H1282   
 H1283   
 H1284   
-H1285   
+H1285   Bund
 H1286   
 H1287   
 H1288   
@@ -6930,7 +6930,7 @@ H1406
 H1407   
 H1408   
 H1409   
-H1410   
+H1410 P Gad
 H1411   
 H1412   
 H1413   
@@ -7594,7 +7594,7 @@ H2070
 H2071   
 H2072   
 H2073   
-H2074   
+H2074 P Sebulon
 H2075   
 H2076   
 H2077   
@@ -8583,7 +8583,7 @@ H3059
 H3060   
 H3061   
 H3062   
-H3063 t Juda
+H3063 P Juda
 H3064 t Jude
 H3065   
 H3066   
@@ -8998,14 +8998,14 @@ H3474
 H3475   
 H3476   
 H3477   
-H3478   Israel
+H3478 P Israel
 H3479   
 H3480   
 H3481   
 H3482   
 H3483   
 H3484   
-H3485   
+H3485 P Issaschar
 H3486   
 H3487   
 H3488   
@@ -9659,7 +9659,7 @@ H4135
 H4136   
 H4137   
 H4138   
-H4139   
+H4139   Beschneidung
 H4140   
 H4141   
 H4142   
@@ -10039,7 +10039,7 @@ H4515
 H4516   
 H4517   
 H4518   
-H4519   
+H4519 P Manasse
 H4520   
 H4521   
 H4522   
@@ -10841,7 +10841,7 @@ H5317
 H5318   
 H5319   
 H5320   
-H5321   
+H5321 P Naphtali
 H5322   
 H5323   
 H5324   
@@ -12725,7 +12725,7 @@ H7201
 H7202   
 H7203   
 H7204   
-H7205   
+H7205 P Ruben
 H7206   
 H7207   
 H7208   
