@@ -299,14 +299,16 @@ def load_hebrew(): #_{
         strongs_en_hebr = read_strong_hebr('en', strongs_nr_hebr)
         strongs_de_hebr = read_strong_hebr('de', strongs_nr_hebr)
 
-        data_uebersetzung.line('^(H\d\d\d\d) (.) (.*)')
+        data_uebersetzung.line('^(H\d\d\d\d) (.*)')
         data_bemerkung   .line('^(H\d\d\d\d) (.*)')
+        data_flags       .line('^(H\d\d\d\d) (.)' )
 
-        flag          = data_uebersetzung.re_group(2)
+#       flag          = data_uebersetzung.re_group(2)
+        flag          = data_flags.re_group(2)
         if flag == ' ':
            flag = None
 
-        word_de       = data_uebersetzung.re_group(3)
+        word_de       = data_uebersetzung.re_group(2)
         note_de       = data_bemerkung   .re_group(2)
 
         if word_de == '':
@@ -331,9 +333,10 @@ class strongs_file:
         return self.m[group]
 
 
-data_strongs      = strongs_file('strongs')
+data_strongs      = strongs_file('strongs'     )
 data_uebersetzung = strongs_file('uebersetzung')
-data_bemerkung    = strongs_file('bemerkung')
+data_flags        = strongs_file('flags'       )
+data_bemerkung    = strongs_file('bemerkung'   )
 
 for entry in root_greek.findall('entries/entry'): #_{
 
@@ -387,20 +390,26 @@ for entry in root_greek.findall('entries/entry'): #_{
 
 
        data_strongs     .line('^(G\d\d\d\d) (.) (.*)')
-       data_uebersetzung.line('^(G\d\d\d\d) (.) (.*)')
+       data_uebersetzung.line('^(G\d\d\d\d) (.*)')
        data_bemerkung   .line('^(G\d\d\d\d) (.*)')
+       data_flags       .line('^(H\d\d\d\d) (.)' )
+
+       flag          = data_flags.re_group(2)
+
+       if flag == ' ':
+          flag = None
 
        greek_lang    = data_strongs.re_group(2)
        greek_unicode = data_strongs.re_group(3)
 
-       word_de       = data_uebersetzung.re_group(3)
+       word_de       = data_uebersetzung.re_group(2)
        note_de       = data_bemerkung   .re_group(2)
 
 
 
 #      print('nr {:4d} {:s} - {:20s} {:20s}'.format(strongs_nr, data_strongs_m[1], greek_unicode, data_strongs_m[2]))
 #      cur.execute('insert into strongs(nr, word, lang, word_de, strongs_en, strongs_de) values (?, ?, "G", ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, gerhard_kautz_I, strongs_en, strongs_de))
-       cur.execute('insert into strongs(nr, word, lang, gerhard_kautz_I, word_de, note_de, strongs_en, strongs_de) values (?, ?, ?, ?, ?, ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, greek_lang, gerhard_kautz_I, word_de, note_de, strongs_en, strongs_de))
+       cur.execute('insert into strongs(nr, word, lang, gerhard_kautz_I, word_de, note_de, strongs_en, strongs_de, flag) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', ('G' + str(strongs_nr).zfill(4), greek_unicode, greek_lang, gerhard_kautz_I, word_de, note_de, strongs_en, strongs_de, flag))
 
        strongs_derivations=entry.findall('./strongs_derivation')
        if strongs_derivations is not None:
