@@ -168,10 +168,25 @@ function css_verses($G_or_H) { #_{
   $left_right = 'left';
   $ltrtr      = 'ltr';
 
+  
+  $font_face_txt = '';
   if ($G_or_H == 'H') {
     $left_right = 'right';
     $ltrtr      = 'rtl';
+
+    $font_face_txt = "font-family: SBL-Hebrew;";
+print ("
+    @font-face {
+      font-family: SBL-Hebrew;
+      src: url(https://renenyffenegger.ch/font/SBL_Hbrw.woff2) format('woff2'   );
+      src: url(https://renenyffenegger.ch/font/SBL_Hbrw.woff)  format('woff'    );
+      src: url(https://renenyffenegger.ch/font/SBL_Hbrw.ttf)   format('truetype');
+    }
+");
+
+
   }
+
 
   print("
 
@@ -208,7 +223,10 @@ function css_verses($G_or_H) { #_{
 
 
     a.strong   {font-size: 70%}
-   .txt        {display: block: height: 2em; font-size: 1.4em;}
+   .txt        {
+      display: block: height: 2em;
+      font-size: 1.4em; $font_face_txt
+    }
    .parsed     {display: block; height: 2em; font-size: 80%; color: #339;}
    .word_de    {display: block; height: 2em; font-size: 80%; color: #933;}
    .css_strong {display: block; height: 2em; }
