@@ -18,12 +18,10 @@ elseif ($uri_ == 'Strongs') { #_{
   exit(0);
 } #_}
 elseif ($uri_ == 'Strongs-Griechisch') { #_{
-# start_html('Griechische Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)');
   $db = db_connect('strongs.db');
   strongs_alle($db, 'G');
 } #_}
 elseif ($uri_ == 'Strongs-Hebraeisch') { #_{
-# start_html('Hebräische Wörter des Neuen Testamentes mit deutscher Übersetzung (Strongs Nummern)');
   $db = db_connect('strongs.db');
   strongs_alle($db, 'H');
 } #_}
@@ -163,6 +161,18 @@ function strongs_alle($db, $G_or_H) { #_{
 
 } #_}
 
+function css_hebr_font_face() { #_{
+  print ("
+      @font-face {
+        font-family: SBL-Hebrew;
+        src: url(https://renenyffenegger.ch/font/SBL_Hbrw.woff2) format('woff2'   );
+        src: url(https://renenyffenegger.ch/font/SBL_Hbrw.woff)  format('woff'    );
+        src: url(https://renenyffenegger.ch/font/SBL_Hbrw.ttf)   format('truetype');
+      }
+  ");
+
+} #_}
+
 function css_verses($G_or_H) { #_{
 
   $left_right = 'left';
@@ -175,15 +185,7 @@ function css_verses($G_or_H) { #_{
     $ltrtr      = 'rtl';
 
     $font_face_txt = "font-family: SBL-Hebrew;";
-print ("
-    @font-face {
-      font-family: SBL-Hebrew;
-      src: url(https://renenyffenegger.ch/font/SBL_Hbrw.woff2) format('woff2'   );
-      src: url(https://renenyffenegger.ch/font/SBL_Hbrw.woff)  format('woff'    );
-      src: url(https://renenyffenegger.ch/font/SBL_Hbrw.ttf)   format('truetype');
-    }
-");
-
+    css_hebr_font_face();
 
   }
 
@@ -261,7 +263,17 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
 
   $word_de = $row_strongs['word_de'];
   $word = $row_strongs['word'];
-  $title = sprintf('Strongs Nummer %d (%s - <i>%s</i>)', $nr, $word, $word_de);
+  $word_styled;
+  if ($G_or_H == 'G') {
+    $word_styled = $word;
+#   $title = sprintf('Strongs Nummer %d (%s - <i>%s</i>)', $nr, $word, $word_de);
+  }
+  else {
+    $word_styled = "<span style='font-family:SBL-Hebrew'>$word</span>";
+#   $title = sprintf('Strongs Nummer %d (<span style="font-family:SBL-Hebrew">%s</span> - %s)', $nr, $word, $word_de);
+  }
+
+  $title = sprintf('Strongs Nummer %d (%s - <i>%s</i>)', $nr, $word_styled, $word_de);
   start_html_title($title);
 
   print("\n<style>\n");
@@ -310,8 +322,6 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
     printf("<b>%s</b><ul>", $row_strongs_see['description']);
     foreach ($res_strongs_see_entry as $row_strongs_see_entry) {
 
-#     $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de from strongs where nr = ?', array($row_strongs_see_entry['nr']));
-#     printf ("<li><a href=\"Strongs-%s\">%s: %s</a>", $row_strongs_see_entry['nr'], $row_strongs['word'], $row_strongs['word_de']);
       print("<li>" . strong_nr_to_html_link($row_strongs_see_entry['nr'], $db_strongs));
         
     }
@@ -367,7 +377,7 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
 
 
 
-  printf("<h2>Verse, die %s enthalten</h2>", $word);
+  printf("<h2>Verse, die %s enthalten</h2>", $word_styled);
 
 # print("<i>Achtung, zur Zeit werden wegen Performancegründen nur die ersten 100 Verse angezeigt.</i><p>");
 
