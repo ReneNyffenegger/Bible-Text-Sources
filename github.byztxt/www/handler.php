@@ -348,11 +348,10 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
   #_}
 
 
-# print "<h2>Siehe auch</h2>";
 
   printf("<h2>Verse, die %s enthalten</h2>", $word);
 
-  print("<i>Achtung, zur Zeit werden wegen Performancegründen nur die ersten 50 Verse angezeigt.</i><p>");
+# print("<i>Achtung, zur Zeit werden wegen Performancegründen nur die ersten 100 Verse angezeigt.</i><p>");
 
 
   $left_to_right = true;
@@ -368,16 +367,15 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
 //   $style_rtl = ' style="direction:rtl"';
 // }
 
- print("\n\n<div id='css_verses_container'>");
+# print("\n\n<div id='css_verses_container'>");
 
-  $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ? order by v_id limit 50', array($nr_G_or_H));
+  $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ? order by v_id limit 100', array($nr_G_or_H));
 
-//emit_verses($res_1, $db, $db_strongs, $nr_G_or_H);
-emit_verses_2($res_1, $db, $db_strongs, $nr_G_or_H);
-// emit_verses_2:
-print("</div> <!-- css_verses_container -->\n");
-  
-  print("<div style='clear:left;float:left'>");
+  //emit_verses($res_1, $db, $db_strongs, $nr_G_or_H);
+  emit_verses_2($res_1, $db, $db_strongs, $nr_G_or_H, 100);
+  // emit_verses_2:
+# print("</div> <!-- css_verses_container -->\n");
+# print("<div style='clear:left;float:left'>");
 
   if ($G_or_H == 'H') {
     print("<hr>Parsing Information (<a href='http://openscriptures.github.io/morphhb/parsing/HebrewMorphologyCodes.html'>Morphologie-Codes</a>) und Lemma-Daten sind unter <a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a> veröffentlicht und stammen aus dem <a href='http://openscriptures.github.io/morphhb/index.html'>OpenScriptures Hebrew Bible</a> Projekt.");
@@ -385,7 +383,7 @@ print("</div> <!-- css_verses_container -->\n");
 
   print("<hr><a href='Strongs-Griechisch'>Alle Griechischen Strongs Nummern</a> / <a href='Strongs-Hebraeisch'>Alle Hebräischen Strongs Nummern</a>");
 
-  print ("</div>");
+# print ("</div>");
 
 
 } #_}
@@ -427,7 +425,6 @@ function frequent_words_nt() { #_{
 
 function print_chapter($abbr, $c) { #_{
 
-
   $books_db = db_connect('BibleBooks.db'); # Created by https://github.com/ReneNyffenegger/Biblisches/blob/master/db/create-db.py
 
   $book_row = db_prep_exec_fetchrow($books_db, 'select testament from book where id = ?', array($abbr));
@@ -463,11 +460,11 @@ function print_chapter($abbr, $c) { #_{
   is_tq_browser();
 
  // canvas_and_init_and_opened_script($left_to_right);
- print("\n\n<div id='css_verses_container'>");
+#print("\n\n<div id='css_verses_container'>");
   $db_strongs = db_connect('strongs.db');
 
-  emit_verses_2($res, $db_text, $db_strongs, 'n/a');
-print("</div> <!-- css_verses_container -->\n");
+  emit_verses_2($res, $db_text, $db_strongs, 'n/a', 999999);
+  # print("</div> <!-- css_verses_container -->\n");
 
 # print "<table border=1>";
 # foreach ($res as $row) {
@@ -475,7 +472,7 @@ print("</div> <!-- css_verses_container -->\n");
 # }
 # print "</table>";
 
-  print("<div style='clear:left;float:left'>");
+  # print("<div style='clear:left;float:left'>");
 //print "</script>";
 
   print "<p><a href='index'>Inhaltsverzeichnis</a>";
@@ -509,7 +506,7 @@ function start_html_title($title) {
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<! -- meta name='description' content='' / -->
+<!-- meta name='description' content='' / -->
 <title>$title</title>
 ");
 }
@@ -643,19 +640,22 @@ function emit_verses($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_{
 
 } #_}
 
-function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_{
+function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight, $max_verse_cnt) { #_{
+    print("\n\n<div id='css_verses_container'>");
 
-    $first_verse = 1;
+#   $first_verse = 1;
+    $verse_cnt   = 0;
     foreach ($res_1 as $row_1) { #_{
 
-      if (! $first_verse) {
-// q2   printf("lw.new_line();\n");
+      $verse_cnt ++;
 
+#     if (! $first_verse) {
+      if ($verse_cnt == 1) {
         print("\n<div class='css_verse_break'></div>\n");
       }
-      else {
-        $first_verse = 0;
-      }
+#     else {
+#       $first_verse = 0;
+#     }
       
 
       $kommentar_url = sprintf("/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s", $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
@@ -664,7 +664,6 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_
       }
 
       print("\n <div class='css_verse'>\n");
-#     print("\n  <span class='css_verse_id'>V</span>");
       printf("\n  <span class='css_verse_id'><a href=\"Kapitel-%s-%d\">%s %d:%d</a>:<br><a href=\"$kommentar_url\">dt.</a></span>",
         $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'] #,
       );
@@ -708,12 +707,10 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_
              "\n   <span class='parsed'>%s</span>" .
              "\n   <span class=\"word_de\">$txtS%s$txtE</span>" .
              "\n   <span class=\"css_strong\"><a class=\"strong\" href=\"Strongs-%s\">%s</a></span>" .
-#            "\n   <span class=\"css_strong\">\"Strongs-%s\" %s</span>"
              "\n  </span>\n",
          to_greek_letters($row_2['txt']),
          $row_2['parsed'],
          $row_strongs['word_de'],
-#        $row_strongs['word_de'] ? $row_strongs['word_de'] : '&nbsp;',
          $row_2['strongs'], $row_2['strongs']
        );
 
@@ -721,9 +718,13 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_
     print(" </div> <!-- css_verse -->\n");
   } #_}
 
+  print("</div> <!-- css_verses_container -->\n");
+  print("<div style='clear:left;float:left'></div>");
 
-//print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
-//print ("}\n</script>\n");
+  if ($max_verse_cnt <= $verse_cnt) {
+     print("<i>Achtung, zur Zeit werden wegen Performancegründen nur die ersten $max_verse_cnt Verse angezeigt.</i><p>\n");
+  }
+
 
 } #_}
 
