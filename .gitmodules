@@ -16,3 +16,6 @@
 [submodule "github.openscriptures/morphhb"]
 	path = github.openscriptures/morphhb
 	url = https://github.com/openscriptures/morphhb
+[submodule "github.eliranwong/LXX-Rahlfs-1935"]
+	path = github.eliranwong/LXX-Rahlfs-1935
+	url = https://github.com/eliranwong/LXX-Rahlfs-1935

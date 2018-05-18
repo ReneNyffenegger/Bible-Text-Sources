@@ -1,0 +1,83 @@
+
+
+#
+# LXX-Rahlfs-1935 by Copyright 2017 Eliran Wong is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+#
+
+                         Strongs Nr.  NTno   LXXNo
+       1  1  εν          G1722        71713  704639
+       2  2  αρχη        G746         70739  701836
+       3  3  εποιηϲεν    G4160        74030  710582
+
+
+   --> LXX-Rahlfs-1935/template/ossp_wordlist_lxx_only.csv
+       
+       This file can apparently be used to match strong numbers (G1722) with LXXno's (704639)
+
+
+   --> LXX-Rahlfs-1935/01_wordlist_unicode/text_accented.csv      : Text der LXX
+
+       1  1  εν
+       2  2  αρχη
+       3  3  εποιηϲεν
+
+   --> LXX-Rahlfs-1935/01_wordlist_unicode/alignment_with_OSSP/E-verse.csv
+
+       1   1  Gen 1:1
+      11  11  Gen 1:2
+      30  30  Gen 1:3
+
+
+   --> LXX-Rahlfs-1935/02_lexemes/Lex_NTno.csv 
+   --> LXX-Rahlfs-1935/02_lexemes/Lex_LXXno.csv
+
+       Zuordnung Wortposition zu »NTno« (7\d\d\d\d) und »LXXno« (7\d\d\d\d\d)
+       
+       Vgl LXX-Rahlfs-1935/script/LXXno2NTno.sh
+
+   --> LXX-Rahlfs-1935/09b_bridging_NT/LXXno2NTno.csv
+  
+       Zuordnung LXXno NTno
+
+         700005  70001
+         700025  70004
+         700040  70005
+
+
+   --> LXX-Rahlfs-1935/07_StrongNumber/final_Strongs.csv
+
+       Zuordnung zu Strongs Nummern der Wörter (1. Feld) der LXX
+
+   --> LXX-Rahlfs-1935/07_StrongNumber/groundwork/SN_Greek.csv
+   
+       Zuordnung hebr-Nr zu Strong Nr
+
+
+       1  704639  en
+       2  701836  arche
+       3  710582 
+
+
+   --> LXX-Rahlfs-1935/03a_morphology_with_JTauber_patches/patched_623693.csv
+       1  P
+       2  N.DSF
+       3  V.AAI3S
+
+   SQLite3 files:
+    LXX-Rahlfs-1935/11_end-users_files/MyBible/Lexicon/HebGrk.dictionary.SQLite3
+      Tables:
+       info
+       morphology_indications
+       cognate_strong_numbers
+       dictionary
+       morphology_topics
+
+
+    LXX-Rahlfs-1935/11_end-users_files/MyBible/Bibles/LXX1.SQLite3
+      Tables:
+       book
+       info
+       verses
+       stories
+
+    LXX-Rahlfs-1935/11_end-users_files/MyBible/Bibles/LXX2.SQLite3
