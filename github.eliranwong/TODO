@@ -15,7 +15,8 @@
        This file can apparently be used to match strong numbers (G1722) with LXXno's (704639)
 
 
-   --> LXX-Rahlfs-1935/01_wordlist_unicode/text_accented.csv      : Text der LXX
+   --> LXX-Rahlfs-1935/01_wordlist_unicode/text_koine.csv         : Text der LXX in εποιηϲεν format
+      (LXX-Rahlfs-1935/01_wordlist_unicode/text_accented.csv      : Text der LXX in ἐποίησεν format
 
        1  1  εν
        2  2  αρχη
