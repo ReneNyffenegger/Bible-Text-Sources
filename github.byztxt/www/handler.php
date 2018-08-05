@@ -485,7 +485,7 @@ function print_chapter($abbr, $c) { #_{
     print("hmm, what now?<br>");
     exit(1);
   }
-  is_tq_browser();
+//is_tq_browser();
 
  // canvas_and_init_and_opened_script($left_to_right);
 #print("\n\n<div id='css_verses_container'>");
