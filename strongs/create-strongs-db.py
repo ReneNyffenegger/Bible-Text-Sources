@@ -32,6 +32,21 @@ cur.execute("""create table strongs (
   flag            text
 )""")
 
+
+# Corresponds to strongs_see
+cur.execute("""create table strongs_syn ( 
+  id          integer not null primary key,
+  short       text    not null,
+  description text    not null
+)""")
+
+# Corresponds to strongs_rel_entry
+cur.execute("""create table strongs_syn_entry (
+  id          integer not null references strongs_syn,
+  nr          text not null references strongs
+)""")
+
+
 cur.execute("""create table strongs_see (
   id          integer primary key,
   description text not null
@@ -319,7 +334,7 @@ def load_hebrew(): #_{
 
 #_}
 
-class strongs_file:
+class strongs_file: #_{
     def __init__(self, file_name):
         self.f = open('data/{:s}'.format(file_name))
 
@@ -331,7 +346,7 @@ class strongs_file:
         if self.m is None:
            return None
         return self.m[group]
-
+#_}
 
 data_strongs      = strongs_file('strongs'     )
 data_uebersetzung = strongs_file('uebersetzung')
@@ -426,7 +441,7 @@ for entry in root_greek.findall('entries/entry'): #_{
 
 #_}
 
-def load_roots():
+def load_roots(): #_{
     f_root = open('data/root')
     line = f_root.readline()
     while line:
@@ -443,8 +458,9 @@ def load_roots():
             print('Could not insert into strongs_root: {:s} {:s}'.format(nr, root))
 
           line = f_root.readline()
+#_}
 
-def load_see_also():
+def load_see_also(): #_{
     f_root = open('data/see-also')
     line = f_root.readline()
     while line:
@@ -459,7 +475,26 @@ def load_see_also():
 
 
           line = f_root.readline()
+#_}
 
+def load_synonyms(): #_{
+    f_root = open('data/synonyms')
+    line = f_root.readline()
+    id_rel = 0
+    while line:
+          id_rel+=1
+
+          (entries, short, desc)=(re.findall('([^:]+): *([^-]*) *- *(.*) *$', line))[0]
+
+          cur.execute('insert into strongs_syn (short, description) values (?, ?)', (short, desc))
+          id_syn = cur.lastrowid
+
+          for nr in re.findall('(\w+) *', entries):
+              cur.execute('insert into strongs_syn_entry values (?, ?)', (id_syn, nr))
+
+
+          line = f_root.readline()
+#_}
 
 # TQ84's entries:
 #
@@ -475,5 +510,6 @@ noun_adj_verb()
 
 load_roots()
 load_see_also()
+load_synonyms()
 
 cur.execute('commit')
