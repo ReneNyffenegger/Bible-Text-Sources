@@ -18,8 +18,14 @@
      │   ├── robinson-documentation
      │   └── www
      │       └── handler.php                    handler for https://renenyffenegger.ch/Biblisches/Grundtext/Datenbank
+     ├── github.openscriptures
+     ├── lxx
+     │   └── create-lxx-db.py
      ├── strongs     
-     │   ├── create-strongs-db.py               Creates strongs.db (from github.morphgnt/strongs-dictionary-xml/strongsgreek.xml and )
+     │   ├── create-strongs-db.py               Creates strongs.db (from github.morphgnt/strongs-dictionary-xml/strongsgreek.xml and …)
+     │   ├── data
+     │   │   ├── synonyms
+     │   │   └── …
      │   ├── strongs.db                         created by create-strongs-db.py
      │   ├── github.morphgnt                    Clones (submodules) from https://github.com/morphgnt
      │   │   ├── README.md
