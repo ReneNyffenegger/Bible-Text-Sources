@@ -22,7 +22,7 @@
      ├── lxx
      │   └── create-lxx-db.py
      ├── strongs     
-     │   ├── create-strongs-db.py               Creates strongs.db (from github.morphgnt/strongs-dictionary-xml/strongsgreek.xml and …)
+     │   ├── create-strongs-db.py               Creates strongs.db (from github.morphgnt/strongs-dictionary-xml/strongsgreek.xml and data/…) 
      │   ├── data
      │   │   ├── synonyms
      │   │   └── …
