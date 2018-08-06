@@ -333,6 +333,35 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
   }
 
   #_}
+  #_{ Synonyms
+  
+
+
+  $syn_first = true;
+  $res_strongs_syn = db_prep_exec_fetchall($db_strongs, 'select e.id, s.short, s.description from strongs_syn s join strongs_syn_entry e on s.id = e.id where e.nr = ?', array($nr_G_or_H));
+  foreach ($res_strongs_syn as $row_strongs_syn) {
+
+    if ($syn_first) {
+      $syn_first = false;
+      print("<h2>Synonyme</h2>");
+    }
+
+    $res_strongs_syn_entry = db_prep_exec_fetchall($db_strongs, 'select nr from strongs_syn_entry where id = ?', array($row_strongs_syn['id']));
+    print("<ul>");
+    foreach ($res_strongs_syn_entry as $row_strongs_syn_entry) {
+
+      print("<li>" . strong_nr_to_html_link($row_strongs_syn_entry['nr'], $db_strongs));
+        
+    }
+    print("</ul>");
+    printf("%s\n", $row_strongs_syn['description']);
+
+  }
+  if (! $syn_also_first) {
+    print("<hr>");
+  }
+
+  #_}
 
   #_{ Show root of strongs
   
