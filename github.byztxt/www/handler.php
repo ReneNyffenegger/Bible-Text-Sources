@@ -354,7 +354,7 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
         
     }
     print("</ul>");
-    printf("%s\n", $row_strongs_syn['description']);
+    printf("%s\n", replace_arrow(replace_signum_sectionis($row_strongs_syn['description'])));
 
   }
   if (! $syn_also_first) {
@@ -792,7 +792,10 @@ function replace_signum_sectionis($text) { #_{
       $b=$m[1];
       $c=$m[2];
       $v=$m[3];
-      return "<a href='/Biblisches/Kommentare/${b}_${c}.html#I$b-$c-$v'>$b $c:$v</a>";
+
+      $B = ucfirst($b);
+
+      return "<a href='/Biblisches/Kommentare/${b}_${c}.html#I$b-$c-$v'>$B $c:$v</a>";
     },
     $text
   );
@@ -813,6 +816,22 @@ function replace_GH_numbers($text, $db_strongs) { #_{
   return $text;
 
 } #_}
+
+function replace_arrow($text) {
+
+  $text = preg_replace_callback('/→ *([^\[]+)(\[([^\]]+)\])?/',
+     function($m) {
+
+       $link  = $m[1];
+       $title = $m[3]; #  || $link;
+
+       return "<a href='$link'>$title</a>";
+     },
+     $text
+  );
+
+  return $text;
+}
 
 function strong_nr_to_html_link($nr, $db_strongs) { #_{
    $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de from strongs where nr = ?', array($nr));
