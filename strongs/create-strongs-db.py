@@ -480,11 +480,15 @@ def load_see_also(): #_{
 def load_synonyms(): #_{
     f_root = open('data/synonyms')
     line = f_root.readline()
-    id_rel = 0
+    id_syn = 0
     while line:
-          id_rel+=1
+          id_syn+=1
 
-          (entries, short, desc)=(re.findall('([^:]+): *([^-]*) *- *(.*) *$', line))[0]
+          try:
+            (entries, short, desc)=(re.findall('([^:]+): *([^-]*) *- *(.*) *$', line))[0]
+          except:
+            print("id_syn = " + str(id_syn))
+            raise
 
           cur.execute('insert into strongs_syn (short, description) values (?, ?)', (short, desc))
           id_syn = cur.lastrowid
