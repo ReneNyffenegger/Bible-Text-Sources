@@ -134,6 +134,7 @@ function strongs_alle($db, $G_or_H) { #_{
 
   print("\n<style>
    table.all-hebr-strongs td:nth-child(2) {text-align: right}
+   table.all-hebr-strongs td:nth-child(3) {text-align: right}
 
    @media screen and (max-width: 1000px) {
      td { font-size: 1.4em; }
@@ -152,10 +153,22 @@ function strongs_alle($db, $G_or_H) { #_{
     exit(1);
   }
 
+  $last_H_without_niqqud = '?';
 
   print("<table$class_table>");
   foreach ($res as $row) {
-    printf("<tr><td><a href='Strongs-%s'>%s</a></td><td>%s</td><td>%s</td></tr>", $row['nr'], $row['nr'], $row['word'], $row['word_de']);
+
+    if ($G_or_H == 'G') {
+      printf("<tr><td><a href='Strongs-%s'>%s</a></td><td>%s</td><td>%s</td></tr>", $row['nr'], $row['nr'], $row['word'], $row['word_de']);
+    }
+    else {
+      $without_niqqud = '';
+      if ($last_H_without_niqqud != preg_replace('/[\x{0591}-\x{05C7}]/u', '', $row['word'])) {
+        $last_H_without_niqqud = preg_replace('/[\x{0591}-\x{05C7}]/u', '', $row['word']);
+        $without_niqqud = $last_H_without_niqqud;
+      }
+      printf("<tr><td><a href='Strongs-%s'>%s</a></td><td>%s</td><td>%s</td><td>%s</td></tr>", $row['nr'], $row['nr'], $row['word'], $without_niqqud,  $row['word_de']);
+    }
   }
   print("</table>");
 
@@ -555,7 +568,7 @@ function to_greek_letters($letters) { #_{
    return strtr_utf8($letters, 'abcdefghiklmnopqrstuvwxyz', 'αβχδεφγηικλμνοπψρστυςωξθζ');
 } #_}
 
-function start_html_title($title) {
+function start_html_title($title) { #_{
   $title = strip_tags($title);
 
    print("<!DOCTYPE html>
@@ -566,7 +579,7 @@ function start_html_title($title) {
 <!-- meta name='description' content='' / -->
 <title>$title</title>
 ");
-}
+} #_}
 
 function start_html($title) { #_{
 
@@ -817,7 +830,7 @@ function replace_GH_numbers($text, $db_strongs) { #_{
 
 } #_}
 
-function replace_arrow($text) {
+function replace_arrow($text) { #_{
 
   $text = preg_replace_callback('/→ *([^\[]+)(\[([^\]]+)\])?/',
      function($m) {
@@ -831,7 +844,7 @@ function replace_arrow($text) {
   );
 
   return $text;
-}
+} #_}
 
 function strong_nr_to_html_link($nr, $db_strongs) { #_{
    $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word, word_de from strongs where nr = ?', array($nr));
