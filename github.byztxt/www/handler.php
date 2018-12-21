@@ -643,72 +643,72 @@ function canvas_and_init_and_opened_script($left_to_right) { #_{
 
 } #_}
 
-function emit_verses($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_{
-
-    $first_verse = 1;
-    foreach ($res_1 as $row_1) { #_{
-
-      if (! $first_verse) {
-        printf("lw.new_line();\n");
-      }
-      else {
-        $first_verse = 0;
-      }
-
-      $kommentar_url = sprintf("/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s", $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
-      if (is_tq_browser) {
-         $kommentar_url = "http://localhost" . $kommentar_url;
-      }
-
-
-
-    printf("lw.emit('<a href=\"Kapitel-%s-%d\">%s %d:%d</a>:<br><a href=\"$kommentar_url\">dt.</a>');\n",
-      $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'] #,
-      #     $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']
-      );
-
-    $res_2 = db_prep_exec_fetchall($db_text, '
-      select
-        strongs, txt, parsed
-      from
-        word
-      where
-        v = ?
-      order by
-        order_
-       ', array($row_1['v_id'])
-    );
-
-
-    foreach ($res_2 as $row_2) {
-
-      $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word_de from strongs where nr = ?', array($row_2['strongs']));
-
-      if ($row_2['strongs'] == $nr_G_or_H_highlight) {
-        $b = '<b style="color:#cc5300">';
-        $b_ = '</b>';
-      }
-      else{
-        $b = $b_ = '';
-      }
-
-
-      printf("lw.emit('$b%s$b_<br>" .
-             "<span class=\"parsed\">%s</span><br>" .
-             "<span class=\"word_de\">%s</span><br>" .
-             "<a class=\"strong\" href=\"Strongs-%s\">%s</a>');\n",
-        to_greek_letters($row_2['txt']),
-        $row_2['parsed'],
-        $row_strongs['word_de'],
-        $row_2['strongs'], $row_2['strongs']
-      );
-    }
-  } #_}
-
-  print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
-  print ("}\n</script>\n");
-
-} #_}
+# ? function emit_verses($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight) { #_{
+# ? 
+# ?     $first_verse = 1;
+# ?     foreach ($res_1 as $row_1) { #_{
+# ? 
+# ?       if (! $first_verse) {
+# ?         printf("lw.new_line();\n");
+# ?       }
+# ?       else {
+# ?         $first_verse = 0;
+# ?       }
+# ? 
+# ?       $kommentar_url = sprintf("/Biblisches/Kommentare/%s_%s.html#I%s-%s-%s", $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']);
+# ?       if (is_tq_browser) {
+# ?          $kommentar_url = "http://localhost" . $kommentar_url;
+# ?       }
+# ? 
+# ? 
+# ? 
+# ?     printf("lw.emit('<a href=\"Kapitel-%s-%d\">%s %d:%d</a>:<br><a href=\"$kommentar_url\">dt.</a>');\n",
+# ?       $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'] #,
+# ?       #     $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v']
+# ?       );
+# ? 
+# ?     $res_2 = db_prep_exec_fetchall($db_text, '
+# ?       select
+# ?         strongs, txt, parsed
+# ?       from
+# ?         word
+# ?       where
+# ?         v = ?
+# ?       order by
+# ?         order_
+# ?        ', array($row_1['v_id'])
+# ?     );
+# ? 
+# ? 
+# ?     foreach ($res_2 as $row_2) {
+# ? 
+# ?       $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word_de from strongs where nr = ?', array($row_2['strongs']));
+# ? 
+# ?       if ($row_2['strongs'] == $nr_G_or_H_highlight) {
+# ?         $b = '<b style="color:#cc5300">';
+# ?         $b_ = '</b>';
+# ?       }
+# ?       else{
+# ?         $b = $b_ = '';
+# ?       }
+# ? 
+# ? 
+# ?       printf("lw.emit('$b%s$b_<br>" .
+# ?              "<span class=\"parsed\">%s</span><br>" .
+# ?              "<span class=\"word_de\">%s</span><br>" .
+# ?              "<a class=\"strong\" href=\"Strongs-%s\">%s</a>');\n",
+# ?         to_greek_letters($row_2['txt']),
+# ?         $row_2['parsed'],
+# ?         $row_strongs['word_de'],
+# ?         $row_2['strongs'], $row_2['strongs']
+# ?       );
+# ?     }
+# ?   } #_}
+# ? 
+# ?   print(" d.style.height = (lw.height() + 120 ) + 'px'; ");
+# ?   print ("}\n</script>\n");
+# ? 
+# ? } #_}
 
 function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight, $max_verse_cnt) { #_{
     print("\n\n<div id='css_verses_container'>");
@@ -763,6 +763,22 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight, $max
         $b = $b_ = '';
       }
 
+    #
+    # 2018-12-21:
+    #   Check if a translation is available.
+    #   If not (and the character is not one of the special ones which don't
+    #   have a strongs number, mark the german translation ($word_de) with
+    #   a yellow/red question mark.
+    #
+      $word_de = $row_strongs['word_de'];
+      if (!$word_de) {
+        if (is_tq_browser()) { # only show special word if used in TQ browser.
+          if ($row_2['strongs'] and $row_2['strongs'] != 'H0000') {
+            $word_de = '<span style="background-color:red;color:yellow;font-size:18px">?</span>';
+          }
+        }
+      }
+
       $txtS = ''; #_{ Print translated word small and in grey if flag  == '?'
       $txtE = '';
       if ($row_strongs['flag'] == '?') {
@@ -780,7 +796,8 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight, $max
              "\n  </span>\n",
          to_greek_letters($row_2['txt']),
          $row_2['parsed'],
-         $row_strongs['word_de'],
+         $word_de,
+#        $row_strongs['word_de'],
          $row_2['strongs'], $row_2['strongs']
        );
 
