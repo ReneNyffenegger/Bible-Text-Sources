@@ -734,8 +734,10 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight, $max
       }
 
       print("\n <div class='css_verse'>\n");
-      printf("\n  <span class='css_verse_id'><a href=\"Kapitel-%s-%d\">%s %d:%d</a>:<br><a href=\"$kommentar_url\">dt.</a></span>",
-        $row_1['b'], $row_1['c'], $row_1['b'], $row_1['c'], $row_1['v'] #,
+      printf("\n  <span class='css_verse_id'><a id='v%d'/><a href=\"Kapitel-%s-%d\">%s %d:%d</a>:<br><a href=\"$kommentar_url\">dt.</a></span>",
+        $row_1['v'],                           # id
+        $row_1['b'], $row_1['c'],              # href (not visible)
+        $row_1['b'], $row_1['c'], $row_1['v']  # text (visible)
       );
 
     $res_2 = db_prep_exec_fetchall($db_text, '
