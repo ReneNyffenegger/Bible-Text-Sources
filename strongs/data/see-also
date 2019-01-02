@@ -15,6 +15,9 @@ bleiben: H3427 H5975
 Hunger/Durst: H6772 H7458
 Speise: H0400 H3978 H7666
 zögern: H0309 H4102
+Dorn: H6975 H8068
+Stein: H0068 H6864
+Diamant: H3095 H8068
 Seite: H3225 H3802 H6285
 Jüngling/Greisenalter: H2209 H3206 H5288
 Knabe: G3494 G3808 G3816
@@ -46,8 +49,9 @@ Licht: H0216 H3974
 Regenten: H4430 H4436 H7336
 Länge, Breite, Höhe: H0753 H6967 H7341
 singen, spielen: H2167 H7891
+zermalmen/zerreien: H2912 H7833
 Dunst: H0108 H5387
-Fels: H5553 H6697
+Fels: H5553 H6697 H6864
 Tiefe: H4278 H4688 H8415
 preisen: H1984 H3034
 Personalpronomen: H0859 H0587 H0589 H0595 H1992
