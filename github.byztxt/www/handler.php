@@ -305,10 +305,14 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
   $strongs_de = replace_GH_numbers($strongs_de, $db_strongs);
 
   print "Englischer Eintrag für die Strong Nummer:";
-  print "<pre style='background-color:#c9ffaf; border:1px solid black'><code>" . $strongs_en . "</code></pre>";
+# print "<pre style='background-color:#c9ffaf; border:1px solid black'><code>" . $strongs_en . "</code></pre>";
+  $strongs_en = preg_replace('/\n/', '<p>', $strongs_en);
+  print "<div style='background-color:#c9ffaf; border:1px solid black'>"       . $strongs_en . "</div>";
 
   print "Deutsche Google-Übersetzung:";
-  print "<pre style='background-color:#c9faff; border:1px solid black'><code>" . $strongs_de . "</code></pre>";
+# print "<pre style='background-color:#c9faff; border:1px solid black'><code>" . $strongs_de . "</code></pre>";
+  $strongs_de = preg_replace('/\n/', '<p>', $strongs_de);
+  print "<div style='background-color:#c9faff; border:1px solid black'>"       . $strongs_de . "</div>";
 
   print "<hr>";
 
