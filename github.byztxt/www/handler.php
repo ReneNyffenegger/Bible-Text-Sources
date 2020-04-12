@@ -51,7 +51,7 @@ else { #_{
 print "</body></html>";
 
 function db_connect($sqlite_file) { #_{
-  $db_file = $_SERVER[DOCUMENT_ROOT] . "/../db/Biblisches/Grundtext/$sqlite_file";
+  $db_file = $_SERVER['DOCUMENT_ROOT'] . "/../db/Biblisches/Grundtext/$sqlite_file";
 
   if (! file_exists($db_file)) {
     echo "DB does not exist!";
