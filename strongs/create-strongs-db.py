@@ -77,7 +77,7 @@ strongs_xx      = {}
 
 for xx in ['de', 'en']:
   strongs_xx[xx] = {}
-  strongs_xx[xx]['f'   ] = open('strongs-numbers/greek-{:s}.@'.format(xx))
+  strongs_xx[xx]['f'   ] = open('strongs-numbers/greek-{:s}.@'.format(xx), 'r', encoding='utf-8')
   strongs_xx[xx]['line'] = strongs_xx[xx]['f'].readline()
   strongs_xx[xx]['next_strongs_nr'] = 1
 
@@ -305,7 +305,7 @@ def load_hebrew(): #_{
 
     for xx in ['de', 'en']: #_{
        strongs_xx_hebr[xx] = {}
-       strongs_xx_hebr[xx]['f'   ] = open('strongs-numbers/hebrew-{:s}.@'.format(xx))
+       strongs_xx_hebr[xx]['f'   ] = open('strongs-numbers/hebrew-{:s}.@'.format(xx), 'r', encoding='utf-8')
        strongs_xx_hebr[xx]['line'] = strongs_xx_hebr[xx]['f'].readline()
        strongs_xx_hebr[xx]['next_strongs_nr'] = 1
     #_}
@@ -336,7 +336,7 @@ def load_hebrew(): #_{
 
 class strongs_file: #_{
     def __init__(self, file_name):
-        self.f = open('data/{:s}'.format(file_name))
+        self.f = open('data/{:s}'.format(file_name), 'r', encoding='utf-8')
 
     def line(self, re_pattern):
         l = self.f.readline()
@@ -442,7 +442,7 @@ for entry in root_greek.findall('entries/entry'): #_{
 #_}
 
 def load_roots(): #_{
-    f_root = open('data/root')
+    f_root = open('data/root', 'r', encoding='utf-8')
     line = f_root.readline()
     while line:
 
@@ -461,7 +461,7 @@ def load_roots(): #_{
 #_}
 
 def load_see_also(): #_{
-    f_root = open('data/see-also')
+    f_root = open('data/see-also', 'r', encoding='utf-8')
     line = f_root.readline()
     while line:
 
@@ -478,7 +478,7 @@ def load_see_also(): #_{
 #_}
 
 def load_synonyms(): #_{
-    f_root = open('data/synonyms')
+    f_root = open('data/synonyms', 'r', encoding='utf-8')
     line = f_root.readline()
     id_syn = 0
     while line:
