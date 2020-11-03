@@ -1,5 +1,13 @@
 # Text Sources for the Bible
 
+    git clone …
+
+    cd …
+
+     git submodule update --init
+
+
+
 ## Directory structure
 
 
