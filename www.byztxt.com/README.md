@@ -1,6 +1,6 @@
 # Downloads from www.byztxt.com
 
-2018-03-31: Apparentyl, the site is down. It seems as though more recent files can be optained
+2018-03-31: Apparently, the site is down. It seems as though more recent files can be optained
 from https://github.com/byztxt
 
 
