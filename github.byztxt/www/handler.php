@@ -1,4 +1,9 @@
 <?php
+#
+#   Hebrew Morphology Codes:
+#
+#      https://hb.openscriptures.org/parsing/HebrewMorphologyCodes.html
+#
 
 
 $uri = $_SERVER['REQUEST_URI'];
