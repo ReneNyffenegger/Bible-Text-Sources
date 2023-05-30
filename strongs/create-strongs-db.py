@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # vi: foldmarker=_{,_} foldmethod=marker
 
 import sys
