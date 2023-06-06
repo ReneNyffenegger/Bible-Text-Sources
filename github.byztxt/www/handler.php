@@ -448,10 +448,10 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
 
 # print("\n\n<div id='css_verses_container'>");
 
-  $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ? order by v_id limit 100', array($nr_G_or_H));
+  $res_1 = db_prep_exec_fetchall($db, 'select distinct v_id, b, c, v from word_v where strongs = ? order by v_id limit 500', array($nr_G_or_H));
 
   //emit_verses($res_1, $db, $db_strongs, $nr_G_or_H);
-  emit_verses_2($res_1, $db, $db_strongs, $nr_G_or_H, 100);
+  emit_verses_2($res_1, $db, $db_strongs, $nr_G_or_H, 500);
   // emit_verses_2:
 # print("</div> <!-- css_verses_container -->\n");
 # print("<div style='clear:left;float:left'>");
