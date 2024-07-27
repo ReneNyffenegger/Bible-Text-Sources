@@ -20,7 +20,7 @@ cur = db.cursor()
 
 #_{ Create tables
 
-cur.execute("""create table strongs (
+cur.execute(r"""create table strongs (
   nr              text    not null primary key, -- G\d\d\d\d or H\d\d\d\d
   word            text    not null,
   lang            text    not null check (lang in ('G', 'H', 'A')), -- Greek, Hebrew, Aramaeic
@@ -100,7 +100,7 @@ def read_strong(lang, nr_expected): #_{
       if not strongs_xx[lang]['line']:
          return ret
 
-      m = re.search('^(\d+) *@', strongs_xx[lang]['line'])
+      m = re.search(r'^(\d+) *@', strongs_xx[lang]['line'])
       if m:
          strongs_xx[lang]['next_strongs_nr'] = int(m[1])
          return ret
@@ -274,7 +274,7 @@ def load_hebrew(): #_{
           if not strongs_xx_hebr[lang]['line']:
              return ret
     
-          m = re.search('^(A|H) @ (\d+) @ ([^@]+) @', strongs_xx_hebr[lang]['line'])
+          m = re.search(r'^(A|H) @ (\d+) @ ([^@]+) @', strongs_xx_hebr[lang]['line'])
           if m:
              strongs_xx_hebr[lang]['next_strongs_nr'] = int(m[2])
 
@@ -283,7 +283,7 @@ def load_hebrew(): #_{
 #               cur_hebr_lang = next_hebr_lang
 #               cur_hebr_word = next_hebr_word
 
-                data_strongs.line('^(H\d\d\d\d) (.) (.*)')
+                data_strongs.line(r'^(H\d\d\d\d) (.) (.*)')
 
 # q cl          data_strongs_l = data_strongs_f.readline()
 # q cl          data_strongs_m = re.search('^(H\d\d\d\d) (.) (.*)', data_strongs_l)
@@ -314,9 +314,9 @@ def load_hebrew(): #_{
         strongs_en_hebr = read_strong_hebr('en', strongs_nr_hebr)
         strongs_de_hebr = read_strong_hebr('de', strongs_nr_hebr)
 
-        data_uebersetzung.line('^(H\d\d\d\d) (.*)')
-        data_bemerkung   .line('^(H\d\d\d\d) (.*)')
-        data_flags       .line('^(H\d\d\d\d) (.)' )
+        data_uebersetzung.line(r'^(H\d\d\d\d) (.*)')
+        data_bemerkung   .line(r'^(H\d\d\d\d) (.*)')
+        data_flags       .line(r'^(H\d\d\d\d) (.)' )
 
 #       flag          = data_uebersetzung.re_group(2)
         flag          = data_flags.re_group(2)
@@ -404,10 +404,10 @@ for entry in root_greek.findall('entries/entry'): #_{
 #      print(strongs_en)
 
 
-       data_strongs     .line('^(G\d\d\d\d) (.) (.*)')
-       data_uebersetzung.line('^(G\d\d\d\d) (.*)')
-       data_bemerkung   .line('^(G\d\d\d\d) (.*)')
-       data_flags       .line('^(H\d\d\d\d) (.)' )
+       data_strongs     .line(r'^(G\d\d\d\d) (.) (.*)')
+       data_uebersetzung.line(r'^(G\d\d\d\d) (.*)')
+       data_bemerkung   .line(r'^(G\d\d\d\d) (.*)')
+       data_flags       .line(r'^(H\d\d\d\d) (.)' )
 
        flag          = data_flags.re_group(2)
 
@@ -470,7 +470,7 @@ def load_see_also(): #_{
           cur.execute('insert into strongs_see (description) values (?)', (desc, ))
           id_see_also = cur.lastrowid
 
-          for nr_sa_entry in re.findall('(\w+) *', entries):
+          for nr_sa_entry in re.findall(r'(\w+) *', entries):
               cur.execute('insert into strongs_see_entry values (?, ?)', (id_see_also, nr_sa_entry))
 
 
@@ -493,7 +493,7 @@ def load_synonyms(): #_{
           cur.execute('insert into strongs_syn (short, description) values (?, ?)', (short, desc))
           id_syn = cur.lastrowid
 
-          for nr in re.findall('(\w+) *', entries):
+          for nr in re.findall(r'(\w+) *', entries):
               cur.execute('insert into strongs_syn_entry values (?, ?)', (id_syn, nr))
 
 
