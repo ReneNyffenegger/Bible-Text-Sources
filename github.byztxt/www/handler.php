@@ -765,7 +765,18 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight, $max
 
     foreach ($res_2 as $row_2) {
 
+# print("<p>strongs = " . $row_2['strongs'] . "<p>");
       $row_strongs = db_prep_exec_fetchrow($db_strongs, 'select word_de, flag from strongs where nr = ?', array($row_2['strongs']));
+
+    if (gettype($row_strongs) == 'array') { # 2024-12-21
+       $word_de = $row_strongs['word_de'];
+       $flag_   = $row_strongs['flag'   ];
+    }
+    else {
+       $word_de = '';
+       $flag_   = '';
+    }
+      
 
       if ($row_2['strongs'] == $nr_G_or_H_highlight) {
         $b = '<b style="color:#cc5300">';
@@ -782,7 +793,7 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight, $max
     #   have a strongs number, mark the german translation ($word_de) with
     #   a yellow/red question mark.
     #
-      $word_de = $row_strongs['word_de'];
+#     $word_de = $row_strongs['word_de'];
       if (!$word_de) {
         if (is_tq_browser()) { # only show special word if used in TQ browser.
           if ($row_2['strongs'] and $row_2['strongs'] != 'H0000') {
@@ -793,7 +804,9 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight, $max
 
       $txtS = ''; #_{ Print translated word small and in grey if flag  == '?'
       $txtE = '';
-      if ($row_strongs['flag'] == '?') {
+#     if ($row_strongs['flag'] == '?')
+      if ($flag_               == '?')
+      {
         $txtS = '<span style="color:#678;font-size:70%%"><i>';
         $txtE = '</i></span>';
       }
@@ -809,7 +822,6 @@ function emit_verses_2($res_1, $db_text, $db_strongs, $nr_G_or_H_highlight, $max
          to_greek_letters($row_2['txt']),
          $row_2['parsed'],
          $word_de,
-#        $row_strongs['word_de'],
          $row_2['strongs'], $row_2['strongs']
        );
 
