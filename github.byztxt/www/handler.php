@@ -379,7 +379,7 @@ function show_verses_with_strongs($G_or_H, $nr) { #_{
     printf("%s\n", replace_arrow(replace_signum_sectionis($row_strongs_syn['description'])));
 
   }
-  if (! $syn_also_first) {
+  if (! $syn_first) {
     print("<hr>");
   }
 
